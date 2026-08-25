@@ -202,7 +202,11 @@ check("torch emits 15 to a neighbour that is not its support",
       C.source_signal(g, {}, (2, 2, 0), (3, 2, 0)), 15)
 
 # 10. a comparator SIDE takes only dust, a redstone block or a diode pointing in.
-#     A torch beside one must still read 0 - vanilla's sideInputDiodesOnly rule.
+#     The reason is worth stating correctly: side inputs are not restricted to diodes.
+#     A side reads any signal SOURCE, but takes its DIRECT signal - and a torch emits
+#     direct signal only upward, a lever only into its support, so neither reaches a
+#     comparator sideways. Dust and redstone blocks are special-cased to their full
+#     level, and a diode gives direct signal only out of its front.
 pos = (1, 1, 0)
 cells = {pos: ("comparator", {"facing": "north", "mode": "compare", "powered": "false"}),
          (1, 0, 0): ("purple_wool", {}),

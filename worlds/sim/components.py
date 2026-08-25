@@ -143,6 +143,31 @@ def eval_repeater(grid, field, states, pos, cell):
 
 # -- comparator -------------------------------------------------------------
 
+def comparator_rear(grid, field, states, pos, facing):
+    """
+    A comparator's rear input, which is not the same as a repeater's.
+
+    On top of the ordinary rear read, a comparator measures containers, and it will
+    read one THROUGH a solid block: if the block immediately behind is a full
+    conductor and the reading so far is below 15, it looks one step further for a
+    container and takes that instead. Reading a barrel through a block is a standard
+    way to keep a signal-strength source out of the wiring, so missing it made those
+    comparators read whatever the block happened to carry.
+
+    Item frames also count in the game. They are entities, not blocks, so they are not
+    in the extraction and are out of scope here.
+    """
+    base = input_from(grid, field, states, pos, facing)
+    back = neighbour(pos, facing)
+    if grid.is_container(back):
+        return grid.containers.get(back, 0)      # a container behind it wins outright
+    if base < 15 and is_conductive(grid.get(back).id):
+        beyond = neighbour(back, facing)
+        if grid.is_container(beyond):
+            return grid.containers.get(beyond, 0)
+    return base
+
+
 def eval_comparator(grid, field, states, pos, cell):
     """
     Output level 0-15 at steady state.
@@ -151,7 +176,7 @@ def eval_comparator(grid, field, states, pos, cell):
         subtract : out = max(0, rear - max(left, right))
     """
     facing = prop(cell, "facing", "north")
-    rear = input_from(grid, field, states, pos, facing)
+    rear = comparator_rear(grid, field, states, pos, facing)
     left = input_from(grid, field, states, pos, LEFT[facing], sides_only=True)
     right = input_from(grid, field, states, pos, RIGHT[facing], sides_only=True)
     side = max(left, right)

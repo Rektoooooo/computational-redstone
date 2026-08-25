@@ -96,13 +96,17 @@ def component_sources(grid, states):
         if bid == LEVER:
             if not truthy(prop(cell, "powered")):
                 continue
-            # A lever strongly powers the block it is attached to, and any adjacent dust
+            # A lever strongly powers ONLY the block it is mounted on, but delivers 15
+            # to every adjacent dust. (LeverBlock.getDirectSignal is non-zero only
+            # toward getConnectedDirection; getSignal is 15 in all six directions.)
+            # It used to strongly power every adjacent block, which let a lever start
+            # a dust run from a block it merely touched.
+            support = lever_attachment(grid, pos, cell)
+            if is_conductive(grid.get(support).id):
+                put(strong, support, 15)
             for delta in list(DIRS.values()) + [UP, DOWN]:
                 n = step(pos, delta)
-                nid = grid.get(n).id
-                if is_conductive(nid):
-                    put(strong, n, 15)
-                elif nid == DUST:
+                if grid.get(n).id == DUST:
                     put(seeds, n, 15)
             continue
 
@@ -153,6 +157,16 @@ def component_sources(grid, states):
             continue
 
     return strong, seeds
+
+
+def lever_attachment(grid, pos, cell):
+    """The block a lever is mounted on - the only one it strongly powers."""
+    face = prop(cell, "face", "wall")
+    if face == "floor":
+        return step(pos, DOWN)
+    if face == "ceiling":
+        return step(pos, UP)
+    return neighbour(pos, OPPOSITE[prop(cell, "facing", "north")])
 
 
 def torch_attachment(grid, pos, cell):
