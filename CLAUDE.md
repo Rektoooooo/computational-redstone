@@ -48,30 +48,31 @@ cd worlds
 | Transcripts | 32, verified clean |
 | Skill library | 8 skills, ~2,500 lines, audited against real blocks |
 | Extracted builds | 195, of which 43 named from in-world signs |
-| Simulator | steady state, **92.23%** per-block agreement (dust 89.9, repeater 96.9, torch 98.0, comparator 93.4, lamp 95.1) |
+| Simulator | steady state, **97.59%** per-block agreement, **153/175 builds exact** (dust 97.7, repeater 97.8, torch 98.5, comparator 94.4, lamp 96.7) |
 | Tick loop | **not built** |
 
 ## What to do next
 
-In order. The handoff has fuller detail.
+Steady state is now good enough to build on — 153 of 175 builds reproduce exactly, and
+the residue is concentrated in a handful rather than spread thin.
 
-1. **Dust sits at 89.91% and is now the biggest gap** — 15,252 of the 18,047 wrong
-   blocks, because dust is two thirds of the library. Errors run 4:1 **over**-powered,
-   so look for a spurious connection, not a missing source. The commonest neighbour of
-   a wrong dust is stained glass, i.e. the glass towers. Prime suspect is `dust_links`
-   in `sim/power.py`, which follows a connection one level DOWN for any side that is
-   not `none`; vanilla only steps down when the block in between does not occlude.
-   Unconfirmed — check it before changing it.
-2. **Then the tick loop** — delays, scheduling, sequential behaviour. Steady state is
-   the foundation and is proven. Repeater delay is `delay * 2` game ticks and a
-   comparator is always 2; both schedule at a priority that depends on whether they
-   are turning off, which is what makes diode ordering deterministic.
-3. **Then the behavioural tests**: drive `alus/build-17` through an AND truth table,
+1. **The tick loop.** This is the main thing standing between the simulator and being
+   useful, and everything sequential is blocked on it. Repeater delay is `delay * 2`
+   game ticks and a comparator is always 2; both schedule at a priority that depends
+   on whether they are turning off, which is what makes diode ordering deterministic.
+   Read the rules in the reference before building — this is exactly the area where
+   guessing costs the most.
+2. **Then the behavioural tests**: drive `alus/build-17` through an AND truth table,
    and `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The
    adder is the headline — computing 37+91 from nothing but extracted blocks would
    validate the whole model.
-4. **Compare against real Minecraft.** The game outranks the oracle, which is only a
-   saved snapshot. This is now possible on this machine — see below.
+3. **Compare against real Minecraft.** The game outranks the oracle, which is only a
+   saved snapshot. Possible on this machine now — see below.
+
+Lower priority, if the residue starts mattering: comparators are the weakest category
+at 94.4%, four builds oscillate instead of settling (some are probably genuine clocks,
+which have no steady state and are not failures), and the worst builds are
+`displays/blank`, `displays/build-02` and `cpu-ep07-branching/build-07`.
 
 ## Checking a rule against the game
 
@@ -92,7 +93,7 @@ matters more for the tick loop, where scheduling and priority decide the answer.
 
 ## Debugging technique that works
 
-All six simulator bugs were found this way, and staring at single coordinates found
+All seven simulator bugs were found this way, and staring at single coordinates found
 none of them:
 
 - categorise mismatches as **under-** vs **over-powered** — that separates a missing

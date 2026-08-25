@@ -235,6 +235,49 @@ f = solve(g, {})
 check("lever off leaves the lamp dark",
       C.eval_lamp(g, f, {}, (0, 1, 0), g.get((0, 1, 0))), False)
 
+# 12. dust changes level only when the block in the way allows it, and the two
+#     directions demand OPPOSITE things of that block. Reading a source one level UP
+#     needs the block between to be a conductor for the signal to climb; reading one
+#     level DOWN needs it not to be. That asymmetry is why a glass tower behaves the
+#     way it does, and it is the whole reason dust was 4:1 over-powered.
+
+def reads_from_above(between, cap=None):
+    """Source dust one level UP and one across; returns the reader's power."""
+    cells = {(0, 0, 0): ("purple_wool", {}),          # reader's support
+             (0, 1, 0): ("redstone_wire", {}),        # READER
+             (1, 1, 0): (between, {}),                # the block in the way
+             (1, 2, 0): ("redstone_wire", {}),        # source
+             (2, 2, 0): ("lever", {"powered": "true", "face": "floor"}),
+             (2, 1, 0): ("purple_wool", {})}
+    if cap:
+        cells[(0, 2, 0)] = (cap, {})
+    return solve(build(cells), {}).dust.get((0, 1, 0), 0)
+
+
+def reads_from_below(between):
+    """Source dust one level DOWN and one across; returns the reader's power."""
+    cells = {(0, 0, 0): ("purple_wool", {}),          # source's support
+             (0, 1, 0): ("redstone_wire", {}),        # source
+             (1, 1, 0): ("purple_wool", {}),          # reader's support
+             (1, 2, 0): ("redstone_wire", {}),        # READER
+             (-1, 1, 0): ("lever", {"powered": "true", "face": "floor"}),
+             (-1, 0, 0): ("purple_wool", {})}
+    if between:
+        cells[(0, 2, 0)] = (between, {})              # the block in the way
+    return solve(build(cells), {}).dust.get((1, 2, 0), 0)
+
+
+check("dust climbs a diagonal step over a SOLID block",
+      reads_from_above("purple_wool"), 14)
+check("dust does NOT climb a diagonal step over GLASS",
+      reads_from_above("glass"), 0)
+check("a solid block capping the reader blocks the step",
+      reads_from_above("purple_wool", cap="purple_wool"), 0)
+check("dust drops a diagonal step when nothing is in the way",
+      reads_from_below(None), 14)
+check("dust does NOT drop a diagonal step through a SOLID block",
+      reads_from_below("purple_wool"), 0)
+
 print(f"\n{len(PASS)} passed, {len(FAIL)} failed")
 if FAIL:
     print("failed:", ", ".join(FAIL))

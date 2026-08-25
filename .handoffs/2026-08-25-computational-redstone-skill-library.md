@@ -368,3 +368,61 @@ wrong reason would have misled the next change.
 
 - Nothing has still been pasted back into Minecraft and tested.
 - 20 of 195 builds skipped as too large for the oracle.
+
+---
+
+# Session 5b — dust, and steady state is essentially done
+
+## Done
+
+**Dust 88.8% → 97.7%. Overall 92.2% → 97.6%. 153 of 175 builds now exact, up from 68.**
+
+One bug, the one flagged as the prime suspect at the end of 5a — and it was the
+suspect, but for a slightly different reason than predicted.
+
+`dust_links` decided power flow by reading the wire's saved
+`north/east/south/west` shape, following a step DOWN for any side that was not `none`.
+Those properties describe how the wire is *drawn* and which mechanisms it feeds. The
+game works out neighbour-to-neighbour power **separately, from block occupancy**, and
+never consults the shape for it. The extra downward steps carried power across gaps
+that do not conduct, which is why the errors ran 4:1 over-powered and clustered around
+the glass towers.
+
+Rewritten to the real rule. Per horizontal direction, from the reader's side, the
+deciding block is the one beside the reader, in between the two:
+
+| source | condition on the block between |
+|---|---|
+| same level | none |
+| one level UP | must **be** a conductor, and nothing solid may cap the reader |
+| one level DOWN | must **not** be a conductor |
+
+The two diagonal cases demand the opposite thing of that block, so the relation is
+**asymmetric** — a diagonal step legal one way need not be legal back. Five unit tests
+pin both directions and both failure modes (28/28 pass).
+
+Dust is two thirds of every build, so fixing it carried every other category with it:
+comparators +1.1, lamps +1.6, repeaters +1.0 without touching any of them.
+
+## Worth remembering
+
+The saved blockstate is a good oracle for *what the game rendered*, and a bad one for
+*why*. Shape and power flow are computed by different code from different inputs, and
+reading one to infer the other worked well enough to hide for four sessions. Where the
+schematic records an outcome, prefer re-deriving the cause from the blocks.
+
+## Next — start here
+
+1. **The tick loop.** Steady state is done enough to build on and everything sequential
+   is blocked on it. Repeater delay is `delay * 2` game ticks, comparator always 2, and
+   both schedule at a priority that depends on whether they are turning off — that is
+   what makes diode ordering deterministic. Read it in `../.mc-reference` first; this is
+   the area where guessing costs most.
+2. Then the behavioural tests: AND truth table through `alus/build-17`, then 37+91
+   through `addition/3-ticks-8-bit-cca-by-don` using its port map.
+3. Then real Minecraft, once 1.18.2 is installed.
+
+Lower priority, only if the residue starts mattering: comparators are the weakest
+category at 94.4%; four builds oscillate instead of settling, and some of those are
+probably genuine clocks, which have no steady state and are not failures; the worst
+builds are `displays/blank`, `displays/build-02`, `cpu-ep07-branching/build-07`.

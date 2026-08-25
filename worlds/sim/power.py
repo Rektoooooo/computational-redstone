@@ -46,22 +46,50 @@ class Field:
 
 def dust_links(grid, pos, cell):
     """
-    Positions this dust connects to, read from its saved blockstate.
+    Dust positions this dust can push power to.
 
-    The north/east/south/west properties already encode the shape the game computed,
-    so connection rules do not need reimplementing - only which neighbour each value
-    refers to. 'side' reaches the neighbour at the same level or one below; 'up'
-    additionally reaches one above.
+    Power flow between dust is decided by what is physically in the way, NOT by the
+    saved north/east/south/west shape. Those properties describe how the wire is drawn
+    and which mechanisms it feeds; the game works out neighbour-to-neighbour power
+    separately, from block occupancy. Reading the shape instead used to add a step
+    DOWN for any side that was not `none`, and those shortcuts carried power across
+    gaps that do not conduct - 4:1 over-powered, concentrated around the glass towers.
+
+    Stated from the READER's side, which is how the game evaluates it. In each case
+    the deciding block is the one horizontally beside the reader, in between the two:
+
+        same level        always
+        source one UP     that block must BE a conductor - the signal climbs it -
+                          and nothing solid may cap the reader
+        source one DOWN   that block must NOT be a conductor
+
+    The two diagonal cases demand the OPPOSITE thing of the block between them, which
+    is why the relation is asymmetric: a diagonal step that is legal one way need not
+    be legal back. This function pushes rather than reads, so each rule appears
+    inverted below.
     """
     out = []
-    for d, delta in DIRS.items():
-        v = prop(cell, d, "none")
-        if v == "none":
-            continue
+    capped = is_conductive(grid.get(step(pos, UP)).id)
+    supported = is_conductive(grid.get(step(pos, DOWN)).id)
+
+    for d in DIRS:
         n = neighbour(pos, d)
-        for cand in (n, step(n, DOWN), step(n, UP) if v == "up" else None):
-            if cand is not None and grid.get(cand).id == DUST:
-                out.append(cand)
+        between_conductive = is_conductive(grid.get(n).id)
+
+        if grid.get(n).id == DUST:
+            out.append(n)
+
+        # A dust one level up steps DOWN onto us: allowed unless we are capped.
+        up = step(n, UP)
+        if grid.get(up).id == DUST and not capped:
+            out.append(up)
+
+        # A dust one level down steps UP onto us: it needs our support to be a
+        # conductor to climb, and the block between must not cap it.
+        down = step(n, DOWN)
+        if grid.get(down).id == DUST and supported and not between_conductive:
+            out.append(down)
+
     return out
 
 

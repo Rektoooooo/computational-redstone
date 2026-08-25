@@ -16,17 +16,17 @@ twice.
 
 | | agreement | was |
 |---|---|---|
-| **overall** | **92.23%** (214,352 / 232,399 blocks) | 88.71% |
-| dust | 89.91% | 88.79% |
-| repeater | 96.88% | 92.06% |
-| torch | 98.03% | 92.63% |
-| comparator | 93.37% | 82.64% |
-| lamp | 95.14% | 69.66% |
+| **overall** | **97.59%** (226,794 / 232,399 blocks) | 88.71% |
+| dust | 97.67% | 88.79% |
+| repeater | 97.83% | 92.06% |
+| torch | 98.49% | 92.63% |
+| comparator | 94.44% | 82.64% |
+| lamp | 96.72% | 69.66% |
 
-The tick loop is not built yet.
+**153 of 175 builds reproduce at exactly 100%**, up from 68. Four oscillate rather
+than settling. The tick loop is not built yet.
 
-`was` is the state before the point-source and container-read fixes below. **Dust is
-now the largest gap by a wide margin** — 15,252 of the 18,047 remaining wrong blocks.
+`was` is the state before the four fixes below.
 
 ```
 python -m sim.tests.test_units          # 13 hand-built micro-circuits
@@ -82,7 +82,7 @@ It settled three things that had been argued from the wiki rather than checked, 
 it will matter more for the tick loop, where exact scheduling and priority semantics
 decide the answer.
 
-## Six bugs the oracle caught
+## Seven bugs the oracle caught
 
 Worth recording, because none would have been found by reading code or by the
 hand-written unit tests.
@@ -127,6 +127,27 @@ container and takes that instead. Keeping a signal-strength barrel one block bac
 out of the wiring, is a normal thing to build, and those comparators were reading
 whatever power the block in between happened to carry. Comparators **83.5% → 93.4%**.
 
+**7. Dust power flow follows block occupancy, not the saved wire shape.** `dust_links`
+read the `north/east/south/west` properties and, for any side that was not `none`,
+also followed a step DOWN. Those properties describe how the wire is *drawn* and which
+mechanisms it feeds; the game works out neighbour-to-neighbour power separately, from
+what is physically in the way. The extra downward steps carried power across gaps that
+do not conduct — errors ran 4:1 over-powered, concentrated around the glass towers.
+
+Rewritten to the real rule. Per horizontal direction, from the reader's side, the
+deciding block is the one beside the reader, in between the two:
+
+| source | condition on the block between |
+|---|---|
+| same level | none |
+| one level UP | must **be** a conductor — the signal climbs it — and nothing solid may cap the reader |
+| one level DOWN | must **not** be a conductor |
+
+The two diagonal cases demand the opposite thing of that block, so the relation is
+asymmetric: a diagonal step legal one way need not be legal back. Dust **88.8% →
+97.7%**, and overall **92.2% → 97.6%** — dust is two thirds of every build, so it
+carries everything else with it.
+
 ## A correction to the skill library
 
 Building this surfaced an error in `redstone-fundamentals`: it claimed a weakly powered
@@ -136,17 +157,18 @@ whether a block can start a new dust run. Corrected.
 
 ## Known gaps
 
-- **No tick loop.** Steady state only; sequential timing is unbuilt.
-- **Dust at 89.91% is now the largest gap** — 15,252 of the 18,047 remaining wrong
-  blocks, simply because dust is two thirds of the library. The errors run 4:1
-  **over**-powered (12,158 against 3,094), so this is a spurious connection rather
-  than a missing source, and the commonest neighbour of a wrong dust by far is
-  stained glass — the glass towers. The prime suspect is `dust_links`, which follows a
-  connection one level DOWN for any side that is not `none`. Vanilla only steps down
-  when the block in between does not occlude, so the solver is probably carrying power
-  across shortcuts that do not exist. Not yet confirmed.
-- **Residual disagreement in comparator-heavy CCA builds**, where precise signal
-  levels compound: one wrong level corrupts everything downstream.
+- **No tick loop.** Steady state only; sequential timing is unbuilt. This is now the
+  main thing standing between the simulator and being useful.
+- **Comparators are the weakest category at 94.44%**, and the schematic records only
+  powered/not, never the output LEVEL, so levels have to be re-derived by settling.
+  In comparator-heavy builds one wrong level corrupts everything downstream.
+- **Four builds oscillate** rather than settling. Worth a look: some will be genuine
+  clocks, which cannot have a steady state and are not failures.
+- 20 of 195 builds skipped as too large.
+- Torch burnout not modelled.
+- The remaining disagreement is concentrated rather than spread — 153 of 175 builds
+  are exact, so the residue sits in a handful of builds. `displays/blank`,
+  `displays/build-02` and `cpu-ep07-branching/build-07` are the worst.
 - **Comparator output level is not recorded** in the schematic, only powered/not, so
   levels must be re-derived by settling.
 - 22 of 195 builds skipped as too large.
