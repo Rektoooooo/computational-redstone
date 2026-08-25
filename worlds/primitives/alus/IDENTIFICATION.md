@@ -36,12 +36,28 @@ A inputs and then does the same for B… then I have comparators on every output
 each one being cancelled by a tower of repeaters."* The 474 repeaters are those cancel
 towers.
 
-### `build-17` — a single AND gate
+### `build-17` — a 3-input XOR (odd parity) — **measured in game**
 **9×8×18 · 44 components · 0 comparators, 0 repeaters, 12 torches**
 
-Two levers, a torch on each input line, dust merging, one final torch, output lamp.
-The textbook De Morgan construction from `redstone-logic-gates`: *"torches on both
-inputs, merge into a dust line, one final torch."*
+**Three** levers, four lamps. Two levers sit at one end, each with an indicator lamp
+directly beneath it; the third is mounted on top of its own indicator lamp off to one
+side, and feeds the same circuit. The remaining lamp, alone at the far end, is the
+output.
+
+Output is on when an **odd** number of inputs is on — consistent with the SUM output of
+a full adder, which is exactly what belongs in an ALU world.
+
+Driven through its truth table in Minecraft 1.18.2 on 2026-08-25. Both inputs on gives
+output **off**; each single input on gives output **on**. Five of the eight rows were
+observed directly, with A and B read off their indicator lamps and C inferred from the
+output. The simulator predicted every observed row correctly.
+
+> **This entry previously read "a single AND gate", at confidence `high`.** That was
+> wrong, and instructively so. It was inferred from visual structure — "the textbook De
+> Morgan construction" — and the shape of an AND gate and a XOR gate built this way are
+> genuinely similar. Two things should have caught it earlier: the reading claimed *two*
+> levers when the build plainly has three, and no one had ever driven it. Both inputs
+> on producing an output of **off** rules an AND gate out outright.
 
 ---
 
@@ -97,16 +113,28 @@ comparator-based.
 
 | Build | Reading | Confidence |
 |---|---|---|
-| `build-03` | six bitwise gates × 8 bits | high |
-| `build-00` | brute-force ALU | high |
-| `build-17` | single AND gate | high |
+| `build-17` | **3-input XOR (odd parity)** | **measured in game** |
+| `build-03` | six bitwise gates × 8 bits | high — *unverified* |
+| `build-00` | brute-force ALU | high — *unverified* |
 | `build-04/09/10/13/15` | 4-bit RCA ALU, successive stages | medium |
 | `build-11/12/14` | 8-bit carry-cancel adders | medium |
 | `build-05/06/07/08` | CCA-based ALUs | medium |
 | `build-01/02` | ALU with operation selector | medium |
 | `build-16` | four-gate demo board | medium |
 
-**All 18 accounted for**, none with certainty.
+**All 18 accounted for. One measured, seventeen still guesses.**
+
+`build-17` is the only one that has been driven, and it came back **wrong** — read as a
+single AND gate at confidence `high`, and it is a 3-input XOR. Treat every remaining
+row here as a lead, not a label. In particular:
+
+- **`high` did not mean reliable.** The two remaining `high` readings deserve the same
+  suspicion as the `medium` ones until something drives them.
+- **The tell was in the data, not the shape.** The wrong entry described *two* levers
+  for a build with three. Where a reading contradicts the measured port map or census,
+  the measurement wins.
+- **Driving a build is cheap now.** `verify/` predicts a truth table offline and the
+  build pastes into the game in a couple of minutes. That is how these get settled.
 
 ## How to settle it
 

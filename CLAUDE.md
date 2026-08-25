@@ -57,7 +57,8 @@ cd worlds
 Steady state and time are both in place. What is missing is proof that they work
 together on a real build rather than on micro-circuits.
 
-1. **The behavioural tests.** Drive `alus/build-17` through an AND truth table, then
+1. **The behavioural tests.** Drive `alus/build-17` through its truth table (a 3-input
+   XOR, measured in game - it is NOT the AND gate its label claimed), then
    `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The adder is
    the headline — computing 37+91 from nothing but extracted blocks would validate the
    whole model. Use `sim.prime()`, `set_port(...)`, then `run_until_stable()`.

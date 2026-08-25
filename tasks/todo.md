@@ -65,7 +65,8 @@ Per game tick:
 
 ## Then, unblocked by this
 
-- [ ] behavioural test: `alus/build-17` through an AND truth table
+- [x] behavioural test: `alus/build-17` through its truth table - it is a 3-input XOR,
+      not the AND gate its label claimed. Confirmed in game.
 - [ ] behavioural test: 37+91 through `addition/3-ticks-8-bit-cca-by-don`
 - [ ] paste a build into 1.18.2 via Litematica and compare against the real game
 - [ ] torch burnout

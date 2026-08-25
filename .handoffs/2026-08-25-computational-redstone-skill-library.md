@@ -558,3 +558,58 @@ single correction in the project. It could easily have been backwards. It is not
    not been checked in game. It needs a barrel with a known fill level, so the schematic
    has to carry block entity data or the barrel gets filled by hand.
 3. Torch burnout, still unmodelled.
+
+---
+
+# Session 5e — the first extracted build driven in game, and a label was wrong
+
+## Done
+
+**`alus/build-17` driven through its truth table in Minecraft. It is a 3-input XOR
+(odd parity), NOT the "single AND gate" its label claimed at confidence `high`.**
+
+The simulator predicted a 3-input XOR offline. The manifest said AND. The game settled
+it: both inputs on gives output **off**, which an AND gate cannot do, and each single
+input on gives output **on**. Five of eight rows observed directly - A and B read off
+their own indicator lamps, C inferred from the output. **The simulator called every
+observed row correctly.**
+
+Odd parity across three inputs is the SUM output of a full adder, which is exactly what
+belongs in an ALU world - a far more useful thing to have identified than a stray AND.
+
+## Why the label was wrong, and what it says about the other 17
+
+The reading came from visual structure: "torches on both inputs, merge into a dust
+line, one final torch" - the De Morgan AND. Built that way, an AND and a XOR really do
+look alike, so the shape was not crazy. Two things should have caught it:
+
+- **it described *two* levers for a build with three.** The measured port map and census
+  both said three. Where a reading contradicts a measurement, the measurement wins.
+- **nobody had driven it.** It cost about two minutes once the tooling existed.
+
+It was also marked `high`, so **`high` did not mean reliable**. Two other ALU builds
+carry that same confidence and fifteen sit at `medium`; all seventeen are still guesses.
+Marked as such in `alus/IDENTIFICATION.md` rather than quietly left alone.
+
+This is the third time structural inference has been wrong in this project, which is
+consistent with the earlier benchmark of 50% useful and 6% actively misleading. The
+inference is still worth keeping as a lead. It is not worth trusting as a label.
+
+## Method note
+
+Screenshots were read straight out of the game directory
+(`ModrinthApp/profiles/Redstone/screenshots/`) rather than pasted in. Downscaling them
+and cropping the lamp and lever regions into a single montage made the states readable
+at a fraction of the cost of reading ten 4112x2522 frames. Worth repeating: the levers'
+own indicator lamps sit directly beneath them, so input state is visible in the same
+frame as the output.
+
+## Next
+
+1. **37+91 through `addition/3-ticks-8-bit-cca-by-don`** - the headline test. Predict
+   offline, paste the same build, compare. Watch for bit ordering: `portmap.py` measures
+   port positions and widths but the `[1][2][4]...[128]` signs never reached the
+   `.litematic`, so a garbled sum means wrong bit order before it means wrong physics.
+2. Drive the other ALU builds now that it is cheap - `build-03` and `build-00` first,
+   since they carry `high` confidence and have never been checked.
+3. Torch burnout, still unmodelled.

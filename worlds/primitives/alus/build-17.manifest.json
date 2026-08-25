@@ -117,10 +117,11 @@
     "caveat": "positions and widths are measured; bit order is inferred"
   },
   "identification": {
-    "reading": "single AND gate",
-    "confidence": "high",
-    "evidence": "two levers, torch per input, dust merge, final torch - the De Morgan construction",
-    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "reading": "3-input XOR (odd parity) - consistent with the SUM output of a full adder",
+    "confidence": "measured in game",
+    "evidence": "driven through its truth table in Minecraft 1.18.2 on 2026-08-25. Both inputs ON gives output OFF, which an AND gate cannot do; each single input ON gives output ON. 5 of 8 rows observed directly (A and B read off their indicator lamps, C inferred from the output). The simulator predicted every observed row correctly.",
+    "basis": "in-game measurement, not visual inference",
+    "supersedes": "'single AND gate', confidence high, from visual structure - WRONG. It also claimed two levers; the build has three.",
     "see": "IDENTIFICATION.md"
   }
 }
