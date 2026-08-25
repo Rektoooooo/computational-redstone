@@ -1,0 +1,73 @@
+{
+  "name": "build-01",
+  "labels": [],
+  "source_world": "LRR Game Design",
+  "source_origin": [
+    -2,
+    68,
+    3
+  ],
+  "size": [
+    32,
+    12,
+    33
+  ],
+  "non_air_blocks": 2982,
+  "redstone_components": 1624,
+  "component_census": {
+    "redstone_wire": 497,
+    "redstone_lamp": 392,
+    "redstone_torch": 245,
+    "observer": 147,
+    "repeater": 147,
+    "redstone_block": 49,
+    "sticky_piston": 49,
+    "redstone_wall_torch": 49,
+    "note_block": 49
+  },
+  "full_census": {
+    "cyan_wool": 637,
+    "redstone_wire": 497,
+    "redstone_lamp": 392,
+    "black_wool": 371,
+    "purple_stained_glass": 301,
+    "redstone_torch": 245,
+    "repeater": 147,
+    "observer": 147,
+    "redstone_block": 49,
+    "sticky_piston": 49,
+    "purple_wool": 49,
+    "note_block": 49,
+    "redstone_wall_torch": 49
+  },
+  "profile": {
+    "measured": {
+      "components": 1624,
+      "size": [
+        32,
+        12,
+        33
+      ],
+      "levers": 0,
+      "lamps": 392,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.091,
+        "torch": 0.181,
+        "wire": 0.306
+      },
+      "stack_period": 4,
+      "palette": {
+        "cyan_wool": 637,
+        "black_wool": 371,
+        "purple_wool": 49
+      }
+    },
+    "notes": [
+      "repeating vertical module every 4 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

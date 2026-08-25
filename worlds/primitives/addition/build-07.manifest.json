@@ -1,0 +1,76 @@
+{
+  "name": "build-07",
+  "labels": [],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -78,
+    54,
+    84
+  ],
+  "size": [
+    47,
+    7,
+    17
+  ],
+  "non_air_blocks": 1425,
+  "redstone_components": 146,
+  "component_census": {
+    "redstone_wire": 118,
+    "repeater": 13,
+    "comparator": 4,
+    "redstone_torch": 4,
+    "redstone_lamp": 3,
+    "redstone_wall_torch": 2,
+    "lever": 2
+  },
+  "full_census": {
+    "sandstone": 1086,
+    "black_wool": 130,
+    "redstone_wire": 118,
+    "light_gray_wool": 27,
+    "magenta_wool": 19,
+    "repeater": 13,
+    "red_wool": 7,
+    "lime_wool": 5,
+    "light_blue_wool": 5,
+    "comparator": 4,
+    "redstone_torch": 4,
+    "redstone_lamp": 3,
+    "lever": 2,
+    "redstone_wall_torch": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 146,
+      "size": [
+        47,
+        7,
+        17
+      ],
+      "levers": 2,
+      "lamps": 3,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.027,
+        "repeater": 0.089,
+        "torch": 0.041,
+        "wire": 0.808
+      },
+      "stack_period": null,
+      "palette": {
+        "black_wool": 130,
+        "light_gray_wool": 27,
+        "magenta_wool": 19,
+        "red_wool": 7,
+        "lime_wool": 5,
+        "light_blue_wool": 5
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction",
+      "2 levers \u2014 small input, around 2 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "name": "output",
+  "labels": [
+    "Output",
+    "Output Toggle the"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    378,
+    54,
+    -158
+  ],
+  "size": [
+    33,
+    7,
+    16
+  ],
+  "non_air_blocks": 1029,
+  "redstone_components": 70,
+  "component_census": {
+    "redstone_wire": 34,
+    "repeater": 13,
+    "redstone_lamp": 5,
+    "redstone_wall_torch": 5,
+    "comparator": 5,
+    "stone_button": 3,
+    "redstone_block": 1,
+    "sticky_piston": 1,
+    "observer": 1,
+    "lever": 1,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "sandstone": 924,
+    "redstone_wire": 34,
+    "repeater": 13,
+    "light_gray_stained_glass": 12,
+    "red_wool": 9,
+    "oak_sign": 8,
+    "redstone_lamp": 5,
+    "comparator": 5,
+    "redstone_wall_torch": 5,
+    "stone_button": 3,
+    "dropper": 3,
+    "light_gray_wool": 1,
+    "redstone_torch": 1,
+    "redstone_block": 1,
+    "hopper": 1,
+    "sticky_piston": 1,
+    "observer": 1,
+    "oak_wall_sign": 1,
+    "lever": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 70,
+      "size": [
+        33,
+        7,
+        16
+      ],
+      "levers": 1,
+      "lamps": 5,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.071,
+        "repeater": 0.186,
+        "torch": 0.086,
+        "wire": 0.486
+      },
+      "stack_period": null,
+      "palette": {
+        "red_wool": 9,
+        "light_gray_wool": 1
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction",
+      "1 levers \u2014 small input, around 1 bits"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "name": "build-01",
+  "labels": [],
+  "source_world": "CPU Episode 5",
+  "source_origin": [
+    -123,
+    78,
+    -637
+  ],
+  "size": [
+    135,
+    65,
+    143
+  ],
+  "non_air_blocks": 213197,
+  "redstone_components": 91995,
+  "component_census": {
+    "redstone_wire": 77573,
+    "repeater": 6328,
+    "redstone_wall_torch": 4539,
+    "redstone_torch": 2082,
+    "comparator": 686,
+    "barrel": 510,
+    "target": 256,
+    "redstone_lamp": 10,
+    "lever": 10,
+    "stone_button": 1
+  },
+  "full_census": {
+    "redstone_wire": 77573,
+    "purple_wool": 57042,
+    "purple_stained_glass": 28672,
+    "light_gray_stained_glass": 19468,
+    "light_gray_wool": 10317,
+    "repeater": 6328,
+    "redstone_wall_torch": 4539,
+    "light_blue_wool": 2336,
+    "redstone_torch": 2082,
+    "cyan_wool": 1217,
+    "light_blue_stained_glass": 1000,
+    "orange_wool": 711,
+    "comparator": 686,
+    "barrel": 510,
+    "cyan_stained_glass": 257,
+    "target": 256,
+    "orange_stained_glass": 147,
+    "black_wool": 17,
+    "oak_sign": 14,
+    "redstone_lamp": 10,
+    "lever": 10,
+    "oak_wall_sign": 3,
+    "black_stained_glass": 1,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 91995,
+      "size": [
+        135,
+        65,
+        143
+      ],
+      "levers": 10,
+      "lamps": 10,
+      "targets": 256,
+      "ratios": {
+        "comparator": 0.007,
+        "repeater": 0.069,
+        "torch": 0.072,
+        "wire": 0.843
+      },
+      "stack_period": 2,
+      "palette": {
+        "purple_wool": 57042,
+        "light_gray_wool": 10317,
+        "light_blue_wool": 2336,
+        "cyan_wool": 1217,
+        "orange_wool": 711,
+        "black_wool": 17
+      }
+    },
+    "notes": [
+      "10 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

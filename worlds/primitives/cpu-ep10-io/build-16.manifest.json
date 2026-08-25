@@ -1,0 +1,71 @@
+{
+  "name": "build-16",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -1386,
+    102,
+    -130
+  ],
+  "size": [
+    8,
+    20,
+    13
+  ],
+  "non_air_blocks": 148,
+  "redstone_components": 72,
+  "component_census": {
+    "redstone_wire": 35,
+    "repeater": 16,
+    "redstone_lamp": 8,
+    "comparator": 8,
+    "target": 4,
+    "stone_button": 1
+  },
+  "full_census": {
+    "pink_wool": 46,
+    "redstone_wire": 35,
+    "repeater": 16,
+    "pink_stained_glass": 14,
+    "dropper": 8,
+    "comparator": 8,
+    "hopper": 8,
+    "redstone_lamp": 8,
+    "target": 4,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 72,
+      "size": [
+        8,
+        20,
+        13
+      ],
+      "levers": 0,
+      "lamps": 8,
+      "targets": 4,
+      "ratios": {
+        "comparator": 0.111,
+        "repeater": 0.222,
+        "torch": 0.0,
+        "wire": 0.486
+      },
+      "stack_period": 2,
+      "palette": {
+        "pink_wool": 46
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "build-00",
+  "labels": [],
+  "source_world": "5hz multiplier by mattbatwings",
+  "source_origin": [
+    -24,
+    1,
+    -24
+  ],
+  "size": [
+    72,
+    39,
+    41
+  ],
+  "non_air_blocks": 12882,
+  "redstone_components": 6415,
+  "component_census": {
+    "redstone_wire": 3233,
+    "repeater": 1137,
+    "comparator": 1050,
+    "barrel": 472,
+    "iron_trapdoor": 176,
+    "redstone_lamp": 129,
+    "lever": 129,
+    "redstone_block": 57,
+    "target": 24,
+    "redstone_torch": 8
+  },
+  "full_census": {
+    "redstone_wire": 3233,
+    "green_wool": 1240,
+    "repeater": 1137,
+    "comparator": 1050,
+    "brown_wool": 953,
+    "orange_wool": 950,
+    "red_wool": 843,
+    "smooth_stone_slab": 662,
+    "yellow_wool": 660,
+    "barrel": 472,
+    "purple_wool": 419,
+    "blue_wool": 400,
+    "iron_trapdoor": 176,
+    "lime_wool": 156,
+    "redstone_lamp": 129,
+    "lever": 129,
+    "light_blue_wool": 92,
+    "pink_wool": 67,
+    "redstone_block": 57,
+    "oak_sign": 25,
+    "target": 24,
+    "redstone_torch": 8
+  },
+  "profile": {
+    "measured": {
+      "components": 6415,
+      "size": [
+        72,
+        39,
+        41
+      ],
+      "levers": 129,
+      "lamps": 129,
+      "targets": 24,
+      "ratios": {
+        "comparator": 0.164,
+        "repeater": 0.177,
+        "torch": 0.001,
+        "wire": 0.504
+      },
+      "stack_period": null,
+      "palette": {
+        "green_wool": 1240,
+        "brown_wool": 953,
+        "orange_wool": 950,
+        "red_wool": 843,
+        "yellow_wool": 660,
+        "purple_wool": 419,
+        "blue_wool": 400,
+        "lime_wool": 156,
+        "light_blue_wool": 92,
+        "pink_wool": 67
+      }
+    },
+    "notes": [
+      "129 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

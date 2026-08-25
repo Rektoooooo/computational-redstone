@@ -1,0 +1,97 @@
+{
+  "name": "convert",
+  "labels": [
+    "16",
+    "Convert",
+    "32",
+    "64",
+    "128",
+    "4",
+    "8",
+    "1",
+    "2"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    398,
+    77,
+    -150
+  ],
+  "size": [
+    69,
+    16,
+    37
+  ],
+  "non_air_blocks": 5895,
+  "redstone_components": 3156,
+  "component_census": {
+    "redstone_wire": 2222,
+    "redstone_wall_torch": 450,
+    "repeater": 225,
+    "redstone_lamp": 198,
+    "target": 27,
+    "comparator": 13,
+    "redstone_torch": 12,
+    "lever": 8,
+    "stone_button": 1
+  },
+  "full_census": {
+    "redstone_wire": 2222,
+    "light_blue_wool": 945,
+    "lime_wool": 806,
+    "redstone_wall_torch": 450,
+    "light_gray_wool": 262,
+    "repeater": 225,
+    "redstone_lamp": 198,
+    "purple_wool": 185,
+    "orange_wool": 165,
+    "lime_stained_glass": 78,
+    "orange_stained_glass": 75,
+    "red_wool": 69,
+    "black_wool": 64,
+    "yellow_wool": 57,
+    "target": 27,
+    "light_gray_stained_glass": 15,
+    "comparator": 13,
+    "redstone_torch": 12,
+    "oak_wall_sign": 9,
+    "red_stained_glass": 9,
+    "lever": 8,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 3156,
+      "size": [
+        69,
+        16,
+        37
+      ],
+      "levers": 8,
+      "lamps": 198,
+      "targets": 27,
+      "ratios": {
+        "comparator": 0.004,
+        "repeater": 0.071,
+        "torch": 0.146,
+        "wire": 0.704
+      },
+      "stack_period": null,
+      "palette": {
+        "light_blue_wool": 945,
+        "lime_wool": 806,
+        "light_gray_wool": 262,
+        "purple_wool": 185,
+        "orange_wool": 165,
+        "red_wool": 69,
+        "black_wool": 64,
+        "yellow_wool": 57
+      }
+    },
+    "notes": [
+      "8 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

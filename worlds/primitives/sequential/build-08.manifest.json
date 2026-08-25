@@ -1,0 +1,58 @@
+{
+  "name": "build-08",
+  "labels": [],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -103,
+    62,
+    173
+  ],
+  "size": [
+    25,
+    9,
+    15
+  ],
+  "non_air_blocks": 276,
+  "redstone_components": 144,
+  "component_census": {
+    "redstone_wire": 106,
+    "redstone_wall_torch": 20,
+    "repeater": 17,
+    "comparator": 1
+  },
+  "full_census": {
+    "orange_wool": 132,
+    "redstone_wire": 106,
+    "redstone_wall_torch": 20,
+    "repeater": 17,
+    "comparator": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 144,
+      "size": [
+        25,
+        9,
+        15
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.007,
+        "repeater": 0.118,
+        "torch": 0.139,
+        "wire": 0.736
+      },
+      "stack_period": null,
+      "palette": {
+        "orange_wool": 132
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

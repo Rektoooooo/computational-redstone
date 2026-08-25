@@ -1,0 +1,68 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "CPU Episode 4",
+  "source_origin": [
+    -46,
+    101,
+    88
+  ],
+  "size": [
+    16,
+    24,
+    26
+  ],
+  "non_air_blocks": 1747,
+  "redstone_components": 829,
+  "component_census": {
+    "redstone_wire": 537,
+    "repeater": 121,
+    "comparator": 97,
+    "redstone_lamp": 30,
+    "redstone_wall_torch": 24,
+    "lever": 16,
+    "redstone_torch": 4
+  },
+  "full_census": {
+    "orange_wool": 759,
+    "redstone_wire": 537,
+    "orange_stained_glass": 153,
+    "repeater": 121,
+    "comparator": 97,
+    "redstone_lamp": 30,
+    "redstone_wall_torch": 24,
+    "lever": 16,
+    "oak_sign": 6,
+    "redstone_torch": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 829,
+      "size": [
+        16,
+        24,
+        26
+      ],
+      "levers": 16,
+      "lamps": 30,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.117,
+        "repeater": 0.146,
+        "torch": 0.034,
+        "wire": 0.648
+      },
+      "stack_period": 2,
+      "palette": {
+        "orange_wool": 759
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "16 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,351 @@
+[
+  {
+    "name": "output",
+    "labels": [
+      "Output",
+      "Output Toggle the"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      378,
+      54,
+      -158
+    ],
+    "size": [
+      33,
+      7,
+      16
+    ],
+    "non_air_blocks": 1029,
+    "redstone_components": 70,
+    "component_census": {
+      "redstone_wire": 34,
+      "repeater": 13,
+      "redstone_lamp": 5,
+      "redstone_wall_torch": 5,
+      "comparator": 5,
+      "stone_button": 3,
+      "redstone_block": 1,
+      "sticky_piston": 1,
+      "observer": 1,
+      "lever": 1,
+      "redstone_torch": 1
+    },
+    "full_census": {
+      "sandstone": 924,
+      "redstone_wire": 34,
+      "repeater": 13,
+      "light_gray_stained_glass": 12,
+      "red_wool": 9,
+      "oak_sign": 8,
+      "redstone_lamp": 5,
+      "comparator": 5,
+      "redstone_wall_torch": 5,
+      "stone_button": 3,
+      "dropper": 3,
+      "light_gray_wool": 1,
+      "redstone_torch": 1,
+      "redstone_block": 1,
+      "hopper": 1,
+      "sticky_piston": 1,
+      "observer": 1,
+      "oak_wall_sign": 1,
+      "lever": 1
+    }
+  },
+  {
+    "name": "5t-output-pulse-10t-period",
+    "labels": [
+      "5t output pulse 10t period",
+      "3t output pulse 10t period",
+      "1t output pulse 2t period",
+      "On/Off"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      315,
+      54,
+      -130
+    ],
+    "size": [
+      14,
+      5,
+      22
+    ],
+    "non_air_blocks": 630,
+    "redstone_components": 54,
+    "component_census": {
+      "redstone_wire": 31,
+      "repeater": 8,
+      "comparator": 6,
+      "redstone_lamp": 4,
+      "lever": 4,
+      "redstone_wall_torch": 1
+    },
+    "full_census": {
+      "sandstone": 560,
+      "redstone_wire": 31,
+      "oak_sign": 8,
+      "magenta_wool": 8,
+      "repeater": 8,
+      "comparator": 6,
+      "redstone_lamp": 4,
+      "lever": 4,
+      "redstone_wall_torch": 1
+    }
+  },
+  {
+    "name": "not-output",
+    "labels": [
+      "NOT Output",
+      "Output",
+      "Data",
+      "Enable"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      346,
+      54,
+      -123
+    ],
+    "size": [
+      19,
+      7,
+      13
+    ],
+    "non_air_blocks": 481,
+    "redstone_components": 44,
+    "component_census": {
+      "redstone_wire": 22,
+      "redstone_wall_torch": 8,
+      "redstone_lamp": 5,
+      "lever": 5,
+      "comparator": 2,
+      "repeater": 2
+    },
+    "full_census": {
+      "sandstone": 418,
+      "redstone_wire": 22,
+      "oak_sign": 8,
+      "redstone_wall_torch": 8,
+      "light_blue_wool": 7,
+      "redstone_lamp": 5,
+      "lever": 5,
+      "comparator": 2,
+      "light_gray_wool": 2,
+      "repeater": 2,
+      "light_gray_stained_glass": 1,
+      "oak_wall_sign": 1
+    }
+  },
+  {
+    "name": "pulse-generator-4-tick",
+    "labels": [
+      "Pulse Generator 4-Tick",
+      "Pulse Generator 3-Tick",
+      "Pulse Generator 1-Tick",
+      "Pulse Generator 2-Tick"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      314,
+      54,
+      -105
+    ],
+    "size": [
+      18,
+      6,
+      17
+    ],
+    "non_air_blocks": 672,
+    "redstone_components": 36,
+    "component_census": {
+      "redstone_lamp": 8,
+      "repeater": 8,
+      "sticky_piston": 4,
+      "redstone_wire": 4,
+      "stone_button": 4,
+      "observer": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 612,
+      "light_gray_wool": 16,
+      "redstone_lamp": 8,
+      "repeater": 8,
+      "oak_sign": 8,
+      "sticky_piston": 4,
+      "redstone_wire": 4,
+      "stone_button": 4,
+      "observer": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "pulse-generator-4-tick-2",
+    "labels": [
+      "Pulse Generator 4-Tick",
+      "Pulse Generator 2-Tick",
+      "Pulse Generator 3-Tick"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      314,
+      54,
+      -84
+    ],
+    "size": [
+      19,
+      7,
+      16
+    ],
+    "non_air_blocks": 659,
+    "redstone_components": 35,
+    "component_census": {
+      "redstone_wire": 13,
+      "repeater": 5,
+      "redstone_lamp": 5,
+      "stone_button": 5,
+      "comparator": 3,
+      "redstone_wall_torch": 2,
+      "redstone_torch": 2
+    },
+    "full_census": {
+      "sandstone": 608,
+      "redstone_wire": 13,
+      "light_gray_wool": 11,
+      "redstone_lamp": 5,
+      "repeater": 5,
+      "stone_button": 5,
+      "comparator": 3,
+      "oak_sign": 3,
+      "redstone_wall_torch": 2,
+      "redstone_torch": 2,
+      "oak_wall_sign": 2
+    }
+  },
+  {
+    "name": "not-output-2",
+    "labels": [
+      "NOT Output",
+      "Output",
+      "Reset",
+      "Set",
+      "Enable"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      346,
+      54,
+      -89
+    ],
+    "size": [
+      13,
+      7,
+      11
+    ],
+    "non_air_blocks": 284,
+    "redstone_components": 31,
+    "component_census": {
+      "redstone_wire": 17,
+      "redstone_wall_torch": 5,
+      "redstone_lamp": 4,
+      "comparator": 2,
+      "stone_button": 2,
+      "lever": 1
+    },
+    "full_census": {
+      "sandstone": 234,
+      "redstone_wire": 17,
+      "lime_wool": 8,
+      "oak_sign": 8,
+      "redstone_wall_torch": 5,
+      "redstone_lamp": 4,
+      "stone_button": 2,
+      "comparator": 2,
+      "light_gray_wool": 1,
+      "lever": 1,
+      "light_gray_stained_glass": 1,
+      "oak_wall_sign": 1
+    }
+  },
+  {
+    "name": "not-output-3",
+    "labels": [
+      "NOT Output",
+      "Output",
+      "Reset",
+      "Set"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      379,
+      54,
+      -89
+    ],
+    "size": [
+      12,
+      7,
+      10
+    ],
+    "non_air_blocks": 264,
+    "redstone_components": 28,
+    "component_census": {
+      "redstone_wire": 17,
+      "repeater": 4,
+      "redstone_wall_torch": 3,
+      "redstone_lamp": 2,
+      "comparator": 2
+    },
+    "full_census": {
+      "sandstone": 216,
+      "redstone_wire": 17,
+      "light_gray_stained_glass": 11,
+      "green_wool": 4,
+      "oak_sign": 4,
+      "repeater": 4,
+      "redstone_wall_torch": 3,
+      "redstone_lamp": 2,
+      "comparator": 2,
+      "light_gray_wool": 1
+    }
+  },
+  {
+    "name": "output-2",
+    "labels": [
+      "Output",
+      "Data"
+    ],
+    "source_world": "LRR Latches_Flipflops",
+    "source_origin": [
+      379,
+      54,
+      -121
+    ],
+    "size": [
+      10,
+      5,
+      9
+    ],
+    "non_air_blocks": 197,
+    "redstone_components": 13,
+    "component_census": {
+      "repeater": 6,
+      "redstone_wire": 4,
+      "redstone_lamp": 1,
+      "redstone_wall_torch": 1,
+      "lever": 1
+    },
+    "full_census": {
+      "sandstone": 180,
+      "repeater": 6,
+      "redstone_wire": 4,
+      "oak_sign": 2,
+      "redstone_lamp": 1,
+      "blue_wool": 1,
+      "lever": 1,
+      "redstone_wall_torch": 1,
+      "light_gray_wool": 1
+    }
+  }
+]

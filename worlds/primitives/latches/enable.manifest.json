@@ -1,0 +1,73 @@
+{
+  "name": "enable",
+  "labels": [
+    "Enable",
+    "Data",
+    "NOT Output",
+    "Output"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    352,
+    54,
+    -123
+  ],
+  "size": [
+    13,
+    7,
+    13
+  ],
+  "non_air_blocks": 328,
+  "redstone_components": 29,
+  "component_census": {
+    "redstone_wire": 13,
+    "redstone_wall_torch": 5,
+    "lever": 4,
+    "redstone_lamp": 3,
+    "repeater": 2,
+    "comparator": 2
+  },
+  "full_census": {
+    "sandstone": 286,
+    "redstone_wire": 13,
+    "oak_sign": 5,
+    "redstone_wall_torch": 5,
+    "light_blue_wool": 4,
+    "lever": 4,
+    "redstone_lamp": 3,
+    "comparator": 2,
+    "light_gray_wool": 2,
+    "repeater": 2,
+    "light_gray_stained_glass": 1,
+    "oak_wall_sign": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 29,
+      "size": [
+        13,
+        7,
+        13
+      ],
+      "levers": 4,
+      "lamps": 3,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.069,
+        "repeater": 0.069,
+        "torch": 0.172,
+        "wire": 0.448
+      },
+      "stack_period": null,
+      "palette": {
+        "light_blue_wool": 4,
+        "light_gray_wool": 2
+      }
+    },
+    "notes": [
+      "4 levers \u2014 small input, around 4 bits"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

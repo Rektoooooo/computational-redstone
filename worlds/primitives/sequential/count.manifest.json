@@ -1,0 +1,80 @@
+{
+  "name": "count",
+  "labels": [
+    "Count",
+    "Load"
+  ],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -93,
+    58,
+    52
+  ],
+  "size": [
+    12,
+    23,
+    8
+  ],
+  "non_air_blocks": 320,
+  "redstone_components": 169,
+  "component_census": {
+    "redstone_wire": 61,
+    "repeater": 46,
+    "target": 17,
+    "redstone_lamp": 16,
+    "comparator": 10,
+    "lever": 8,
+    "redstone_wall_torch": 7,
+    "redstone_torch": 2,
+    "stone_button": 2
+  },
+  "full_census": {
+    "cyan_wool": 101,
+    "redstone_wire": 61,
+    "cyan_stained_glass": 48,
+    "repeater": 46,
+    "target": 17,
+    "redstone_lamp": 16,
+    "comparator": 10,
+    "lever": 8,
+    "redstone_wall_torch": 7,
+    "stone_button": 2,
+    "oak_wall_sign": 2,
+    "redstone_torch": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 169,
+      "size": [
+        12,
+        23,
+        8
+      ],
+      "levers": 8,
+      "lamps": 16,
+      "targets": 17,
+      "ratios": {
+        "comparator": 0.059,
+        "repeater": 0.272,
+        "torch": 0.053,
+        "wire": 0.361
+      },
+      "stack_period": 2,
+      "palette": {
+        "cyan_wool": 101
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "8 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

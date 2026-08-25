@@ -1,0 +1,76 @@
+{
+  "name": "build-19",
+  "labels": [],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    398,
+    78,
+    -27
+  ],
+  "size": [
+    18,
+    13,
+    8
+  ],
+  "non_air_blocks": 421,
+  "redstone_components": 205,
+  "component_census": {
+    "redstone_wire": 81,
+    "redstone_torch": 30,
+    "comparator": 25,
+    "target": 15,
+    "repeater": 13,
+    "redstone_lamp": 13,
+    "redstone_wall_torch": 12,
+    "observer": 8,
+    "barrel": 5,
+    "note_block": 2,
+    "stone_button": 1
+  },
+  "full_census": {
+    "purple_wool": 173,
+    "redstone_wire": 81,
+    "redstone_torch": 30,
+    "comparator": 25,
+    "purple_stained_glass": 24,
+    "black_wool": 15,
+    "target": 15,
+    "redstone_lamp": 13,
+    "repeater": 13,
+    "redstone_wall_torch": 12,
+    "observer": 8,
+    "barrel": 5,
+    "hopper": 2,
+    "note_block": 2,
+    "stone_button": 1,
+    "gray_stained_glass": 1,
+    "dropper": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 205,
+      "size": [
+        18,
+        13,
+        8
+      ],
+      "levers": 0,
+      "lamps": 13,
+      "targets": 15,
+      "ratios": {
+        "comparator": 0.122,
+        "repeater": 0.063,
+        "torch": 0.205,
+        "wire": 0.395
+      },
+      "stack_period": null,
+      "palette": {
+        "purple_wool": 173,
+        "black_wool": 15
+      }
+    },
+    "notes": [],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

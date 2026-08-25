@@ -1,0 +1,63 @@
+{
+  "name": "build-05",
+  "labels": [],
+  "source_world": "LRR Combinational Logic",
+  "source_origin": [
+    -21,
+    66,
+    -241
+  ],
+  "size": [
+    15,
+    14,
+    11
+  ],
+  "non_air_blocks": 268,
+  "redstone_components": 144,
+  "component_census": {
+    "redstone_wire": 108,
+    "redstone_wall_torch": 12,
+    "repeater": 8,
+    "redstone_lamp": 8,
+    "target": 4,
+    "lever": 4
+  },
+  "full_census": {
+    "lime_wool": 124,
+    "redstone_wire": 108,
+    "redstone_wall_torch": 12,
+    "redstone_lamp": 8,
+    "repeater": 8,
+    "target": 4,
+    "lever": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 144,
+      "size": [
+        15,
+        14,
+        11
+      ],
+      "levers": 4,
+      "lamps": 8,
+      "targets": 4,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.056,
+        "torch": 0.083,
+        "wire": 0.75
+      },
+      "stack_period": 2,
+      "palette": {
+        "lime_wool": 124
+      }
+    },
+    "notes": [
+      "4 levers \u2014 small input, around 4 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

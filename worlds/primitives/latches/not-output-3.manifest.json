@@ -1,0 +1,68 @@
+{
+  "name": "not-output-3",
+  "labels": [
+    "NOT Output",
+    "Output",
+    "Reset",
+    "Set"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    379,
+    54,
+    -89
+  ],
+  "size": [
+    12,
+    7,
+    10
+  ],
+  "non_air_blocks": 264,
+  "redstone_components": 28,
+  "component_census": {
+    "redstone_wire": 17,
+    "repeater": 4,
+    "redstone_wall_torch": 3,
+    "redstone_lamp": 2,
+    "comparator": 2
+  },
+  "full_census": {
+    "sandstone": 216,
+    "redstone_wire": 17,
+    "light_gray_stained_glass": 11,
+    "green_wool": 4,
+    "oak_sign": 4,
+    "repeater": 4,
+    "redstone_wall_torch": 3,
+    "redstone_lamp": 2,
+    "comparator": 2,
+    "light_gray_wool": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 28,
+      "size": [
+        12,
+        7,
+        10
+      ],
+      "levers": 0,
+      "lamps": 2,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.071,
+        "repeater": 0.143,
+        "torch": 0.107,
+        "wire": 0.607
+      },
+      "stack_period": null,
+      "palette": {
+        "green_wool": 4,
+        "light_gray_wool": 1
+      }
+    },
+    "notes": [],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

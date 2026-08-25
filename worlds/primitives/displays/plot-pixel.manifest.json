@@ -1,0 +1,82 @@
+{
+  "name": "plot-pixel",
+  "labels": [
+    "Plot Pixel",
+    "Clear"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    331,
+    56,
+    -57
+  ],
+  "size": [
+    24,
+    28,
+    26
+  ],
+  "non_air_blocks": 3961,
+  "redstone_components": 2073,
+  "component_census": {
+    "redstone_wire": 990,
+    "redstone_wall_torch": 485,
+    "repeater": 303,
+    "redstone_lamp": 262,
+    "redstone_torch": 19,
+    "lever": 6,
+    "comparator": 6,
+    "stone_button": 2
+  },
+  "full_census": {
+    "redstone_wire": 990,
+    "light_gray_wool": 576,
+    "redstone_wall_torch": 485,
+    "blue_wool": 448,
+    "lime_wool": 432,
+    "repeater": 303,
+    "redstone_lamp": 262,
+    "lime_stained_glass": 230,
+    "light_blue_stained_glass": 113,
+    "light_blue_wool": 46,
+    "black_wool": 35,
+    "redstone_torch": 19,
+    "lever": 6,
+    "black_stained_glass": 6,
+    "comparator": 6,
+    "stone_button": 2,
+    "oak_wall_sign": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 2073,
+      "size": [
+        24,
+        28,
+        26
+      ],
+      "levers": 6,
+      "lamps": 262,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.003,
+        "repeater": 0.146,
+        "torch": 0.243,
+        "wire": 0.478
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 576,
+        "blue_wool": 448,
+        "lime_wool": 432,
+        "light_blue_wool": 46,
+        "black_wool": 35
+      }
+    },
+    "notes": [
+      "6 levers \u2014 small input, around 6 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

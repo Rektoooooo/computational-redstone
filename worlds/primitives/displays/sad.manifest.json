@@ -1,0 +1,68 @@
+{
+  "name": "sad",
+  "labels": [
+    "Sad",
+    "Smiley",
+    "Surprised"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    333,
+    57,
+    -144
+  ],
+  "size": [
+    23,
+    35,
+    25
+  ],
+  "non_air_blocks": 3885,
+  "redstone_components": 2055,
+  "component_census": {
+    "redstone_wire": 1349,
+    "redstone_wall_torch": 289,
+    "redstone_lamp": 259,
+    "repeater": 155,
+    "lever": 3
+  },
+  "full_census": {
+    "redstone_wire": 1349,
+    "light_gray_wool": 1344,
+    "light_blue_wool": 402,
+    "redstone_wall_torch": 289,
+    "redstone_lamp": 259,
+    "repeater": 155,
+    "light_blue_stained_glass": 81,
+    "lever": 3,
+    "oak_wall_sign": 3
+  },
+  "profile": {
+    "measured": {
+      "components": 2055,
+      "size": [
+        23,
+        35,
+        25
+      ],
+      "levers": 3,
+      "lamps": 259,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.075,
+        "torch": 0.141,
+        "wire": 0.656
+      },
+      "stack_period": null,
+      "palette": {
+        "light_gray_wool": 1344,
+        "light_blue_wool": 402
+      }
+    },
+    "notes": [
+      "3 levers \u2014 small input, around 3 bits"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

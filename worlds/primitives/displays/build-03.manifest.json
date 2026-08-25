@@ -1,0 +1,76 @@
+{
+  "name": "build-03",
+  "labels": [
+    "4",
+    "2",
+    "1",
+    "8"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    398,
+    79,
+    -64
+  ],
+  "size": [
+    45,
+    13,
+    27
+  ],
+  "non_air_blocks": 4582,
+  "redstone_components": 2568,
+  "component_census": {
+    "redstone_wire": 1716,
+    "redstone_wall_torch": 471,
+    "redstone_lamp": 201,
+    "repeater": 141,
+    "target": 27,
+    "lever": 12
+  },
+  "full_census": {
+    "redstone_wire": 1716,
+    "light_blue_wool": 819,
+    "lime_wool": 720,
+    "redstone_wall_torch": 471,
+    "orange_wool": 285,
+    "redstone_lamp": 201,
+    "repeater": 141,
+    "orange_stained_glass": 108,
+    "black_wool": 70,
+    "target": 27,
+    "lever": 12,
+    "oak_wall_sign": 12
+  },
+  "profile": {
+    "measured": {
+      "components": 2568,
+      "size": [
+        45,
+        13,
+        27
+      ],
+      "levers": 12,
+      "lamps": 201,
+      "targets": 27,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.055,
+        "torch": 0.183,
+        "wire": 0.668
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 819,
+        "lime_wool": 720,
+        "orange_wool": 285,
+        "black_wool": 70
+      }
+    },
+    "notes": [
+      "12 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

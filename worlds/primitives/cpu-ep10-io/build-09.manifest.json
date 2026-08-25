@@ -1,0 +1,79 @@
+{
+  "name": "build-09",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -190,
+    92,
+    -180
+  ],
+  "size": [
+    96,
+    83,
+    45
+  ],
+  "non_air_blocks": 133784,
+  "redstone_components": 68599,
+  "component_census": {
+    "repeater": 23488,
+    "redstone_wire": 23326,
+    "comparator": 6222,
+    "barrel": 5325,
+    "redstone_wall_torch": 5104,
+    "redstone_lamp": 4111,
+    "redstone_torch": 833,
+    "target": 176,
+    "lever": 10,
+    "stone_button": 4
+  },
+  "full_census": {
+    "gray_wool": 50937,
+    "repeater": 23488,
+    "redstone_wire": 23326,
+    "gray_stained_glass": 13713,
+    "comparator": 6222,
+    "barrel": 5325,
+    "redstone_wall_torch": 5104,
+    "redstone_lamp": 4111,
+    "redstone_torch": 833,
+    "black_wool": 528,
+    "target": 176,
+    "lever": 10,
+    "oak_sign": 7,
+    "stone_button": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 68599,
+      "size": [
+        96,
+        83,
+        45
+      ],
+      "levers": 10,
+      "lamps": 4111,
+      "targets": 176,
+      "ratios": {
+        "comparator": 0.091,
+        "repeater": 0.342,
+        "torch": 0.087,
+        "wire": 0.34
+      },
+      "stack_period": null,
+      "palette": {
+        "gray_wool": 50937,
+        "black_wool": 528
+      }
+    },
+    "notes": [
+      "10 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

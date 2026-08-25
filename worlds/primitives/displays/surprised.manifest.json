@@ -1,0 +1,78 @@
+{
+  "name": "surprised",
+  "labels": [
+    "Surprised",
+    "Sad",
+    "Smiley"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    333,
+    61,
+    -115
+  ],
+  "size": [
+    19,
+    23,
+    22
+  ],
+  "non_air_blocks": 2659,
+  "redstone_components": 1373,
+  "component_census": {
+    "redstone_wire": 478,
+    "repeater": 320,
+    "redstone_lamp": 259,
+    "redstone_wall_torch": 259,
+    "target": 42,
+    "redstone_torch": 12,
+    "lever": 3
+  },
+  "full_census": {
+    "light_gray_wool": 1058,
+    "redstone_wire": 478,
+    "repeater": 320,
+    "redstone_lamp": 259,
+    "redstone_wall_torch": 259,
+    "light_blue_stained_glass": 171,
+    "light_blue_wool": 54,
+    "target": 42,
+    "redstone_torch": 12,
+    "lever": 3,
+    "oak_wall_sign": 3
+  },
+  "profile": {
+    "measured": {
+      "components": 1373,
+      "size": [
+        19,
+        23,
+        22
+      ],
+      "levers": 3,
+      "lamps": 259,
+      "targets": 42,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.233,
+        "torch": 0.197,
+        "wire": 0.348
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 1058,
+        "light_blue_wool": 54
+      }
+    },
+    "notes": [
+      "3 levers \u2014 small input, around 3 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

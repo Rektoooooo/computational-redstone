@@ -1,0 +1,54 @@
+{
+  "name": "build-01",
+  "labels": [],
+  "source_world": "UIs by mattbatwings",
+  "source_origin": [
+    33,
+    80,
+    25
+  ],
+  "size": [
+    13,
+    7,
+    20
+  ],
+  "non_air_blocks": 320,
+  "redstone_components": 160,
+  "component_census": {
+    "redstone_wire": 150,
+    "repeater": 10
+  },
+  "full_census": {
+    "redstone_wire": 150,
+    "lime_wool": 96,
+    "magenta_wool": 64,
+    "repeater": 10
+  },
+  "profile": {
+    "measured": {
+      "components": 160,
+      "size": [
+        13,
+        7,
+        20
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.062,
+        "torch": 0.0,
+        "wire": 0.938
+      },
+      "stack_period": null,
+      "palette": {
+        "lime_wool": 96,
+        "magenta_wool": 64
+      }
+    },
+    "notes": [],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

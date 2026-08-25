@@ -1,0 +1,62 @@
+{
+  "name": "build-16",
+  "labels": [],
+  "source_world": "Registers by mattbatwings",
+  "source_origin": [
+    30,
+    79,
+    -178
+  ],
+  "size": [
+    8,
+    8,
+    19
+  ],
+  "non_air_blocks": 100,
+  "redstone_components": 54,
+  "component_census": {
+    "redstone_wire": 42,
+    "redstone_wall_torch": 4,
+    "repeater": 4,
+    "redstone_lamp": 2,
+    "lever": 2
+  },
+  "full_census": {
+    "redstone_wire": 42,
+    "lime_wool": 26,
+    "lime_stained_glass": 20,
+    "redstone_wall_torch": 4,
+    "repeater": 4,
+    "redstone_lamp": 2,
+    "lever": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 54,
+      "size": [
+        8,
+        8,
+        19
+      ],
+      "levers": 2,
+      "lamps": 2,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.074,
+        "torch": 0.074,
+        "wire": 0.778
+      },
+      "stack_period": 2,
+      "palette": {
+        "lime_wool": 26
+      }
+    },
+    "notes": [
+      "2 levers \u2014 small input, around 2 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

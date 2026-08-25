@@ -1,0 +1,71 @@
+{
+  "name": "a-gt-b",
+  "labels": [
+    "A > B",
+    "A == B",
+    "A < B"
+  ],
+  "source_world": "LRR Combinational Logic",
+  "source_origin": [
+    -18,
+    58,
+    -45
+  ],
+  "size": [
+    15,
+    21,
+    11
+  ],
+  "non_air_blocks": 303,
+  "redstone_components": 168,
+  "component_census": {
+    "redstone_wire": 77,
+    "comparator": 24,
+    "repeater": 20,
+    "redstone_lamp": 19,
+    "lever": 16,
+    "target": 10,
+    "redstone_wall_torch": 2
+  },
+  "full_census": {
+    "cyan_wool": 101,
+    "redstone_wire": 77,
+    "cyan_stained_glass": 31,
+    "comparator": 24,
+    "repeater": 20,
+    "redstone_lamp": 19,
+    "lever": 16,
+    "target": 10,
+    "oak_sign": 3,
+    "redstone_wall_torch": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 168,
+      "size": [
+        15,
+        21,
+        11
+      ],
+      "levers": 16,
+      "lamps": 19,
+      "targets": 10,
+      "ratios": {
+        "comparator": 0.143,
+        "repeater": 0.119,
+        "torch": 0.012,
+        "wire": 0.458
+      },
+      "stack_period": null,
+      "palette": {
+        "cyan_wool": 101
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "16 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

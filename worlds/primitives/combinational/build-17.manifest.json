@@ -1,0 +1,58 @@
+{
+  "name": "build-17",
+  "labels": [],
+  "source_world": "LRR Combinational Logic",
+  "source_origin": [
+    -23,
+    60,
+    -109
+  ],
+  "size": [
+    16,
+    7,
+    12
+  ],
+  "non_air_blocks": 126,
+  "redstone_components": 73,
+  "component_census": {
+    "redstone_wire": 53,
+    "redstone_wall_torch": 9,
+    "redstone_lamp": 7,
+    "lever": 4
+  },
+  "full_census": {
+    "red_wool": 53,
+    "redstone_wire": 53,
+    "redstone_wall_torch": 9,
+    "redstone_lamp": 7,
+    "lever": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 73,
+      "size": [
+        16,
+        7,
+        12
+      ],
+      "levers": 4,
+      "lamps": 7,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.0,
+        "torch": 0.123,
+        "wire": 0.726
+      },
+      "stack_period": null,
+      "palette": {
+        "red_wool": 53
+      }
+    },
+    "notes": [
+      "4 levers \u2014 small input, around 4 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

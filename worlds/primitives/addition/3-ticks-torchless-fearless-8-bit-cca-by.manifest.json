@@ -1,0 +1,86 @@
+{
+  "name": "3-ticks-torchless-fearless-8-bit-cca-by",
+  "labels": [
+    "64",
+    "4",
+    "128",
+    "8",
+    "3 ticks, torchless Fearless 8-bit CCA by",
+    "32",
+    "2",
+    "16",
+    "1"
+  ],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -46,
+    69,
+    294
+  ],
+  "size": [
+    13,
+    22,
+    12
+  ],
+  "non_air_blocks": 608,
+  "redstone_components": 299,
+  "component_census": {
+    "redstone_wire": 153,
+    "comparator": 65,
+    "redstone_lamp": 25,
+    "target": 24,
+    "lever": 17,
+    "repeater": 10,
+    "barrel": 4,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "redstone_wire": 153,
+    "light_gray_stained_glass": 128,
+    "light_gray_wool": 122,
+    "comparator": 65,
+    "redstone_lamp": 25,
+    "oak_wall_sign": 24,
+    "target": 24,
+    "light": 20,
+    "lever": 17,
+    "hopper": 15,
+    "repeater": 10,
+    "barrel": 4,
+    "redstone_wall_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 299,
+      "size": [
+        13,
+        22,
+        12
+      ],
+      "levers": 17,
+      "lamps": 25,
+      "targets": 24,
+      "ratios": {
+        "comparator": 0.217,
+        "repeater": 0.033,
+        "torch": 0.003,
+        "wire": 0.512
+      },
+      "stack_period": null,
+      "palette": {
+        "light_gray_wool": 122
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "17 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [
+      {
+        "guess": "comparator logic (mux, cancel-tower, or CCA)",
+        "because": "comparator-dominant \u2014 cancelling is the usual mechanism"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

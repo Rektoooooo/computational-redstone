@@ -1,0 +1,66 @@
+{
+  "name": "build-04",
+  "labels": [],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -114,
+    59,
+    138
+  ],
+  "size": [
+    14,
+    14,
+    28
+  ],
+  "non_air_blocks": 476,
+  "redstone_components": 238,
+  "component_census": {
+    "redstone_wire": 166,
+    "repeater": 32,
+    "sticky_piston": 16,
+    "redstone_wall_torch": 12,
+    "redstone_lamp": 8,
+    "lever": 2,
+    "comparator": 2
+  },
+  "full_census": {
+    "lime_wool": 184,
+    "redstone_wire": 166,
+    "lime_stained_glass": 38,
+    "repeater": 32,
+    "piston_head": 16,
+    "sticky_piston": 16,
+    "redstone_wall_torch": 12,
+    "redstone_lamp": 8,
+    "comparator": 2,
+    "lever": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 238,
+      "size": [
+        14,
+        14,
+        28
+      ],
+      "levers": 2,
+      "lamps": 8,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.008,
+        "repeater": 0.134,
+        "torch": 0.05,
+        "wire": 0.697
+      },
+      "stack_period": null,
+      "palette": {
+        "lime_wool": 184
+      }
+    },
+    "notes": [
+      "2 levers \u2014 small input, around 2 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

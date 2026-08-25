@@ -1,0 +1,74 @@
+{
+  "name": "build-14",
+  "labels": [],
+  "source_world": "Registers by mattbatwings",
+  "source_origin": [
+    28,
+    84,
+    -131
+  ],
+  "size": [
+    8,
+    22,
+    10
+  ],
+  "non_air_blocks": 100,
+  "redstone_components": 62,
+  "component_census": {
+    "redstone_wire": 18,
+    "repeater": 17,
+    "redstone_lamp": 16,
+    "lever": 8,
+    "stone_button": 1,
+    "comparator": 1,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "redstone_wire": 18,
+    "repeater": 17,
+    "redstone_lamp": 16,
+    "lime_wool": 16,
+    "lime_stained_glass": 14,
+    "light_blue_wool": 8,
+    "lever": 8,
+    "comparator": 1,
+    "stone_button": 1,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 62,
+      "size": [
+        8,
+        22,
+        10
+      ],
+      "levers": 8,
+      "lamps": 16,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.016,
+        "repeater": 0.274,
+        "torch": 0.016,
+        "wire": 0.29
+      },
+      "stack_period": 2,
+      "palette": {
+        "lime_wool": 16,
+        "light_blue_wool": 8
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "8 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "build-14",
+  "labels": [],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    333,
+    64,
+    -171
+  ],
+  "size": [
+    11,
+    20,
+    20
+  ],
+  "non_air_blocks": 1344,
+  "redstone_components": 768,
+  "component_census": {
+    "redstone_lamp": 256,
+    "redstone_wall_torch": 256,
+    "redstone_wire": 128,
+    "repeater": 128
+  },
+  "full_census": {
+    "light_gray_wool": 576,
+    "redstone_lamp": 256,
+    "redstone_wall_torch": 256,
+    "repeater": 128,
+    "redstone_wire": 128
+  },
+  "profile": {
+    "measured": {
+      "components": 768,
+      "size": [
+        11,
+        20,
+        20
+      ],
+      "levers": 0,
+      "lamps": 256,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.167,
+        "torch": 0.333,
+        "wire": 0.167
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 576
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

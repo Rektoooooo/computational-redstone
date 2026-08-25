@@ -1,0 +1,65 @@
+{
+  "name": "build-13",
+  "labels": [],
+  "source_world": "Registers by mattbatwings",
+  "source_origin": [
+    30,
+    79,
+    -226
+  ],
+  "size": [
+    15,
+    8,
+    20
+  ],
+  "non_air_blocks": 130,
+  "redstone_components": 69,
+  "component_census": {
+    "redstone_wire": 49,
+    "repeater": 7,
+    "redstone_wall_torch": 5,
+    "comparator": 3,
+    "redstone_lamp": 2,
+    "lever": 2,
+    "stone_button": 1
+  },
+  "full_census": {
+    "redstone_wire": 49,
+    "lime_wool": 38,
+    "lime_stained_glass": 23,
+    "repeater": 7,
+    "redstone_wall_torch": 5,
+    "comparator": 3,
+    "redstone_lamp": 2,
+    "lever": 2,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 69,
+      "size": [
+        15,
+        8,
+        20
+      ],
+      "levers": 2,
+      "lamps": 2,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.043,
+        "repeater": 0.101,
+        "torch": 0.072,
+        "wire": 0.71
+      },
+      "stack_period": null,
+      "palette": {
+        "lime_wool": 38
+      }
+    },
+    "notes": [
+      "2 levers \u2014 small input, around 2 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

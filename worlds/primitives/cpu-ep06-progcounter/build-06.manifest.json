@@ -1,0 +1,65 @@
+{
+  "name": "build-06",
+  "labels": [],
+  "source_world": "CPU Episode 6",
+  "source_origin": [
+    -34,
+    129,
+    -444
+  ],
+  "size": [
+    16,
+    6,
+    7
+  ],
+  "non_air_blocks": 46,
+  "redstone_components": 25,
+  "component_census": {
+    "repeater": 12,
+    "redstone_wire": 6,
+    "redstone_lamp": 2,
+    "redstone_wall_torch": 2,
+    "stone_button": 2,
+    "comparator": 1
+  },
+  "full_census": {
+    "black_wool": 21,
+    "repeater": 12,
+    "redstone_wire": 6,
+    "redstone_wall_torch": 2,
+    "redstone_lamp": 2,
+    "stone_button": 2,
+    "comparator": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 25,
+      "size": [
+        16,
+        6,
+        7
+      ],
+      "levers": 0,
+      "lamps": 2,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.04,
+        "repeater": 0.48,
+        "torch": 0.08,
+        "wire": 0.24
+      },
+      "stack_period": null,
+      "palette": {
+        "black_wool": 21
+      }
+    },
+    "notes": [],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

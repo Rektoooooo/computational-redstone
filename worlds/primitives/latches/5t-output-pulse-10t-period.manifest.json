@@ -1,0 +1,70 @@
+{
+  "name": "5t-output-pulse-10t-period",
+  "labels": [
+    "5t output pulse 10t period",
+    "3t output pulse 10t period",
+    "1t output pulse 2t period",
+    "On/Off"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    315,
+    54,
+    -130
+  ],
+  "size": [
+    14,
+    5,
+    22
+  ],
+  "non_air_blocks": 630,
+  "redstone_components": 54,
+  "component_census": {
+    "redstone_wire": 31,
+    "repeater": 8,
+    "comparator": 6,
+    "redstone_lamp": 4,
+    "lever": 4,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "sandstone": 560,
+    "redstone_wire": 31,
+    "oak_sign": 8,
+    "magenta_wool": 8,
+    "repeater": 8,
+    "comparator": 6,
+    "redstone_lamp": 4,
+    "lever": 4,
+    "redstone_wall_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 54,
+      "size": [
+        14,
+        5,
+        22
+      ],
+      "levers": 4,
+      "lamps": 4,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.111,
+        "repeater": 0.148,
+        "torch": 0.019,
+        "wire": 0.574
+      },
+      "stack_period": null,
+      "palette": {
+        "magenta_wool": 8
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction",
+      "4 levers \u2014 small input, around 4 bits"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

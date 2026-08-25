@@ -1,0 +1,79 @@
+{
+  "name": "blank",
+  "labels": [
+    "blank",
+    "1",
+    "7"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    398,
+    80,
+    46
+  ],
+  "size": [
+    20,
+    11,
+    13
+  ],
+  "non_air_blocks": 247,
+  "redstone_components": 137,
+  "component_census": {
+    "redstone_wire": 42,
+    "barrel": 37,
+    "comparator": 36,
+    "redstone_lamp": 13,
+    "repeater": 5,
+    "lever": 3,
+    "target": 1
+  },
+  "full_census": {
+    "cyan_wool": 75,
+    "redstone_wire": 42,
+    "barrel": 37,
+    "comparator": 36,
+    "black_wool": 22,
+    "redstone_lamp": 13,
+    "repeater": 5,
+    "cyan_stained_glass": 5,
+    "water_cauldron": 3,
+    "lever": 3,
+    "oak_wall_sign": 3,
+    "hopper": 2,
+    "target": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 137,
+      "size": [
+        20,
+        11,
+        13
+      ],
+      "levers": 3,
+      "lamps": 13,
+      "targets": 1,
+      "ratios": {
+        "comparator": 0.263,
+        "repeater": 0.036,
+        "torch": 0.0,
+        "wire": 0.307
+      },
+      "stack_period": null,
+      "palette": {
+        "cyan_wool": 75,
+        "black_wool": 22
+      }
+    },
+    "notes": [
+      "3 levers \u2014 small input, around 3 bits"
+    ],
+    "candidates": [
+      {
+        "guess": "comparator logic (mux, cancel-tower, or CCA)",
+        "because": "comparator-dominant \u2014 cancelling is the usual mechanism"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

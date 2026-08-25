@@ -1,0 +1,84 @@
+{
+  "name": "buffer",
+  "labels": [
+    "Buffer"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    331,
+    61,
+    70
+  ],
+  "size": [
+    20,
+    23,
+    21
+  ],
+  "non_air_blocks": 3003,
+  "redstone_components": 1618,
+  "component_census": {
+    "redstone_wire": 443,
+    "redstone_wall_torch": 385,
+    "repeater": 385,
+    "iron_trapdoor": 256,
+    "barrel": 75,
+    "comparator": 65,
+    "redstone_torch": 8,
+    "stone_button": 1
+  },
+  "full_census": {
+    "light_gray_wool": 551,
+    "blue_wool": 544,
+    "redstone_wire": 443,
+    "repeater": 385,
+    "redstone_wall_torch": 385,
+    "iron_trapdoor": 256,
+    "purple_wool": 128,
+    "barrel": 75,
+    "comparator": 65,
+    "light_blue_stained_glass": 64,
+    "magenta_stained_glass": 56,
+    "blue_stained_glass": 32,
+    "redstone_torch": 8,
+    "magenta_wool": 8,
+    "oak_wall_sign": 1,
+    "stone_button": 1,
+    "light_gray_stained_glass": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 1618,
+      "size": [
+        20,
+        23,
+        21
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.04,
+        "repeater": 0.238,
+        "torch": 0.243,
+        "wire": 0.274
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 551,
+        "blue_wool": 544,
+        "purple_wool": 128,
+        "magenta_wool": 8
+      }
+    },
+    "notes": [
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

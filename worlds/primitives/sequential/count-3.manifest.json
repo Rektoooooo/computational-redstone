@@ -1,0 +1,72 @@
+{
+  "name": "count-3",
+  "labels": [
+    "Count"
+  ],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -93,
+    54,
+    -4
+  ],
+  "size": [
+    14,
+    6,
+    19
+  ],
+  "non_air_blocks": 565,
+  "redstone_components": 51,
+  "component_census": {
+    "redstone_wire": 28,
+    "repeater": 13,
+    "redstone_lamp": 4,
+    "redstone_torch": 3,
+    "stone_button": 1,
+    "comparator": 1,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "sandstone": 494,
+    "redstone_wire": 28,
+    "cyan_wool": 16,
+    "repeater": 13,
+    "redstone_lamp": 4,
+    "cyan_stained_glass": 3,
+    "redstone_torch": 3,
+    "stone_button": 1,
+    "oak_sign": 1,
+    "comparator": 1,
+    "redstone_wall_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 51,
+      "size": [
+        14,
+        6,
+        19
+      ],
+      "levers": 0,
+      "lamps": 4,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.02,
+        "repeater": 0.255,
+        "torch": 0.078,
+        "wire": 0.549
+      },
+      "stack_period": null,
+      "palette": {
+        "cyan_wool": 16
+      }
+    },
+    "notes": [],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

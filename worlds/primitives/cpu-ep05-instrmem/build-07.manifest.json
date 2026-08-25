@@ -1,0 +1,63 @@
+{
+  "name": "build-07",
+  "labels": [],
+  "source_world": "CPU Episode 5",
+  "source_origin": [
+    -57,
+    75,
+    -75
+  ],
+  "size": [
+    38,
+    14,
+    9
+  ],
+  "non_air_blocks": 664,
+  "redstone_components": 360,
+  "component_census": {
+    "redstone_wire": 248,
+    "repeater": 40,
+    "redstone_wall_torch": 32,
+    "redstone_lamp": 20,
+    "redstone_torch": 16,
+    "lever": 4
+  },
+  "full_census": {
+    "redstone_wire": 248,
+    "light_gray_stained_glass": 160,
+    "light_gray_wool": 144,
+    "repeater": 40,
+    "redstone_wall_torch": 32,
+    "redstone_lamp": 20,
+    "redstone_torch": 16,
+    "lever": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 360,
+      "size": [
+        38,
+        14,
+        9
+      ],
+      "levers": 4,
+      "lamps": 20,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.111,
+        "torch": 0.133,
+        "wire": 0.689
+      },
+      "stack_period": null,
+      "palette": {
+        "light_gray_wool": 144
+      }
+    },
+    "notes": [
+      "4 levers \u2014 small input, around 4 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

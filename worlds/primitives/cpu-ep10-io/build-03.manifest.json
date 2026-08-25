@@ -1,0 +1,108 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -1282,
+    64,
+    -143
+  ],
+  "size": [
+    187,
+    63,
+    141
+  ],
+  "non_air_blocks": 316563,
+  "redstone_components": 147291,
+  "component_census": {
+    "redstone_wire": 107835,
+    "repeater": 18275,
+    "redstone_wall_torch": 7938,
+    "comparator": 5289,
+    "barrel": 4695,
+    "redstone_torch": 2847,
+    "target": 402,
+    "stone_button": 7,
+    "redstone_block": 3
+  },
+  "full_census": {
+    "redstone_wire": 107835,
+    "purple_wool": 54987,
+    "purple_stained_glass": 28672,
+    "light_gray_stained_glass": 25641,
+    "red_wool": 19056,
+    "light_gray_wool": 18750,
+    "repeater": 18275,
+    "redstone_wall_torch": 7938,
+    "red_stained_glass": 7267,
+    "comparator": 5289,
+    "barrel": 4695,
+    "redstone_torch": 2847,
+    "green_wool": 2650,
+    "light_blue_wool": 2336,
+    "black_wool": 2197,
+    "brown_wool": 1586,
+    "light_blue_stained_glass": 1000,
+    "green_stained_glass": 912,
+    "cyan_wool": 855,
+    "pink_wool": 837,
+    "orange_wool": 706,
+    "black_stained_glass": 564,
+    "yellow_wool": 491,
+    "target": 402,
+    "cyan_stained_glass": 221,
+    "orange_stained_glass": 155,
+    "lime_wool": 144,
+    "yellow_stained_glass": 66,
+    "brown_stained_glass": 64,
+    "oak_wall_sign": 37,
+    "oak_sign": 28,
+    "lime_stained_glass": 23,
+    "gray_wool": 21,
+    "stone_button": 7,
+    "stone_pressure_plate": 4,
+    "redstone_block": 3,
+    "white_wool": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 147291,
+      "size": [
+        187,
+        63,
+        141
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 402,
+      "ratios": {
+        "comparator": 0.036,
+        "repeater": 0.124,
+        "torch": 0.073,
+        "wire": 0.732
+      },
+      "stack_period": 2,
+      "palette": {
+        "purple_wool": 54987,
+        "red_wool": 19056,
+        "light_gray_wool": 18750,
+        "green_wool": 2650,
+        "light_blue_wool": 2336,
+        "black_wool": 2197,
+        "brown_wool": 1586,
+        "cyan_wool": 855,
+        "pink_wool": 837,
+        "orange_wool": 706,
+        "yellow_wool": 491,
+        "lime_wool": 144,
+        "gray_wool": 21,
+        "white_wool": 2
+      }
+    },
+    "notes": [
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

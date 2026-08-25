@@ -1,0 +1,77 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "CPU Episode 7",
+  "source_origin": [
+    -75,
+    145,
+    -506
+  ],
+  "size": [
+    27,
+    25,
+    30
+  ],
+  "non_air_blocks": 2023,
+  "redstone_components": 972,
+  "component_census": {
+    "redstone_wire": 633,
+    "repeater": 141,
+    "comparator": 102,
+    "redstone_wall_torch": 39,
+    "redstone_lamp": 25,
+    "lever": 24,
+    "redstone_torch": 6,
+    "target": 1,
+    "stone_button": 1
+  },
+  "full_census": {
+    "orange_wool": 759,
+    "redstone_wire": 633,
+    "orange_stained_glass": 153,
+    "repeater": 141,
+    "comparator": 102,
+    "lime_wool": 81,
+    "redstone_wall_torch": 39,
+    "lime_stained_glass": 35,
+    "redstone_lamp": 25,
+    "lever": 24,
+    "black_wool": 12,
+    "redstone_torch": 6,
+    "oak_sign": 6,
+    "black_stained_glass": 5,
+    "target": 1,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 972,
+      "size": [
+        27,
+        25,
+        30
+      ],
+      "levers": 24,
+      "lamps": 25,
+      "targets": 1,
+      "ratios": {
+        "comparator": 0.105,
+        "repeater": 0.145,
+        "torch": 0.046,
+        "wire": 0.651
+      },
+      "stack_period": 2,
+      "palette": {
+        "orange_wool": 759,
+        "lime_wool": 81,
+        "black_wool": 12
+      }
+    },
+    "notes": [
+      "24 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

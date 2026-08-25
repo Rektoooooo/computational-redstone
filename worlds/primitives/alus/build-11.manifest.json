@@ -1,0 +1,67 @@
+{
+  "name": "build-11",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    6,
+    59,
+    -80
+  ],
+  "size": [
+    8,
+    23,
+    22
+  ],
+  "non_air_blocks": 715,
+  "redstone_components": 357,
+  "component_census": {
+    "redstone_wire": 199,
+    "repeater": 49,
+    "comparator": 41,
+    "redstone_wall_torch": 25,
+    "redstone_lamp": 25,
+    "lever": 17,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "orange_wool": 304,
+    "redstone_wire": 199,
+    "orange_stained_glass": 53,
+    "repeater": 49,
+    "comparator": 41,
+    "redstone_lamp": 25,
+    "redstone_wall_torch": 25,
+    "lever": 17,
+    "oak_sign": 1,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 357,
+      "size": [
+        8,
+        23,
+        22
+      ],
+      "levers": 17,
+      "lamps": 25,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.115,
+        "repeater": 0.137,
+        "torch": 0.073,
+        "wire": 0.557
+      },
+      "stack_period": null,
+      "palette": {
+        "orange_wool": 304
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "17 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

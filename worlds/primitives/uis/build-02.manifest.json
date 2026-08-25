@@ -1,0 +1,65 @@
+{
+  "name": "build-02",
+  "labels": [],
+  "source_world": "UIs by mattbatwings",
+  "source_origin": [
+    75,
+    80,
+    24
+  ],
+  "size": [
+    9,
+    7,
+    21
+  ],
+  "non_air_blocks": 232,
+  "redstone_components": 116,
+  "component_census": {
+    "redstone_wire": 82,
+    "repeater": 30,
+    "comparator": 4
+  },
+  "full_census": {
+    "redstone_wire": 82,
+    "light_blue_wool": 47,
+    "lime_wool": 47,
+    "repeater": 30,
+    "magenta_wool": 22,
+    "comparator": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 116,
+      "size": [
+        9,
+        7,
+        21
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.034,
+        "repeater": 0.259,
+        "torch": 0.0,
+        "wire": 0.707
+      },
+      "stack_period": null,
+      "palette": {
+        "light_blue_wool": 47,
+        "lime_wool": 47,
+        "magenta_wool": 22
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

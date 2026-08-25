@@ -1,0 +1,75 @@
+{
+  "name": "build-06",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    390,
+    66,
+    -72
+  ],
+  "size": [
+    13,
+    23,
+    23
+  ],
+  "non_air_blocks": 1129,
+  "redstone_components": 534,
+  "component_census": {
+    "redstone_wire": 315,
+    "repeater": 80,
+    "comparator": 73,
+    "redstone_lamp": 28,
+    "lever": 20,
+    "redstone_wall_torch": 17,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "redstone_wire": 315,
+    "orange_wool": 268,
+    "magenta_wool": 192,
+    "repeater": 80,
+    "comparator": 73,
+    "orange_stained_glass": 53,
+    "magenta_stained_glass": 46,
+    "redstone_lamp": 28,
+    "lever": 20,
+    "redstone_wall_torch": 17,
+    "light_gray_wool": 16,
+    "gray_wool": 16,
+    "oak_wall_sign": 4,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 534,
+      "size": [
+        13,
+        23,
+        23
+      ],
+      "levers": 20,
+      "lamps": 28,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.137,
+        "repeater": 0.15,
+        "torch": 0.034,
+        "wire": 0.59
+      },
+      "stack_period": 2,
+      "palette": {
+        "orange_wool": 268,
+        "magenta_wool": 192,
+        "light_gray_wool": 16,
+        "gray_wool": 16
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "20 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

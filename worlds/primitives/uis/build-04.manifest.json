@@ -1,0 +1,63 @@
+{
+  "name": "build-04",
+  "labels": [],
+  "source_world": "UIs by mattbatwings",
+  "source_origin": [
+    -15,
+    73,
+    59
+  ],
+  "size": [
+    17,
+    7,
+    13
+  ],
+  "non_air_blocks": 142,
+  "redstone_components": 77,
+  "component_census": {
+    "redstone_wire": 29,
+    "redstone_wall_torch": 24,
+    "repeater": 12,
+    "stone_button": 6,
+    "redstone_lamp": 6
+  },
+  "full_census": {
+    "orange_wool": 65,
+    "redstone_wire": 29,
+    "redstone_wall_torch": 24,
+    "repeater": 12,
+    "redstone_lamp": 6,
+    "stone_button": 6
+  },
+  "profile": {
+    "measured": {
+      "components": 77,
+      "size": [
+        17,
+        7,
+        13
+      ],
+      "levers": 0,
+      "lamps": 6,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.156,
+        "torch": 0.312,
+        "wire": 0.377
+      },
+      "stack_period": null,
+      "palette": {
+        "orange_wool": 65
+      }
+    },
+    "notes": [],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

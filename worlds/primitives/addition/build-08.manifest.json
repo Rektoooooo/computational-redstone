@@ -1,0 +1,73 @@
+{
+  "name": "build-08",
+  "labels": [],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -49,
+    54,
+    19
+  ],
+  "size": [
+    18,
+    7,
+    12
+  ],
+  "non_air_blocks": 444,
+  "redstone_components": 53,
+  "component_census": {
+    "redstone_wire": 36,
+    "repeater": 6,
+    "redstone_lamp": 4,
+    "comparator": 2,
+    "redstone_torch": 2,
+    "lever": 2,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "sandstone": 340,
+    "black_wool": 40,
+    "redstone_wire": 36,
+    "magenta_wool": 8,
+    "repeater": 6,
+    "redstone_lamp": 4,
+    "lever": 2,
+    "comparator": 2,
+    "redstone_torch": 2,
+    "lime_wool": 1,
+    "light_blue_wool": 1,
+    "redstone_wall_torch": 1,
+    "light_gray_wool": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 53,
+      "size": [
+        18,
+        7,
+        12
+      ],
+      "levers": 2,
+      "lamps": 4,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.038,
+        "repeater": 0.113,
+        "torch": 0.057,
+        "wire": 0.679
+      },
+      "stack_period": null,
+      "palette": {
+        "black_wool": 40,
+        "magenta_wool": 8,
+        "lime_wool": 1,
+        "light_blue_wool": 1,
+        "light_gray_wool": 1
+      }
+    },
+    "notes": [
+      "2 levers \u2014 small input, around 2 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

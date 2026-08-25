@@ -1,0 +1,62 @@
+{
+  "name": "build-05",
+  "labels": [],
+  "source_world": "UIs by mattbatwings",
+  "source_origin": [
+    108,
+    71,
+    58
+  ],
+  "size": [
+    9,
+    11,
+    8
+  ],
+  "non_air_blocks": 81,
+  "redstone_components": 38,
+  "component_census": {
+    "redstone_wire": 28,
+    "redstone_wall_torch": 10
+  },
+  "full_census": {
+    "light_blue_wool": 30,
+    "redstone_wire": 28,
+    "redstone_wall_torch": 10,
+    "black_wool": 10,
+    "smooth_stone_slab": 3
+  },
+  "profile": {
+    "measured": {
+      "components": 38,
+      "size": [
+        9,
+        11,
+        8
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.0,
+        "torch": 0.263,
+        "wire": 0.737
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 30,
+        "black_wool": 10
+      }
+    },
+    "notes": [
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

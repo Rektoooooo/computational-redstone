@@ -1,0 +1,79 @@
+{
+  "name": "build-00",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    63,
+    58,
+    -82
+  ],
+  "size": [
+    41,
+    24,
+    27
+  ],
+  "non_air_blocks": 6078,
+  "redstone_components": 2986,
+  "component_census": {
+    "redstone_wire": 2166,
+    "repeater": 474,
+    "comparator": 178,
+    "redstone_wall_torch": 98,
+    "redstone_lamp": 34,
+    "lever": 26,
+    "redstone_torch": 10
+  },
+  "full_census": {
+    "redstone_wire": 2166,
+    "light_gray_wool": 704,
+    "orange_wool": 624,
+    "cyan_wool": 488,
+    "gray_wool": 480,
+    "light_blue_wool": 480,
+    "repeater": 474,
+    "comparator": 178,
+    "pink_stained_glass": 112,
+    "orange_stained_glass": 106,
+    "redstone_wall_torch": 98,
+    "pink_wool": 88,
+    "redstone_lamp": 34,
+    "lever": 26,
+    "redstone_torch": 10,
+    "oak_wall_sign": 8,
+    "oak_sign": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 2986,
+      "size": [
+        41,
+        24,
+        27
+      ],
+      "levers": 26,
+      "lamps": 34,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.06,
+        "repeater": 0.159,
+        "torch": 0.036,
+        "wire": 0.725
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 704,
+        "orange_wool": 624,
+        "cyan_wool": 488,
+        "gray_wool": 480,
+        "light_blue_wool": 480,
+        "pink_wool": 88
+      }
+    },
+    "notes": [
+      "26 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

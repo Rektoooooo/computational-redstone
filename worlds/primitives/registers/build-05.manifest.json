@@ -1,0 +1,73 @@
+{
+  "name": "build-05",
+  "labels": [],
+  "source_world": "Registers by mattbatwings",
+  "source_origin": [
+    23,
+    82,
+    -414
+  ],
+  "size": [
+    9,
+    24,
+    35
+  ],
+  "non_air_blocks": 2100,
+  "redstone_components": 1238,
+  "component_census": {
+    "redstone_wire": 457,
+    "repeater": 368,
+    "barrel": 128,
+    "comparator": 120,
+    "redstone_lamp": 120,
+    "redstone_torch": 30,
+    "stone_button": 15
+  },
+  "full_census": {
+    "redstone_wire": 457,
+    "light_blue_wool": 423,
+    "repeater": 368,
+    "lime_stained_glass": 195,
+    "lime_wool": 180,
+    "barrel": 128,
+    "redstone_lamp": 120,
+    "comparator": 120,
+    "light_blue_stained_glass": 64,
+    "redstone_torch": 30,
+    "stone_button": 15
+  },
+  "profile": {
+    "measured": {
+      "components": 1238,
+      "size": [
+        9,
+        24,
+        35
+      ],
+      "levers": 0,
+      "lamps": 120,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.097,
+        "repeater": 0.297,
+        "torch": 0.024,
+        "wire": 0.369
+      },
+      "stack_period": null,
+      "palette": {
+        "light_blue_wool": 423,
+        "lime_wool": 180
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

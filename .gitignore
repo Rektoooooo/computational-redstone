@@ -1,0 +1,34 @@
+# Unpacked worlds — the .zip files are committed instead (115 MB vs 925 MB, identical
+# content). Restore with:  cd worlds && unzip '*.zip'
+worlds/*/region/
+worlds/*/entities/
+worlds/*/poi/
+worlds/*/data/
+worlds/*/playerdata/
+worlds/*/advancements/
+worlds/*/stats/
+worlds/*/datapacks/
+worlds/*/scripts/
+worlds/*/DIM-1/
+worlds/*/DIM1/
+worlds/*/level.dat*
+worlds/*/session.lock
+worlds/*/icon.png
+worlds/*/carpet.conf
+
+# Keep the harvested output and tooling
+!worlds/primitives/
+!worlds/*.py
+!worlds/*.sh
+!worlds/*.md
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Working logs
+worlds/harvest-all.log
+worlds/*-survey.txt
+.playwright-mcp/
+.DS_Store

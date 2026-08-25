@@ -1,0 +1,64 @@
+{
+  "name": "on-off",
+  "labels": [
+    "On/Off"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    318,
+    54,
+    -130
+  ],
+  "size": [
+    11,
+    5,
+    20
+  ],
+  "non_air_blocks": 329,
+  "redstone_components": 33,
+  "component_census": {
+    "redstone_wire": 20,
+    "comparator": 5,
+    "repeater": 4,
+    "lever": 3,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "sandstone": 288,
+    "redstone_wire": 20,
+    "comparator": 5,
+    "magenta_wool": 5,
+    "repeater": 4,
+    "oak_sign": 3,
+    "lever": 3,
+    "redstone_wall_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 33,
+      "size": [
+        11,
+        5,
+        20
+      ],
+      "levers": 3,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.152,
+        "repeater": 0.121,
+        "torch": 0.03,
+        "wire": 0.606
+      },
+      "stack_period": null,
+      "palette": {
+        "magenta_wool": 5
+      }
+    },
+    "notes": [
+      "3 levers \u2014 small input, around 3 bits"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

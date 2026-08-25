@@ -1,0 +1,326 @@
+[
+  {
+    "name": "build-00",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      661,
+      72,
+      -160
+    ],
+    "size": [
+      141,
+      63,
+      119
+    ],
+    "non_air_blocks": 312164,
+    "redstone_components": 143224,
+    "component_census": {
+      "redstone_wire": 106087,
+      "repeater": 16019,
+      "redstone_wall_torch": 7912,
+      "comparator": 5235,
+      "barrel": 4695,
+      "redstone_torch": 2866,
+      "target": 409,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 106087,
+      "purple_wool": 56950,
+      "purple_stained_glass": 28672,
+      "light_gray_stained_glass": 25623,
+      "red_wool": 19262,
+      "light_gray_wool": 17736,
+      "repeater": 16019,
+      "redstone_wall_torch": 7912,
+      "red_stained_glass": 7267,
+      "comparator": 5235,
+      "barrel": 4695,
+      "redstone_torch": 2866,
+      "green_wool": 2650,
+      "light_blue_wool": 2336,
+      "black_wool": 2198,
+      "brown_wool": 1042,
+      "light_blue_stained_glass": 1000,
+      "green_stained_glass": 912,
+      "cyan_wool": 855,
+      "orange_wool": 706,
+      "black_stained_glass": 544,
+      "yellow_wool": 491,
+      "target": 409,
+      "cyan_stained_glass": 221,
+      "orange_stained_glass": 155,
+      "lime_wool": 144,
+      "yellow_stained_glass": 66,
+      "brown_stained_glass": 44,
+      "oak_wall_sign": 37,
+      "lime_stained_glass": 23,
+      "oak_sign": 6,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-01",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      -67,
+      60,
+      -153
+    ],
+    "size": [
+      141,
+      63,
+      119
+    ],
+    "non_air_blocks": 229495,
+    "redstone_components": 99782,
+    "component_census": {
+      "redstone_wire": 82988,
+      "repeater": 7934,
+      "redstone_wall_torch": 4709,
+      "redstone_torch": 2229,
+      "comparator": 1154,
+      "barrel": 510,
+      "target": 257,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 82988,
+      "purple_wool": 57026,
+      "purple_stained_glass": 28672,
+      "light_gray_stained_glass": 19599,
+      "light_gray_wool": 12435,
+      "repeater": 7934,
+      "redstone_wall_torch": 4709,
+      "green_wool": 2650,
+      "light_blue_wool": 2336,
+      "redstone_torch": 2229,
+      "black_wool": 1545,
+      "comparator": 1154,
+      "light_blue_stained_glass": 1000,
+      "green_stained_glass": 912,
+      "cyan_wool": 855,
+      "orange_wool": 706,
+      "barrel": 510,
+      "black_stained_glass": 502,
+      "yellow_wool": 491,
+      "brown_wool": 290,
+      "target": 257,
+      "cyan_stained_glass": 221,
+      "orange_stained_glass": 155,
+      "lime_wool": 144,
+      "yellow_stained_glass": 66,
+      "brown_stained_glass": 42,
+      "oak_wall_sign": 37,
+      "lime_stained_glass": 23,
+      "oak_sign": 6,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-02",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      533,
+      85,
+      -130
+    ],
+    "size": [
+      73,
+      40,
+      74
+    ],
+    "non_air_blocks": 79991,
+    "redstone_components": 42117,
+    "component_census": {
+      "redstone_wire": 21809,
+      "repeater": 7963,
+      "barrel": 4208,
+      "comparator": 4112,
+      "redstone_wall_torch": 3202,
+      "redstone_torch": 642,
+      "target": 146,
+      "redstone_lamp": 17,
+      "lever": 17,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 21809,
+      "red_wool": 19392,
+      "repeater": 7963,
+      "red_stained_glass": 7334,
+      "light_gray_stained_glass": 6016,
+      "barrel": 4208,
+      "comparator": 4112,
+      "light_gray_wool": 3912,
+      "redstone_wall_torch": 3202,
+      "brown_wool": 698,
+      "redstone_torch": 642,
+      "black_wool": 520,
+      "target": 146,
+      "lever": 17,
+      "redstone_lamp": 17,
+      "brown_stained_glass": 1,
+      "stone_button": 1,
+      "oak_wall_sign": 1
+    }
+  },
+  {
+    "name": "build-03",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      431,
+      85,
+      -128
+    ],
+    "size": [
+      69,
+      24,
+      72
+    ],
+    "non_air_blocks": 24098,
+    "redstone_components": 12824,
+    "component_census": {
+      "redstone_wire": 9021,
+      "repeater": 1484,
+      "redstone_wall_torch": 1024,
+      "redstone_lamp": 519,
+      "redstone_torch": 512,
+      "target": 255,
+      "lever": 9
+    },
+    "full_census": {
+      "redstone_wire": 9021,
+      "light_gray_stained_glass": 6015,
+      "light_gray_wool": 3544,
+      "repeater": 1484,
+      "black_wool": 1212,
+      "redstone_wall_torch": 1024,
+      "redstone_lamp": 519,
+      "redstone_torch": 512,
+      "lime_wool": 256,
+      "target": 255,
+      "blue_wool": 247,
+      "lever": 9
+    }
+  },
+  {
+    "name": "build-04",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      327,
+      85,
+      -125
+    ],
+    "size": [
+      69,
+      22,
+      69
+    ],
+    "non_air_blocks": 18618,
+    "redstone_components": 9953,
+    "component_census": {
+      "redstone_wire": 6961,
+      "repeater": 1440,
+      "redstone_wall_torch": 1024,
+      "redstone_lamp": 264,
+      "redstone_torch": 256,
+      "lever": 8
+    },
+    "full_census": {
+      "redstone_wire": 6961,
+      "light_gray_stained_glass": 5120,
+      "light_gray_wool": 3545,
+      "repeater": 1440,
+      "redstone_wall_torch": 1024,
+      "redstone_lamp": 264,
+      "redstone_torch": 256,
+      "lever": 8
+    }
+  },
+  {
+    "name": "build-05",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      174,
+      78,
+      -107
+    ],
+    "size": [
+      64,
+      35,
+      23
+    ],
+    "non_air_blocks": 17677,
+    "redstone_components": 9186,
+    "component_census": {
+      "redstone_wire": 4936,
+      "repeater": 1654,
+      "barrel": 954,
+      "comparator": 924,
+      "redstone_wall_torch": 629,
+      "redstone_torch": 61,
+      "redstone_lamp": 20,
+      "lever": 8
+    },
+    "full_census": {
+      "light_blue_wool": 5266,
+      "redstone_wire": 4936,
+      "light_blue_stained_glass": 3225,
+      "repeater": 1654,
+      "barrel": 954,
+      "comparator": 924,
+      "redstone_wall_torch": 629,
+      "redstone_torch": 61,
+      "redstone_lamp": 20,
+      "lever": 8
+    }
+  },
+  {
+    "name": "build-06",
+    "labels": [],
+    "source_world": "CPU Episode 9",
+    "source_origin": [
+      117,
+      78,
+      -107
+    ],
+    "size": [
+      41,
+      35,
+      23
+    ],
+    "non_air_blocks": 9388,
+    "redstone_components": 4906,
+    "component_census": {
+      "redstone_wire": 2591,
+      "repeater": 883,
+      "barrel": 510,
+      "comparator": 493,
+      "redstone_wall_torch": 337,
+      "redstone_lamp": 37,
+      "redstone_torch": 33,
+      "lever": 21,
+      "stone_button": 1
+    },
+    "full_census": {
+      "light_blue_wool": 2812,
+      "redstone_wire": 2591,
+      "light_blue_stained_glass": 1670,
+      "repeater": 883,
+      "barrel": 510,
+      "comparator": 493,
+      "redstone_wall_torch": 337,
+      "redstone_lamp": 37,
+      "redstone_torch": 33,
+      "lever": 21,
+      "stone_button": 1
+    }
+  }
+]

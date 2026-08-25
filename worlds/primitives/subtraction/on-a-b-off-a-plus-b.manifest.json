@@ -1,0 +1,74 @@
+{
+  "name": "on-a-b-off-a-plus-b",
+  "labels": [
+    "A",
+    "B",
+    "ON = A - B OFF = A + B"
+  ],
+  "source_world": "LRR Subtraction",
+  "source_origin": [
+    -76,
+    62,
+    88
+  ],
+  "size": [
+    23,
+    16,
+    14
+  ],
+  "non_air_blocks": 541,
+  "redstone_components": 268,
+  "component_census": {
+    "redstone_wire": 174,
+    "repeater": 33,
+    "comparator": 29,
+    "redstone_lamp": 13,
+    "redstone_wall_torch": 9,
+    "lever": 9,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "redstone_wire": 174,
+    "magenta_wool": 159,
+    "cyan_wool": 78,
+    "repeater": 33,
+    "comparator": 29,
+    "magenta_stained_glass": 26,
+    "redstone_lamp": 13,
+    "lever": 9,
+    "redstone_wall_torch": 9,
+    "cyan_stained_glass": 7,
+    "oak_sign": 3,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 268,
+      "size": [
+        23,
+        16,
+        14
+      ],
+      "levers": 9,
+      "lamps": 13,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.108,
+        "repeater": 0.123,
+        "torch": 0.037,
+        "wire": 0.649
+      },
+      "stack_period": 2,
+      "palette": {
+        "magenta_wool": 159,
+        "cyan_wool": 78
+      }
+    },
+    "notes": [
+      "9 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

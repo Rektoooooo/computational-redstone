@@ -1,0 +1,71 @@
+{
+  "name": "build-11",
+  "labels": [],
+  "source_world": "Registers by mattbatwings",
+  "source_origin": [
+    19,
+    85,
+    -433
+  ],
+  "size": [
+    12,
+    23,
+    8
+  ],
+  "non_air_blocks": 131,
+  "redstone_components": 74,
+  "component_census": {
+    "redstone_lamp": 16,
+    "redstone_wire": 16,
+    "lever": 9,
+    "barrel": 8,
+    "comparator": 8,
+    "repeater": 8,
+    "redstone_wall_torch": 8,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "light_blue_wool": 24,
+    "orange_wool": 19,
+    "redstone_lamp": 16,
+    "redstone_wire": 16,
+    "orange_stained_glass": 14,
+    "lever": 9,
+    "redstone_wall_torch": 8,
+    "barrel": 8,
+    "comparator": 8,
+    "repeater": 8,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 74,
+      "size": [
+        12,
+        23,
+        8
+      ],
+      "levers": 9,
+      "lamps": 16,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.108,
+        "repeater": 0.108,
+        "torch": 0.122,
+        "wire": 0.216
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 24,
+        "orange_wool": 19
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "9 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

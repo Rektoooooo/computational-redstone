@@ -1,0 +1,69 @@
+{
+  "name": "build-14",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    354,
+    66,
+    -72
+  ],
+  "size": [
+    9,
+    23,
+    18
+  ],
+  "non_air_blocks": 630,
+  "redstone_components": 307,
+  "component_census": {
+    "redstone_wire": 166,
+    "comparator": 41,
+    "repeater": 40,
+    "redstone_lamp": 25,
+    "redstone_wall_torch": 17,
+    "lever": 17,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "orange_wool": 268,
+    "redstone_wire": 166,
+    "orange_stained_glass": 53,
+    "comparator": 41,
+    "repeater": 40,
+    "redstone_lamp": 25,
+    "lever": 17,
+    "redstone_wall_torch": 17,
+    "magenta_stained_glass": 1,
+    "redstone_torch": 1,
+    "oak_wall_sign": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 307,
+      "size": [
+        9,
+        23,
+        18
+      ],
+      "levers": 17,
+      "lamps": 25,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.134,
+        "repeater": 0.13,
+        "torch": 0.059,
+        "wire": 0.541
+      },
+      "stack_period": 2,
+      "palette": {
+        "orange_wool": 268
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "17 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "build-15",
+  "labels": [],
+  "source_world": "LRR Combinational Logic",
+  "source_origin": [
+    -29,
+    66,
+    -429
+  ],
+  "size": [
+    10,
+    20,
+    6
+  ],
+  "non_air_blocks": 99,
+  "redstone_components": 81,
+  "component_census": {
+    "redstone_wall_torch": 31,
+    "redstone_lamp": 16,
+    "target": 16,
+    "redstone_wire": 16,
+    "comparator": 1,
+    "barrel": 1
+  },
+  "full_census": {
+    "redstone_wall_torch": 31,
+    "redstone_lamp": 16,
+    "target": 16,
+    "gray_stained_glass": 16,
+    "redstone_wire": 16,
+    "gray_wool": 2,
+    "comparator": 1,
+    "barrel": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 81,
+      "size": [
+        10,
+        20,
+        6
+      ],
+      "levers": 0,
+      "lamps": 16,
+      "targets": 16,
+      "ratios": {
+        "comparator": 0.012,
+        "repeater": 0.0,
+        "torch": 0.383,
+        "wire": 0.198
+      },
+      "stack_period": null,
+      "palette": {
+        "gray_wool": 2
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction"
+    ],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "reset",
+  "labels": [
+    "Reset",
+    "X",
+    "O"
+  ],
+  "source_world": "LRR Game Design",
+  "source_origin": [
+    -57,
+    62,
+    4
+  ],
+  "size": [
+    34,
+    36,
+    21
+  ],
+  "non_air_blocks": 5364,
+  "redstone_components": 2634,
+  "component_census": {
+    "redstone_wire": 1521,
+    "redstone_lamp": 378,
+    "repeater": 325,
+    "redstone_wall_torch": 162,
+    "comparator": 119,
+    "observer": 43,
+    "note_block": 43,
+    "redstone_torch": 42,
+    "lever": 1
+  },
+  "full_census": {
+    "redstone_wire": 1521,
+    "orange_wool": 630,
+    "lime_wool": 622,
+    "blue_wool": 488,
+    "cyan_wool": 441,
+    "redstone_lamp": 378,
+    "repeater": 325,
+    "red_wool": 303,
+    "redstone_wall_torch": 162,
+    "comparator": 119,
+    "lime_stained_glass": 86,
+    "purple_wool": 84,
+    "note_block": 43,
+    "observer": 43,
+    "orange_stained_glass": 42,
+    "redstone_torch": 42,
+    "yellow_wool": 24,
+    "red_stained_glass": 7,
+    "oak_wall_sign": 3,
+    "lever": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 2634,
+      "size": [
+        34,
+        36,
+        21
+      ],
+      "levers": 1,
+      "lamps": 378,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.045,
+        "repeater": 0.123,
+        "torch": 0.077,
+        "wire": 0.577
+      },
+      "stack_period": null,
+      "palette": {
+        "orange_wool": 630,
+        "lime_wool": 622,
+        "blue_wool": 488,
+        "cyan_wool": 441,
+        "red_wool": 303,
+        "purple_wool": 84,
+        "yellow_wool": 24
+      }
+    },
+    "notes": [
+      "1 levers \u2014 small input, around 1 bits"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

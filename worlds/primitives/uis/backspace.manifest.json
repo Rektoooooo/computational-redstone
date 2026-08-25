@@ -1,0 +1,90 @@
+{
+  "name": "backspace",
+  "labels": [
+    "Backspace",
+    "Enter",
+    "15",
+    "14",
+    "13",
+    "12",
+    "11",
+    "10",
+    "9",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "8",
+    "7",
+    "6"
+  ],
+  "source_world": "UIs by mattbatwings",
+  "source_origin": [
+    71,
+    71,
+    54
+  ],
+  "size": [
+    30,
+    10,
+    11
+  ],
+  "non_air_blocks": 323,
+  "redstone_components": 102,
+  "component_census": {
+    "stone_button": 52,
+    "redstone_wire": 34,
+    "comparator": 12,
+    "repeater": 2,
+    "redstone_lamp": 2
+  },
+  "full_census": {
+    "black_wool": 66,
+    "light_gray_wool": 53,
+    "stone_button": 52,
+    "redstone_wire": 34,
+    "oak_wall_sign": 30,
+    "white_wall_banner": 26,
+    "light_blue_wool": 16,
+    "lime_wool": 12,
+    "comparator": 12,
+    "smooth_stone_slab": 11,
+    "magenta_wool": 5,
+    "redstone_lamp": 2,
+    "repeater": 2,
+    "oak_button": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 102,
+      "size": [
+        30,
+        10,
+        11
+      ],
+      "levers": 0,
+      "lamps": 2,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.118,
+        "repeater": 0.02,
+        "torch": 0.0,
+        "wire": 0.333
+      },
+      "stack_period": null,
+      "palette": {
+        "black_wool": 66,
+        "light_gray_wool": 53,
+        "light_blue_wool": 16,
+        "lime_wool": 12,
+        "magenta_wool": 5
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

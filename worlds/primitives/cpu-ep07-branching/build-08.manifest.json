@@ -1,0 +1,65 @@
+{
+  "name": "build-08",
+  "labels": [],
+  "source_world": "CPU Episode 7",
+  "source_origin": [
+    -70,
+    148,
+    -313
+  ],
+  "size": [
+    7,
+    19,
+    9
+  ],
+  "non_air_blocks": 65,
+  "redstone_components": 42,
+  "component_census": {
+    "redstone_wire": 15,
+    "redstone_lamp": 9,
+    "repeater": 8,
+    "lever": 8,
+    "redstone_wall_torch": 1,
+    "target": 1
+  },
+  "full_census": {
+    "lime_stained_glass": 15,
+    "redstone_wire": 15,
+    "redstone_lamp": 9,
+    "lime_wool": 8,
+    "repeater": 8,
+    "lever": 8,
+    "redstone_wall_torch": 1,
+    "target": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 42,
+      "size": [
+        7,
+        19,
+        9
+      ],
+      "levers": 8,
+      "lamps": 9,
+      "targets": 1,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.19,
+        "torch": 0.024,
+        "wire": 0.357
+      },
+      "stack_period": 2,
+      "palette": {
+        "lime_wool": 8
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "8 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

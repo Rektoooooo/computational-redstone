@@ -1,0 +1,228 @@
+[
+  {
+    "name": "reset",
+    "labels": [
+      "Reset",
+      "X",
+      "O"
+    ],
+    "source_world": "LRR Game Design",
+    "source_origin": [
+      -57,
+      62,
+      4
+    ],
+    "size": [
+      34,
+      36,
+      21
+    ],
+    "non_air_blocks": 5364,
+    "redstone_components": 2634,
+    "component_census": {
+      "redstone_wire": 1521,
+      "redstone_lamp": 378,
+      "repeater": 325,
+      "redstone_wall_torch": 162,
+      "comparator": 119,
+      "observer": 43,
+      "note_block": 43,
+      "redstone_torch": 42,
+      "lever": 1
+    },
+    "full_census": {
+      "redstone_wire": 1521,
+      "orange_wool": 630,
+      "lime_wool": 622,
+      "blue_wool": 488,
+      "cyan_wool": 441,
+      "redstone_lamp": 378,
+      "repeater": 325,
+      "red_wool": 303,
+      "redstone_wall_torch": 162,
+      "comparator": 119,
+      "lime_stained_glass": 86,
+      "purple_wool": 84,
+      "note_block": 43,
+      "observer": 43,
+      "orange_stained_glass": 42,
+      "redstone_torch": 42,
+      "yellow_wool": 24,
+      "red_stained_glass": 7,
+      "oak_wall_sign": 3,
+      "lever": 1
+    }
+  },
+  {
+    "name": "build-01",
+    "labels": [],
+    "source_world": "LRR Game Design",
+    "source_origin": [
+      -2,
+      68,
+      3
+    ],
+    "size": [
+      32,
+      12,
+      33
+    ],
+    "non_air_blocks": 2982,
+    "redstone_components": 1624,
+    "component_census": {
+      "redstone_wire": 497,
+      "redstone_lamp": 392,
+      "redstone_torch": 245,
+      "observer": 147,
+      "repeater": 147,
+      "redstone_block": 49,
+      "sticky_piston": 49,
+      "redstone_wall_torch": 49,
+      "note_block": 49
+    },
+    "full_census": {
+      "cyan_wool": 637,
+      "redstone_wire": 497,
+      "redstone_lamp": 392,
+      "black_wool": 371,
+      "purple_stained_glass": 301,
+      "redstone_torch": 245,
+      "repeater": 147,
+      "observer": 147,
+      "redstone_block": 49,
+      "sticky_piston": 49,
+      "purple_wool": 49,
+      "note_block": 49,
+      "redstone_wall_torch": 49
+    }
+  },
+  {
+    "name": "build-02",
+    "labels": [],
+    "source_world": "LRR Game Design",
+    "source_origin": [
+      36,
+      68,
+      3
+    ],
+    "size": [
+      25,
+      12,
+      25
+    ],
+    "non_air_blocks": 1561,
+    "redstone_components": 835,
+    "component_census": {
+      "redstone_wire": 260,
+      "redstone_lamp": 200,
+      "redstone_torch": 125,
+      "observer": 75,
+      "repeater": 75,
+      "redstone_block": 25,
+      "sticky_piston": 25,
+      "redstone_wall_torch": 25,
+      "note_block": 25
+    },
+    "full_census": {
+      "cyan_wool": 325,
+      "redstone_wire": 260,
+      "black_wool": 216,
+      "redstone_lamp": 200,
+      "purple_stained_glass": 160,
+      "redstone_torch": 125,
+      "repeater": 75,
+      "observer": 75,
+      "redstone_block": 25,
+      "sticky_piston": 25,
+      "purple_wool": 25,
+      "note_block": 25,
+      "redstone_wall_torch": 25
+    }
+  },
+  {
+    "name": "build-03",
+    "labels": [],
+    "source_world": "LRR Game Design",
+    "source_origin": [
+      67,
+      68,
+      3
+    ],
+    "size": [
+      17,
+      12,
+      17
+    ],
+    "non_air_blocks": 571,
+    "redstone_components": 301,
+    "component_census": {
+      "redstone_wire": 96,
+      "redstone_lamp": 71,
+      "redstone_torch": 44,
+      "observer": 27,
+      "repeater": 27,
+      "redstone_block": 9,
+      "sticky_piston": 9,
+      "redstone_wall_torch": 9,
+      "note_block": 9
+    },
+    "full_census": {
+      "cyan_wool": 116,
+      "redstone_wire": 96,
+      "black_wool": 85,
+      "redstone_lamp": 71,
+      "purple_stained_glass": 60,
+      "redstone_torch": 44,
+      "repeater": 27,
+      "observer": 27,
+      "redstone_block": 9,
+      "sticky_piston": 9,
+      "purple_wool": 9,
+      "note_block": 9,
+      "redstone_wall_torch": 9
+    }
+  },
+  {
+    "name": "build-04",
+    "labels": [],
+    "source_world": "LRR Game Design",
+    "source_origin": [
+      90,
+      68,
+      3
+    ],
+    "size": [
+      8,
+      12,
+      9
+    ],
+    "non_air_blocks": 62,
+    "redstone_components": 32,
+    "component_census": {
+      "redstone_wire": 10,
+      "redstone_lamp": 8,
+      "redstone_torch": 4,
+      "repeater": 3,
+      "observer": 3,
+      "redstone_block": 1,
+      "note_block": 1,
+      "sticky_piston": 1,
+      "redstone_wall_torch": 1
+    },
+    "full_census": {
+      "black_wool": 11,
+      "cyan_wool": 11,
+      "redstone_wire": 10,
+      "redstone_lamp": 8,
+      "purple_stained_glass": 7,
+      "redstone_torch": 4,
+      "repeater": 3,
+      "observer": 3,
+      "redstone_block": 1,
+      "sticky_piston": 1,
+      "purple_wool": 1,
+      "note_block": 1,
+      "redstone_wall_torch": 1
+    }
+  }
+]

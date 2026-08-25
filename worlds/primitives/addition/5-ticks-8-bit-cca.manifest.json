@@ -1,0 +1,79 @@
+{
+  "name": "5-ticks-8-bit-cca",
+  "labels": [
+    "1",
+    "COUT",
+    "CIN",
+    "5 ticks 8-bit CCA",
+    "128",
+    "32",
+    "8",
+    "2",
+    "64",
+    "16",
+    "4"
+  ],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -48,
+    67,
+    245
+  ],
+  "size": [
+    21,
+    23,
+    8
+  ],
+  "non_air_blocks": 733,
+  "redstone_components": 358,
+  "component_census": {
+    "redstone_wire": 215,
+    "comparator": 41,
+    "repeater": 41,
+    "redstone_lamp": 26,
+    "redstone_wall_torch": 17,
+    "lever": 17,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "magenta_wool": 304,
+    "redstone_wire": 215,
+    "magenta_stained_glass": 53,
+    "comparator": 41,
+    "repeater": 41,
+    "redstone_lamp": 26,
+    "lever": 17,
+    "redstone_wall_torch": 17,
+    "oak_wall_sign": 16,
+    "oak_sign": 2,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 358,
+      "size": [
+        21,
+        23,
+        8
+      ],
+      "levers": 17,
+      "lamps": 26,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.115,
+        "repeater": 0.115,
+        "torch": 0.05,
+        "wire": 0.601
+      },
+      "stack_period": null,
+      "palette": {
+        "magenta_wool": 304
+      }
+    },
+    "notes": [
+      "17 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

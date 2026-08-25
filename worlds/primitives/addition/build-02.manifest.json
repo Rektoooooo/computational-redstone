@@ -1,0 +1,82 @@
+{
+  "name": "build-02",
+  "labels": [
+    "1",
+    "2",
+    "64",
+    "128",
+    "16",
+    "32",
+    "4",
+    "8",
+    "CIN"
+  ],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -48,
+    74,
+    206
+  ],
+  "size": [
+    18,
+    10,
+    25
+  ],
+  "non_air_blocks": 593,
+  "redstone_components": 309,
+  "component_census": {
+    "redstone_wire": 153,
+    "redstone_wall_torch": 56,
+    "repeater": 34,
+    "lever": 17,
+    "redstone_lamp": 17,
+    "redstone_torch": 16,
+    "target": 8,
+    "sticky_piston": 8
+  },
+  "full_census": {
+    "lime_wool": 259,
+    "redstone_wire": 153,
+    "redstone_wall_torch": 56,
+    "repeater": 34,
+    "lever": 17,
+    "redstone_lamp": 17,
+    "redstone_torch": 16,
+    "oak_wall_sign": 8,
+    "lime_stained_glass": 8,
+    "piston_head": 8,
+    "sticky_piston": 8,
+    "target": 8,
+    "oak_sign": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 309,
+      "size": [
+        18,
+        10,
+        25
+      ],
+      "levers": 17,
+      "lamps": 17,
+      "targets": 8,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.11,
+        "torch": 0.233,
+        "wire": 0.495
+      },
+      "stack_period": 2,
+      "palette": {
+        "lime_wool": 259
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction",
+      "17 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

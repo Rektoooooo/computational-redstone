@@ -1,0 +1,73 @@
+{
+  "name": "build-04",
+  "labels": [],
+  "source_world": "LRR Game Design",
+  "source_origin": [
+    90,
+    68,
+    3
+  ],
+  "size": [
+    8,
+    12,
+    9
+  ],
+  "non_air_blocks": 62,
+  "redstone_components": 32,
+  "component_census": {
+    "redstone_wire": 10,
+    "redstone_lamp": 8,
+    "redstone_torch": 4,
+    "repeater": 3,
+    "observer": 3,
+    "redstone_block": 1,
+    "note_block": 1,
+    "sticky_piston": 1,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "black_wool": 11,
+    "cyan_wool": 11,
+    "redstone_wire": 10,
+    "redstone_lamp": 8,
+    "purple_stained_glass": 7,
+    "redstone_torch": 4,
+    "repeater": 3,
+    "observer": 3,
+    "redstone_block": 1,
+    "sticky_piston": 1,
+    "purple_wool": 1,
+    "note_block": 1,
+    "redstone_wall_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 32,
+      "size": [
+        8,
+        12,
+        9
+      ],
+      "levers": 0,
+      "lamps": 8,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.094,
+        "torch": 0.156,
+        "wire": 0.312
+      },
+      "stack_period": 4,
+      "palette": {
+        "black_wool": 11,
+        "cyan_wool": 11,
+        "purple_wool": 1
+      }
+    },
+    "notes": [
+      "repeating vertical module every 4 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

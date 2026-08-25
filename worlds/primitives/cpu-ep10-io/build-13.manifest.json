@@ -1,0 +1,74 @@
+{
+  "name": "build-13",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -2543,
+    104,
+    -82
+  ],
+  "size": [
+    20,
+    11,
+    38
+  ],
+  "non_air_blocks": 1904,
+  "redstone_components": 801,
+  "component_census": {
+    "comparator": 300,
+    "redstone_wire": 257,
+    "barrel": 130,
+    "repeater": 59,
+    "redstone_lamp": 33,
+    "redstone_wall_torch": 11,
+    "target": 6,
+    "redstone_block": 5
+  },
+  "full_census": {
+    "light_gray_wool": 1006,
+    "comparator": 300,
+    "redstone_wire": 257,
+    "barrel": 130,
+    "black_wool": 93,
+    "repeater": 59,
+    "redstone_lamp": 33,
+    "redstone_wall_torch": 11,
+    "target": 6,
+    "redstone_block": 5,
+    "oak_wall_sign": 2,
+    "light_gray_stained_glass": 1,
+    "oak_sign": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 801,
+      "size": [
+        20,
+        11,
+        38
+      ],
+      "levers": 0,
+      "lamps": 33,
+      "targets": 6,
+      "ratios": {
+        "comparator": 0.375,
+        "repeater": 0.074,
+        "torch": 0.014,
+        "wire": 0.321
+      },
+      "stack_period": null,
+      "palette": {
+        "light_gray_wool": 1006,
+        "black_wool": 93
+      }
+    },
+    "notes": [],
+    "candidates": [
+      {
+        "guess": "comparator logic (mux, cancel-tower, or CCA)",
+        "because": "comparator-dominant \u2014 cancelling is the usual mechanism"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

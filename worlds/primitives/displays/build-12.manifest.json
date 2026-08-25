@@ -1,0 +1,74 @@
+{
+  "name": "build-12",
+  "labels": [
+    "1",
+    "8",
+    "4",
+    "2"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    398,
+    79,
+    -83
+  ],
+  "size": [
+    45,
+    13,
+    11
+  ],
+  "non_air_blocks": 1486,
+  "redstone_components": 838,
+  "component_census": {
+    "redstone_wire": 572,
+    "redstone_wall_torch": 157,
+    "redstone_lamp": 49,
+    "repeater": 47,
+    "target": 9,
+    "lever": 4
+  },
+  "full_census": {
+    "redstone_wire": 572,
+    "light_blue_wool": 273,
+    "lime_wool": 240,
+    "redstone_wall_torch": 157,
+    "orange_wool": 95,
+    "redstone_lamp": 49,
+    "repeater": 47,
+    "orange_stained_glass": 36,
+    "target": 9,
+    "lever": 4,
+    "oak_wall_sign": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 838,
+      "size": [
+        45,
+        13,
+        11
+      ],
+      "levers": 4,
+      "lamps": 49,
+      "targets": 9,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.056,
+        "torch": 0.187,
+        "wire": 0.683
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 273,
+        "lime_wool": 240,
+        "orange_wool": 95
+      }
+    },
+    "notes": [
+      "4 levers \u2014 small input, around 4 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

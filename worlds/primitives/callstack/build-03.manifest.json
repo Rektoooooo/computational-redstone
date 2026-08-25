@@ -1,0 +1,73 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "Call Stack by mattbatwings",
+  "source_origin": [
+    15,
+    66,
+    -29
+  ],
+  "size": [
+    19,
+    11,
+    13
+  ],
+  "non_air_blocks": 207,
+  "redstone_components": 112,
+  "component_census": {
+    "redstone_wire": 56,
+    "repeater": 16,
+    "comparator": 12,
+    "redstone_torch": 9,
+    "redstone_wall_torch": 6,
+    "barrel": 5,
+    "target": 4,
+    "redstone_lamp": 3,
+    "lever": 1
+  },
+  "full_census": {
+    "redstone_wire": 56,
+    "blue_wool": 40,
+    "orange_wool": 30,
+    "green_wool": 25,
+    "repeater": 16,
+    "comparator": 12,
+    "redstone_torch": 9,
+    "redstone_wall_torch": 6,
+    "barrel": 5,
+    "target": 4,
+    "redstone_lamp": 3,
+    "lever": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 112,
+      "size": [
+        19,
+        11,
+        13
+      ],
+      "levers": 1,
+      "lamps": 3,
+      "targets": 4,
+      "ratios": {
+        "comparator": 0.107,
+        "repeater": 0.143,
+        "torch": 0.134,
+        "wire": 0.5
+      },
+      "stack_period": 3,
+      "palette": {
+        "blue_wool": 40,
+        "orange_wool": 30,
+        "green_wool": 25
+      }
+    },
+    "notes": [
+      "1 levers \u2014 small input, around 1 bits",
+      "repeating vertical module every 3 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

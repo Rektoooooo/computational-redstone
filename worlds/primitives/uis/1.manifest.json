@@ -1,0 +1,114 @@
+{
+  "name": "1",
+  "labels": [
+    "Q",
+    "W",
+    "E",
+    "R",
+    "T",
+    "1 !",
+    "2 @",
+    "3 #",
+    "A",
+    "4 $",
+    "S",
+    "5 %",
+    "D",
+    "6 ^",
+    "F",
+    "G",
+    "9 (",
+    "H",
+    "0 )",
+    "J",
+    "K",
+    "= +",
+    "L",
+    "BACKSPACE",
+    "ENTER",
+    "Y",
+    "U",
+    "I",
+    "O",
+    "P",
+    "MATTBATWINGS SUBSCRIBE TO",
+    "7 &",
+    "8 *",
+    "Reset",
+    "Backspace",
+    "Space",
+    "Enter"
+  ],
+  "source_world": "UIs by mattbatwings",
+  "source_origin": [
+    17,
+    61,
+    51
+  ],
+  "size": [
+    38,
+    25,
+    31
+  ],
+  "non_air_blocks": 4427,
+  "redstone_components": 2250,
+  "component_census": {
+    "redstone_wire": 1892,
+    "redstone_wall_torch": 207,
+    "repeater": 114,
+    "comparator": 22,
+    "redstone_lamp": 9,
+    "stone_button": 4,
+    "redstone_torch": 1,
+    "lever": 1
+  },
+  "full_census": {
+    "redstone_wire": 1892,
+    "light_blue_wool": 1117,
+    "lime_wool": 704,
+    "redstone_wall_torch": 207,
+    "magenta_wool": 135,
+    "repeater": 114,
+    "smooth_stone_slab": 101,
+    "black_wool": 44,
+    "oak_button": 39,
+    "oak_wall_sign": 37,
+    "comparator": 22,
+    "redstone_lamp": 9,
+    "stone_button": 4,
+    "redstone_torch": 1,
+    "lever": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 2250,
+      "size": [
+        38,
+        25,
+        31
+      ],
+      "levers": 1,
+      "lamps": 9,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.01,
+        "repeater": 0.051,
+        "torch": 0.092,
+        "wire": 0.841
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 1117,
+        "lime_wool": 704,
+        "magenta_wool": 135,
+        "black_wool": 44
+      }
+    },
+    "notes": [
+      "1 levers \u2014 small input, around 1 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

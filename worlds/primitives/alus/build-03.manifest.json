@@ -1,0 +1,65 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    20,
+    62,
+    -73
+  ],
+  "size": [
+    34,
+    19,
+    15
+  ],
+  "non_air_blocks": 1360,
+  "redstone_components": 776,
+  "component_census": {
+    "redstone_wire": 352,
+    "redstone_lamp": 144,
+    "repeater": 96,
+    "lever": 96,
+    "redstone_wall_torch": 56,
+    "comparator": 32
+  },
+  "full_census": {
+    "redstone_wire": 352,
+    "cyan_wool": 296,
+    "light_blue_wool": 288,
+    "redstone_lamp": 144,
+    "repeater": 96,
+    "lever": 96,
+    "redstone_wall_torch": 56,
+    "comparator": 32
+  },
+  "profile": {
+    "measured": {
+      "components": 776,
+      "size": [
+        34,
+        19,
+        15
+      ],
+      "levers": 96,
+      "lamps": 144,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.041,
+        "repeater": 0.124,
+        "torch": 0.072,
+        "wire": 0.454
+      },
+      "stack_period": 2,
+      "palette": {
+        "cyan_wool": 296,
+        "light_blue_wool": 288
+      }
+    },
+    "notes": [
+      "96 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "build-18",
+  "labels": [],
+  "source_world": "LRR Combinational Logic",
+  "source_origin": [
+    -24,
+    62,
+    -390
+  ],
+  "size": [
+    10,
+    10,
+    12
+  ],
+  "non_air_blocks": 98,
+  "redstone_components": 51,
+  "component_census": {
+    "redstone_wire": 39,
+    "repeater": 4,
+    "comparator": 4,
+    "redstone_lamp": 4
+  },
+  "full_census": {
+    "redstone_wire": 39,
+    "yellow_wool": 27,
+    "lime_stained_glass": 16,
+    "redstone_lamp": 4,
+    "comparator": 4,
+    "lime_wool": 4,
+    "repeater": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 51,
+      "size": [
+        10,
+        10,
+        12
+      ],
+      "levers": 0,
+      "lamps": 4,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.078,
+        "repeater": 0.078,
+        "torch": 0.0,
+        "wire": 0.765
+      },
+      "stack_period": null,
+      "palette": {
+        "yellow_wool": 27,
+        "lime_wool": 4
+      }
+    },
+    "notes": [],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

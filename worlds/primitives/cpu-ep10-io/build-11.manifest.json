@@ -1,0 +1,80 @@
+{
+  "name": "build-11",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -1019,
+    180,
+    -175
+  ],
+  "size": [
+    23,
+    13,
+    40
+  ],
+  "non_air_blocks": 2105,
+  "redstone_components": 899,
+  "component_census": {
+    "redstone_wire": 314,
+    "comparator": 300,
+    "barrel": 130,
+    "repeater": 66,
+    "redstone_lamp": 51,
+    "redstone_wall_torch": 16,
+    "lever": 10,
+    "target": 6,
+    "redstone_block": 5,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "gray_wool": 1079,
+    "redstone_wire": 314,
+    "comparator": 300,
+    "barrel": 130,
+    "black_wool": 121,
+    "repeater": 66,
+    "redstone_lamp": 51,
+    "redstone_wall_torch": 16,
+    "lever": 10,
+    "target": 6,
+    "redstone_block": 5,
+    "oak_sign": 3,
+    "oak_wall_sign": 2,
+    "gray_stained_glass": 1,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 899,
+      "size": [
+        23,
+        13,
+        40
+      ],
+      "levers": 10,
+      "lamps": 51,
+      "targets": 6,
+      "ratios": {
+        "comparator": 0.334,
+        "repeater": 0.073,
+        "torch": 0.019,
+        "wire": 0.349
+      },
+      "stack_period": null,
+      "palette": {
+        "gray_wool": 1079,
+        "black_wool": 121
+      }
+    },
+    "notes": [
+      "10 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [
+      {
+        "guess": "comparator logic (mux, cancel-tower, or CCA)",
+        "because": "comparator-dominant \u2014 cancelling is the usual mechanism"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

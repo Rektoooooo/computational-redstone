@@ -1,0 +1,63 @@
+{
+  "name": "build-04",
+  "labels": [],
+  "source_world": "CPU Episode 9",
+  "source_origin": [
+    327,
+    85,
+    -125
+  ],
+  "size": [
+    69,
+    22,
+    69
+  ],
+  "non_air_blocks": 18618,
+  "redstone_components": 9953,
+  "component_census": {
+    "redstone_wire": 6961,
+    "repeater": 1440,
+    "redstone_wall_torch": 1024,
+    "redstone_lamp": 264,
+    "redstone_torch": 256,
+    "lever": 8
+  },
+  "full_census": {
+    "redstone_wire": 6961,
+    "light_gray_stained_glass": 5120,
+    "light_gray_wool": 3545,
+    "repeater": 1440,
+    "redstone_wall_torch": 1024,
+    "redstone_lamp": 264,
+    "redstone_torch": 256,
+    "lever": 8
+  },
+  "profile": {
+    "measured": {
+      "components": 9953,
+      "size": [
+        69,
+        22,
+        69
+      ],
+      "levers": 8,
+      "lamps": 264,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.145,
+        "torch": 0.129,
+        "wire": 0.699
+      },
+      "stack_period": null,
+      "palette": {
+        "light_gray_wool": 3545
+      }
+    },
+    "notes": [
+      "8 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

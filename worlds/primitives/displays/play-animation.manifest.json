@@ -1,0 +1,77 @@
+{
+  "name": "play-animation",
+  "labels": [
+    "Play Animation"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    331,
+    61,
+    42
+  ],
+  "size": [
+    48,
+    23,
+    22
+  ],
+  "non_air_blocks": 7022,
+  "redstone_components": 3445,
+  "component_census": {
+    "redstone_wire": 1739,
+    "repeater": 909,
+    "redstone_wall_torch": 268,
+    "iron_trapdoor": 256,
+    "target": 223,
+    "redstone_torch": 48,
+    "comparator": 1,
+    "stone_button": 1
+  },
+  "full_census": {
+    "light_gray_wool": 2641,
+    "redstone_wire": 1739,
+    "repeater": 909,
+    "light_blue_stained_glass": 673,
+    "redstone_wall_torch": 268,
+    "light_blue_wool": 262,
+    "iron_trapdoor": 256,
+    "target": 223,
+    "redstone_torch": 48,
+    "oak_wall_sign": 1,
+    "stone_button": 1,
+    "comparator": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 3445,
+      "size": [
+        48,
+        23,
+        22
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 223,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.264,
+        "torch": 0.092,
+        "wire": 0.505
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 2641,
+        "light_blue_wool": 262
+      }
+    },
+    "notes": [
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

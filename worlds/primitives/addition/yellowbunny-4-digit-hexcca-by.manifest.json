@@ -1,0 +1,73 @@
+{
+  "name": "yellowbunny-4-digit-hexcca-by",
+  "labels": [
+    "YellowBunny 4-digit HexCCA by"
+  ],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -44,
+    72,
+    320
+  ],
+  "size": [
+    18,
+    22,
+    9
+  ],
+  "non_air_blocks": 578,
+  "redstone_components": 262,
+  "component_census": {
+    "redstone_wire": 110,
+    "comparator": 88,
+    "redstone_block": 22,
+    "repeater": 20,
+    "redstone_wall_torch": 13,
+    "redstone_lamp": 5,
+    "redstone_torch": 4
+  },
+  "full_census": {
+    "cyan_wool": 283,
+    "redstone_wire": 110,
+    "comparator": 88,
+    "redstone_block": 22,
+    "cyan_stained_glass": 21,
+    "repeater": 20,
+    "redstone_wall_torch": 13,
+    "redstone_lamp": 5,
+    "water_cauldron": 4,
+    "redstone_torch": 4,
+    "dropper": 4,
+    "cauldron": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 262,
+      "size": [
+        18,
+        22,
+        9
+      ],
+      "levers": 0,
+      "lamps": 5,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.336,
+        "repeater": 0.076,
+        "torch": 0.065,
+        "wire": 0.42
+      },
+      "stack_period": null,
+      "palette": {
+        "cyan_wool": 283
+      }
+    },
+    "notes": [],
+    "candidates": [
+      {
+        "guess": "comparator logic (mux, cancel-tower, or CCA)",
+        "because": "comparator-dominant \u2014 cancelling is the usual mechanism"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

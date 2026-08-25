@@ -1,0 +1,80 @@
+{
+  "name": "build-02",
+  "labels": [],
+  "source_world": "CPU Episode 9",
+  "source_origin": [
+    533,
+    85,
+    -130
+  ],
+  "size": [
+    73,
+    40,
+    74
+  ],
+  "non_air_blocks": 79991,
+  "redstone_components": 42117,
+  "component_census": {
+    "redstone_wire": 21809,
+    "repeater": 7963,
+    "barrel": 4208,
+    "comparator": 4112,
+    "redstone_wall_torch": 3202,
+    "redstone_torch": 642,
+    "target": 146,
+    "redstone_lamp": 17,
+    "lever": 17,
+    "stone_button": 1
+  },
+  "full_census": {
+    "redstone_wire": 21809,
+    "red_wool": 19392,
+    "repeater": 7963,
+    "red_stained_glass": 7334,
+    "light_gray_stained_glass": 6016,
+    "barrel": 4208,
+    "comparator": 4112,
+    "light_gray_wool": 3912,
+    "redstone_wall_torch": 3202,
+    "brown_wool": 698,
+    "redstone_torch": 642,
+    "black_wool": 520,
+    "target": 146,
+    "lever": 17,
+    "redstone_lamp": 17,
+    "brown_stained_glass": 1,
+    "stone_button": 1,
+    "oak_wall_sign": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 42117,
+      "size": [
+        73,
+        40,
+        74
+      ],
+      "levers": 17,
+      "lamps": 17,
+      "targets": 146,
+      "ratios": {
+        "comparator": 0.098,
+        "repeater": 0.189,
+        "torch": 0.091,
+        "wire": 0.518
+      },
+      "stack_period": null,
+      "palette": {
+        "red_wool": 19392,
+        "light_gray_wool": 3912,
+        "brown_wool": 698,
+        "black_wool": 520
+      }
+    },
+    "notes": [
+      "17 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

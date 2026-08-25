@@ -1,0 +1,68 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "CPU Episode 6",
+  "source_origin": [
+    -23,
+    95,
+    -195
+  ],
+  "size": [
+    18,
+    26,
+    19
+  ],
+  "non_air_blocks": 1279,
+  "redstone_components": 614,
+  "component_census": {
+    "redstone_wire": 435,
+    "repeater": 91,
+    "comparator": 53,
+    "redstone_wall_torch": 23,
+    "redstone_lamp": 10,
+    "stone_button": 1,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "yellow_wool": 561,
+    "redstone_wire": 435,
+    "repeater": 91,
+    "yellow_stained_glass": 66,
+    "comparator": 53,
+    "redstone_wall_torch": 23,
+    "black_wool": 20,
+    "black_stained_glass": 18,
+    "redstone_lamp": 10,
+    "redstone_torch": 1,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 614,
+      "size": [
+        18,
+        26,
+        19
+      ],
+      "levers": 0,
+      "lamps": 10,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.086,
+        "repeater": 0.148,
+        "torch": 0.039,
+        "wire": 0.708
+      },
+      "stack_period": 2,
+      "palette": {
+        "yellow_wool": 561,
+        "black_wool": 20
+      }
+    },
+    "notes": [
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

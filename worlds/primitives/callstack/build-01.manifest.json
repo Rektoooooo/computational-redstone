@@ -1,0 +1,82 @@
+{
+  "name": "build-01",
+  "labels": [],
+  "source_world": "Call Stack by mattbatwings",
+  "source_origin": [
+    50,
+    67,
+    -34
+  ],
+  "size": [
+    59,
+    27,
+    22
+  ],
+  "non_air_blocks": 7230,
+  "redstone_components": 3464,
+  "component_census": {
+    "redstone_wire": 1909,
+    "repeater": 1015,
+    "comparator": 311,
+    "redstone_torch": 124,
+    "redstone_wall_torch": 62,
+    "redstone_lamp": 21,
+    "lever": 11,
+    "target": 10,
+    "stone_button": 1
+  },
+  "full_census": {
+    "redstone_wire": 1909,
+    "blue_wool": 1224,
+    "repeater": 1015,
+    "orange_wool": 980,
+    "green_wool": 668,
+    "blue_stained_glass": 450,
+    "green_stained_glass": 434,
+    "comparator": 311,
+    "redstone_torch": 124,
+    "redstone_wall_torch": 62,
+    "redstone_lamp": 21,
+    "lever": 11,
+    "lime_wool": 10,
+    "target": 10,
+    "stone_button": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 3464,
+      "size": [
+        59,
+        27,
+        22
+      ],
+      "levers": 11,
+      "lamps": 21,
+      "targets": 10,
+      "ratios": {
+        "comparator": 0.09,
+        "repeater": 0.293,
+        "torch": 0.054,
+        "wire": 0.551
+      },
+      "stack_period": 2,
+      "palette": {
+        "blue_wool": 1224,
+        "orange_wool": 980,
+        "green_wool": 668,
+        "lime_wool": 10
+      }
+    },
+    "notes": [
+      "11 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

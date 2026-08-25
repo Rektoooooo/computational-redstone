@@ -1,0 +1,77 @@
+{
+  "name": "build-06",
+  "labels": [],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -45,
+    54,
+    114
+  ],
+  "size": [
+    20,
+    7,
+    23
+  ],
+  "non_air_blocks": 1044,
+  "redstone_components": 172,
+  "component_census": {
+    "redstone_wire": 102,
+    "redstone_wall_torch": 32,
+    "redstone_torch": 16,
+    "redstone_lamp": 13,
+    "lever": 9
+  },
+  "full_census": {
+    "sandstone": 750,
+    "redstone_wire": 102,
+    "orange_wool": 76,
+    "redstone_wall_torch": 32,
+    "light_blue_wool": 24,
+    "redstone_torch": 16,
+    "redstone_lamp": 13,
+    "magenta_wool": 12,
+    "lever": 9,
+    "lime_wool": 8,
+    "light_gray_wool": 1,
+    "red_wool": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 172,
+      "size": [
+        20,
+        7,
+        23
+      ],
+      "levers": 9,
+      "lamps": 13,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.0,
+        "torch": 0.279,
+        "wire": 0.593
+      },
+      "stack_period": null,
+      "palette": {
+        "orange_wool": 76,
+        "light_blue_wool": 24,
+        "magenta_wool": 12,
+        "lime_wool": 8,
+        "light_gray_wool": 1,
+        "red_wool": 1
+      }
+    },
+    "notes": [
+      "flat and wide \u2014 horizontal construction",
+      "9 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

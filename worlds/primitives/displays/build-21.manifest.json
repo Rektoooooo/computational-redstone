@@ -1,0 +1,71 @@
+{
+  "name": "build-21",
+  "labels": [],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    343,
+    64,
+    147
+  ],
+  "size": [
+    6,
+    27,
+    19
+  ],
+  "non_air_blocks": 181,
+  "redstone_components": 103,
+  "component_census": {
+    "redstone_wire": 48,
+    "repeater": 25,
+    "redstone_lamp": 24,
+    "redstone_wall_torch": 4,
+    "lever": 2
+  },
+  "full_census": {
+    "redstone_wire": 48,
+    "light_blue_stained_glass": 30,
+    "repeater": 25,
+    "redstone_lamp": 24,
+    "light_blue_wool": 20,
+    "light_gray_wool": 16,
+    "light_gray_stained_glass": 12,
+    "redstone_wall_torch": 4,
+    "lever": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 103,
+      "size": [
+        6,
+        27,
+        19
+      ],
+      "levers": 2,
+      "lamps": 24,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.243,
+        "torch": 0.039,
+        "wire": 0.466
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 20,
+        "light_gray_wool": 16
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "2 levers \u2014 small input, around 2 bits",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "shift-down",
+  "labels": [
+    "Shift Down",
+    "Shift Up",
+    "Load"
+  ],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -94,
+    59,
+    144
+  ],
+  "size": [
+    16,
+    21,
+    13
+  ],
+  "non_air_blocks": 687,
+  "redstone_components": 345,
+  "component_census": {
+    "redstone_wire": 221,
+    "repeater": 68,
+    "comparator": 25,
+    "redstone_lamp": 16,
+    "lever": 8,
+    "stone_button": 3,
+    "redstone_torch": 2,
+    "redstone_wall_torch": 2
+  },
+  "full_census": {
+    "lime_wool": 257,
+    "redstone_wire": 221,
+    "lime_stained_glass": 82,
+    "repeater": 68,
+    "comparator": 25,
+    "redstone_lamp": 16,
+    "lever": 8,
+    "stone_button": 3,
+    "oak_sign": 3,
+    "redstone_wall_torch": 2,
+    "redstone_torch": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 345,
+      "size": [
+        16,
+        21,
+        13
+      ],
+      "levers": 8,
+      "lamps": 16,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.072,
+        "repeater": 0.197,
+        "torch": 0.012,
+        "wire": 0.641
+      },
+      "stack_period": 2,
+      "palette": {
+        "lime_wool": 257
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "8 levers \u2014 likely one 8-bit input",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "build-08",
+  "labels": [],
+  "source_world": "LRR Logic Gates",
+  "source_origin": [
+    -32,
+    54,
+    -32
+  ],
+  "size": [
+    7,
+    6,
+    13
+  ],
+  "non_air_blocks": 197,
+  "redstone_components": 14,
+  "component_census": {
+    "redstone_wire": 6,
+    "redstone_lamp": 3,
+    "repeater": 2,
+    "lever": 2,
+    "redstone_wall_torch": 1
+  },
+  "full_census": {
+    "sandstone": 182,
+    "redstone_wire": 6,
+    "redstone_lamp": 3,
+    "repeater": 2,
+    "lever": 2,
+    "green_wool": 1,
+    "redstone_wall_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 14,
+      "size": [
+        7,
+        6,
+        13
+      ],
+      "levers": 2,
+      "lamps": 3,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.143,
+        "torch": 0.071,
+        "wire": 0.429
+      },
+      "stack_period": null,
+      "palette": {
+        "green_wool": 1
+      }
+    },
+    "notes": [
+      "2 levers \u2014 small input, around 2 bits"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

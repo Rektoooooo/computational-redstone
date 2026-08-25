@@ -1,0 +1,76 @@
+{
+  "name": "pulse-generator-4-tick",
+  "labels": [
+    "Pulse Generator 4-Tick",
+    "Pulse Generator 3-Tick",
+    "Pulse Generator 1-Tick",
+    "Pulse Generator 2-Tick"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    314,
+    54,
+    -105
+  ],
+  "size": [
+    18,
+    6,
+    17
+  ],
+  "non_air_blocks": 672,
+  "redstone_components": 36,
+  "component_census": {
+    "redstone_lamp": 8,
+    "repeater": 8,
+    "sticky_piston": 4,
+    "redstone_wire": 4,
+    "stone_button": 4,
+    "observer": 4,
+    "lever": 4
+  },
+  "full_census": {
+    "sandstone": 612,
+    "light_gray_wool": 16,
+    "redstone_lamp": 8,
+    "repeater": 8,
+    "oak_sign": 8,
+    "sticky_piston": 4,
+    "redstone_wire": 4,
+    "stone_button": 4,
+    "observer": 4,
+    "lever": 4
+  },
+  "profile": {
+    "measured": {
+      "components": 36,
+      "size": [
+        18,
+        6,
+        17
+      ],
+      "levers": 4,
+      "lamps": 8,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.222,
+        "torch": 0.0,
+        "wire": 0.111
+      },
+      "stack_period": null,
+      "palette": {
+        "light_gray_wool": 16
+      }
+    },
+    "notes": [
+      "4 levers \u2014 small input, around 4 bits"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

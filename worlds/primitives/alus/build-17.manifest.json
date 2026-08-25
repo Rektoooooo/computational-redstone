@@ -1,0 +1,73 @@
+{
+  "name": "build-17",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    142,
+    69,
+    -75
+  ],
+  "size": [
+    9,
+    8,
+    18
+  ],
+  "non_air_blocks": 78,
+  "redstone_components": 44,
+  "component_census": {
+    "redstone_wire": 25,
+    "redstone_wall_torch": 6,
+    "redstone_torch": 6,
+    "redstone_lamp": 4,
+    "lever": 3
+  },
+  "full_census": {
+    "redstone_wire": 25,
+    "lime_wool": 14,
+    "green_wool": 8,
+    "orange_wool": 8,
+    "redstone_wall_torch": 6,
+    "redstone_torch": 6,
+    "redstone_lamp": 4,
+    "lever": 3,
+    "light_gray_wool": 2,
+    "gray_wool": 2
+  },
+  "profile": {
+    "measured": {
+      "components": 44,
+      "size": [
+        9,
+        8,
+        18
+      ],
+      "levers": 3,
+      "lamps": 4,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.0,
+        "torch": 0.273,
+        "wire": 0.568
+      },
+      "stack_period": null,
+      "palette": {
+        "lime_wool": 14,
+        "green_wool": 8,
+        "orange_wool": 8,
+        "light_gray_wool": 2,
+        "gray_wool": 2
+      }
+    },
+    "notes": [
+      "3 levers \u2014 small input, around 3 bits"
+    ],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

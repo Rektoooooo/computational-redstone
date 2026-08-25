@@ -1,0 +1,85 @@
+{
+  "name": "read",
+  "labels": [
+    "Read",
+    "Write"
+  ],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -98,
+    61,
+    229
+  ],
+  "size": [
+    24,
+    32,
+    13
+  ],
+  "non_air_blocks": 2468,
+  "redstone_components": 1296,
+  "component_census": {
+    "redstone_wire": 664,
+    "repeater": 209,
+    "barrel": 143,
+    "comparator": 128,
+    "redstone_wall_torch": 86,
+    "redstone_lamp": 21,
+    "target": 16,
+    "redstone_torch": 16,
+    "lever": 11,
+    "stone_button": 2
+  },
+  "full_census": {
+    "purple_wool": 680,
+    "redstone_wire": 664,
+    "purple_stained_glass": 281,
+    "repeater": 209,
+    "barrel": 143,
+    "comparator": 128,
+    "light_gray_stained_glass": 103,
+    "redstone_wall_torch": 86,
+    "light_gray_wool": 51,
+    "red_wool": 32,
+    "redstone_lamp": 21,
+    "lime_wool": 18,
+    "target": 16,
+    "redstone_torch": 16,
+    "lever": 11,
+    "cyan_stained_glass": 3,
+    "oak_wall_sign": 2,
+    "stone_button": 2,
+    "red_stained_glass": 1,
+    "lime_stained_glass": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 1296,
+      "size": [
+        24,
+        32,
+        13
+      ],
+      "levers": 11,
+      "lamps": 21,
+      "targets": 16,
+      "ratios": {
+        "comparator": 0.099,
+        "repeater": 0.161,
+        "torch": 0.079,
+        "wire": 0.512
+      },
+      "stack_period": null,
+      "palette": {
+        "purple_wool": 680,
+        "light_gray_wool": 51,
+        "red_wool": 32,
+        "lime_wool": 18
+      }
+    },
+    "notes": [
+      "11 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

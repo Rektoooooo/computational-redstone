@@ -1,0 +1,80 @@
+{
+  "name": "3-ticks-8-bit-cca-by-don",
+  "labels": [
+    "2",
+    "8",
+    "32",
+    "128",
+    "64",
+    "4",
+    "16",
+    "1",
+    "3 ticks 8-bit CCA by Don",
+    "(4 ticks) COUT"
+  ],
+  "source_world": "LRR Addition",
+  "source_origin": [
+    -44,
+    69,
+    270
+  ],
+  "size": [
+    13,
+    22,
+    10
+  ],
+  "non_air_blocks": 517,
+  "redstone_components": 258,
+  "component_census": {
+    "redstone_wire": 135,
+    "comparator": 39,
+    "redstone_lamp": 25,
+    "redstone_wall_torch": 24,
+    "repeater": 17,
+    "lever": 17,
+    "redstone_block": 1
+  },
+  "full_census": {
+    "light_blue_wool": 184,
+    "redstone_wire": 135,
+    "light_blue_stained_glass": 58,
+    "comparator": 39,
+    "redstone_lamp": 25,
+    "redstone_wall_torch": 24,
+    "lever": 17,
+    "repeater": 17,
+    "oak_wall_sign": 16,
+    "redstone_block": 1,
+    "oak_sign": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 258,
+      "size": [
+        13,
+        22,
+        10
+      ],
+      "levers": 17,
+      "lamps": 25,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.151,
+        "repeater": 0.066,
+        "torch": 0.093,
+        "wire": 0.523
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_blue_wool": 184
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "17 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "labelled"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "build-03",
+  "labels": [],
+  "source_world": "Registers by mattbatwings",
+  "source_origin": [
+    19,
+    82,
+    -472
+  ],
+  "size": [
+    13,
+    26,
+    36
+  ],
+  "non_air_blocks": 3794,
+  "redstone_components": 1965,
+  "component_census": {
+    "redstone_wire": 937,
+    "repeater": 360,
+    "barrel": 248,
+    "comparator": 240,
+    "redstone_wall_torch": 120,
+    "redstone_torch": 45,
+    "stone_button": 15
+  },
+  "full_census": {
+    "redstone_wire": 937,
+    "light_blue_wool": 839,
+    "repeater": 360,
+    "orange_wool": 285,
+    "barrel": 248,
+    "comparator": 240,
+    "orange_stained_glass": 210,
+    "lime_stained_glass": 195,
+    "lime_wool": 180,
+    "light_blue_stained_glass": 120,
+    "redstone_wall_torch": 120,
+    "redstone_torch": 45,
+    "stone_button": 15
+  },
+  "profile": {
+    "measured": {
+      "components": 1965,
+      "size": [
+        13,
+        26,
+        36
+      ],
+      "levers": 0,
+      "lamps": 0,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.122,
+        "repeater": 0.183,
+        "torch": 0.084,
+        "wire": 0.477
+      },
+      "stack_period": null,
+      "palette": {
+        "light_blue_wool": 839,
+        "orange_wool": 285,
+        "lime_wool": 180
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

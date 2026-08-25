@@ -1,0 +1,86 @@
+{
+  "name": "build-17",
+  "labels": [
+    "F",
+    "E",
+    "D",
+    "C",
+    "B",
+    "A",
+    "9",
+    "8",
+    "7",
+    "6",
+    "5"
+  ],
+  "source_world": "LRR Displays",
+  "source_origin": [
+    398,
+    79,
+    12
+  ],
+  "size": [
+    36,
+    12,
+    17
+  ],
+  "non_air_blocks": 616,
+  "redstone_components": 383,
+  "component_census": {
+    "comparator": 117,
+    "barrel": 115,
+    "redstone_wire": 70,
+    "redstone_lamp": 35,
+    "redstone_wall_torch": 16,
+    "lever": 11,
+    "repeater": 10,
+    "target": 9
+  },
+  "full_census": {
+    "cyan_wool": 209,
+    "comparator": 117,
+    "barrel": 115,
+    "redstone_wire": 70,
+    "redstone_lamp": 35,
+    "redstone_wall_torch": 16,
+    "cyan_stained_glass": 12,
+    "lever": 11,
+    "oak_wall_sign": 11,
+    "repeater": 10,
+    "target": 9,
+    "water_cauldron": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 383,
+      "size": [
+        36,
+        12,
+        17
+      ],
+      "levers": 11,
+      "lamps": 35,
+      "targets": 9,
+      "ratios": {
+        "comparator": 0.305,
+        "repeater": 0.026,
+        "torch": 0.042,
+        "wire": 0.183
+      },
+      "stack_period": null,
+      "palette": {
+        "cyan_wool": 209
+      }
+    },
+    "notes": [
+      "11 levers \u2014 likely one 8-bit input"
+    ],
+    "candidates": [
+      {
+        "guess": "comparator logic (mux, cancel-tower, or CCA)",
+        "because": "comparator-dominant \u2014 cancelling is the usual mechanism"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}

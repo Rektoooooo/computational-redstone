@@ -1,0 +1,70 @@
+{
+  "name": "build-08",
+  "labels": [],
+  "source_world": "ALUs by mattbatwings",
+  "source_origin": [
+    116,
+    59,
+    -78
+  ],
+  "size": [
+    13,
+    23,
+    25
+  ],
+  "non_air_blocks": 978,
+  "redstone_components": 481,
+  "component_census": {
+    "redstone_wire": 299,
+    "repeater": 65,
+    "comparator": 57,
+    "redstone_lamp": 25,
+    "redstone_wall_torch": 17,
+    "lever": 17,
+    "redstone_torch": 1
+  },
+  "full_census": {
+    "orange_wool": 321,
+    "redstone_wire": 299,
+    "magenta_wool": 109,
+    "repeater": 65,
+    "comparator": 57,
+    "orange_stained_glass": 53,
+    "redstone_lamp": 25,
+    "lever": 17,
+    "redstone_wall_torch": 17,
+    "magenta_stained_glass": 14,
+    "redstone_torch": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 481,
+      "size": [
+        13,
+        23,
+        25
+      ],
+      "levers": 17,
+      "lamps": 25,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.119,
+        "repeater": 0.135,
+        "torch": 0.037,
+        "wire": 0.622
+      },
+      "stack_period": 2,
+      "palette": {
+        "orange_wool": 321,
+        "magenta_wool": 109
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "17 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

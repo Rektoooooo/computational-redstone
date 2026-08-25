@@ -1,0 +1,741 @@
+[
+  {
+    "name": "build-00",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      50,
+      59,
+      -226
+    ],
+    "size": [
+      40,
+      9,
+      24
+    ],
+    "non_air_blocks": 1269,
+    "redstone_components": 661,
+    "component_census": {
+      "redstone_wire": 534,
+      "redstone_wall_torch": 64,
+      "repeater": 53,
+      "redstone_lamp": 7,
+      "lever": 3
+    },
+    "full_census": {
+      "redstone_wire": 534,
+      "lime_wool": 328,
+      "red_wool": 280,
+      "redstone_wall_torch": 64,
+      "repeater": 53,
+      "redstone_lamp": 7,
+      "lever": 3
+    }
+  },
+  {
+    "name": "build-01",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      59,
+      54,
+      -162
+    ],
+    "size": [
+      17,
+      8,
+      50
+    ],
+    "non_air_blocks": 1671,
+    "redstone_components": 300,
+    "component_census": {
+      "redstone_wire": 234,
+      "redstone_wall_torch": 34,
+      "redstone_lamp": 13,
+      "repeater": 12,
+      "lever": 7
+    },
+    "full_census": {
+      "sandstone": 1248,
+      "redstone_wire": 234,
+      "red_wool": 63,
+      "lime_wool": 60,
+      "redstone_wall_torch": 34,
+      "redstone_lamp": 13,
+      "repeater": 12,
+      "lever": 7
+    }
+  },
+  {
+    "name": "build-02",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -42,
+      71,
+      -462
+    ],
+    "size": [
+      11,
+      14,
+      21
+    ],
+    "non_air_blocks": 546,
+    "redstone_components": 293,
+    "component_census": {
+      "redstone_wire": 210,
+      "redstone_wall_torch": 32,
+      "repeater": 28,
+      "redstone_torch": 15,
+      "lever": 4,
+      "redstone_lamp": 4
+    },
+    "full_census": {
+      "redstone_wire": 210,
+      "light_gray_stained_glass": 163,
+      "light_gray_wool": 89,
+      "redstone_wall_torch": 32,
+      "repeater": 28,
+      "redstone_torch": 15,
+      "lever": 4,
+      "redstone_lamp": 4,
+      "red_wool": 1
+    }
+  },
+  {
+    "name": "a-gt-b",
+    "labels": [
+      "A > B",
+      "A == B",
+      "A < B"
+    ],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -18,
+      58,
+      -45
+    ],
+    "size": [
+      15,
+      21,
+      11
+    ],
+    "non_air_blocks": 303,
+    "redstone_components": 168,
+    "component_census": {
+      "redstone_wire": 77,
+      "comparator": 24,
+      "repeater": 20,
+      "redstone_lamp": 19,
+      "lever": 16,
+      "target": 10,
+      "redstone_wall_torch": 2
+    },
+    "full_census": {
+      "cyan_wool": 101,
+      "redstone_wire": 77,
+      "cyan_stained_glass": 31,
+      "comparator": 24,
+      "repeater": 20,
+      "redstone_lamp": 19,
+      "lever": 16,
+      "target": 10,
+      "oak_sign": 3,
+      "redstone_wall_torch": 2
+    }
+  },
+  {
+    "name": "build-04",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -29,
+      72,
+      -462
+    ],
+    "size": [
+      9,
+      12,
+      21
+    ],
+    "non_air_blocks": 309,
+    "redstone_components": 147,
+    "component_census": {
+      "redstone_wire": 100,
+      "repeater": 26,
+      "comparator": 16,
+      "redstone_lamp": 4,
+      "barrel": 1
+    },
+    "full_census": {
+      "light_gray_wool": 157,
+      "redstone_wire": 100,
+      "repeater": 26,
+      "comparator": 16,
+      "redstone_lamp": 4,
+      "light_gray_stained_glass": 4,
+      "red_wool": 1,
+      "barrel": 1
+    }
+  },
+  {
+    "name": "build-05",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -21,
+      66,
+      -241
+    ],
+    "size": [
+      15,
+      14,
+      11
+    ],
+    "non_air_blocks": 268,
+    "redstone_components": 144,
+    "component_census": {
+      "redstone_wire": 108,
+      "redstone_wall_torch": 12,
+      "repeater": 8,
+      "redstone_lamp": 8,
+      "target": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "lime_wool": 124,
+      "redstone_wire": 108,
+      "redstone_wall_torch": 12,
+      "redstone_lamp": 8,
+      "repeater": 8,
+      "target": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-06",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -27,
+      68,
+      -169
+    ],
+    "size": [
+      10,
+      13,
+      17
+    ],
+    "non_air_blocks": 248,
+    "redstone_components": 126,
+    "component_census": {
+      "redstone_wire": 94,
+      "repeater": 20,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "red_wool": 114,
+      "redstone_wire": 94,
+      "repeater": 20,
+      "redstone_lamp": 8,
+      "red_stained_glass": 8,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-07",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -26,
+      66,
+      -149
+    ],
+    "size": [
+      12,
+      9,
+      16
+    ],
+    "non_air_blocks": 200,
+    "redstone_components": 116,
+    "component_census": {
+      "redstone_wire": 84,
+      "redstone_wall_torch": 20,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "red_wool": 84,
+      "redstone_wire": 84,
+      "redstone_wall_torch": 20,
+      "redstone_lamp": 8,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-08",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      0,
+      64,
+      -264
+    ],
+    "size": [
+      18,
+      8,
+      15
+    ],
+    "non_air_blocks": 216,
+    "redstone_components": 112,
+    "component_census": {
+      "redstone_wire": 84,
+      "redstone_wall_torch": 12,
+      "redstone_lamp": 8,
+      "repeater": 8
+    },
+    "full_census": {
+      "lime_wool": 104,
+      "redstone_wire": 84,
+      "redstone_wall_torch": 12,
+      "redstone_lamp": 8,
+      "repeater": 8
+    }
+  },
+  {
+    "name": "build-09",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -32,
+      65,
+      -419
+    ],
+    "size": [
+      18,
+      7,
+      8
+    ],
+    "non_air_blocks": 140,
+    "redstone_components": 98,
+    "component_census": {
+      "redstone_wire": 28,
+      "redstone_lamp": 14,
+      "repeater": 14,
+      "redstone_torch": 14,
+      "redstone_wall_torch": 14,
+      "target": 14
+    },
+    "full_census": {
+      "gray_wool": 42,
+      "redstone_wire": 28,
+      "redstone_wall_torch": 14,
+      "target": 14,
+      "repeater": 14,
+      "redstone_lamp": 14,
+      "redstone_torch": 14
+    }
+  },
+  {
+    "name": "build-10",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      2,
+      66,
+      -244
+    ],
+    "size": [
+      14,
+      12,
+      11
+    ],
+    "non_air_blocks": 172,
+    "redstone_components": 96,
+    "component_census": {
+      "redstone_wire": 64,
+      "redstone_wall_torch": 12,
+      "redstone_lamp": 8,
+      "repeater": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "redstone_wire": 64,
+      "lime_stained_glass": 40,
+      "lime_wool": 36,
+      "redstone_wall_torch": 12,
+      "repeater": 8,
+      "redstone_lamp": 8,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-11",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -2,
+      68,
+      -165
+    ],
+    "size": [
+      10,
+      12,
+      13
+    ],
+    "non_air_blocks": 172,
+    "redstone_components": 92,
+    "component_census": {
+      "redstone_wire": 64,
+      "repeater": 16,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "redstone_wire": 64,
+      "red_wool": 56,
+      "red_stained_glass": 24,
+      "repeater": 16,
+      "redstone_lamp": 8,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-12",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -23,
+      64,
+      -264
+    ],
+    "size": [
+      16,
+      8,
+      15
+    ],
+    "non_air_blocks": 171,
+    "redstone_components": 90,
+    "component_census": {
+      "redstone_wire": 64,
+      "redstone_wall_torch": 10,
+      "repeater": 7,
+      "redstone_lamp": 6,
+      "lever": 3
+    },
+    "full_census": {
+      "lime_wool": 81,
+      "redstone_wire": 64,
+      "redstone_wall_torch": 10,
+      "repeater": 7,
+      "redstone_lamp": 6,
+      "lever": 3
+    }
+  },
+  {
+    "name": "build-13",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -23,
+      63,
+      -319
+    ],
+    "size": [
+      14,
+      10,
+      14
+    ],
+    "non_air_blocks": 161,
+    "redstone_components": 89,
+    "component_census": {
+      "redstone_wire": 60,
+      "repeater": 8,
+      "redstone_lamp": 7,
+      "lever": 6,
+      "comparator": 4,
+      "redstone_wall_torch": 4
+    },
+    "full_census": {
+      "redstone_wire": 60,
+      "orange_wool": 32,
+      "lime_wool": 20,
+      "lime_stained_glass": 20,
+      "repeater": 8,
+      "redstone_lamp": 7,
+      "lever": 6,
+      "comparator": 4,
+      "redstone_wall_torch": 4
+    }
+  },
+  {
+    "name": "build-14",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -7,
+      66,
+      -149
+    ],
+    "size": [
+      15,
+      7,
+      14
+    ],
+    "non_air_blocks": 150,
+    "redstone_components": 88,
+    "component_census": {
+      "redstone_wire": 62,
+      "redstone_wall_torch": 17,
+      "redstone_lamp": 5,
+      "lever": 4
+    },
+    "full_census": {
+      "red_wool": 62,
+      "redstone_wire": 62,
+      "redstone_wall_torch": 17,
+      "redstone_lamp": 5,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-15",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -29,
+      66,
+      -429
+    ],
+    "size": [
+      10,
+      20,
+      6
+    ],
+    "non_air_blocks": 99,
+    "redstone_components": 81,
+    "component_census": {
+      "redstone_wall_torch": 31,
+      "redstone_lamp": 16,
+      "target": 16,
+      "redstone_wire": 16,
+      "comparator": 1,
+      "barrel": 1
+    },
+    "full_census": {
+      "redstone_wall_torch": 31,
+      "redstone_lamp": 16,
+      "target": 16,
+      "gray_stained_glass": 16,
+      "redstone_wire": 16,
+      "gray_wool": 2,
+      "comparator": 1,
+      "barrel": 1
+    }
+  },
+  {
+    "name": "build-16",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -21,
+      58,
+      -208
+    ],
+    "size": [
+      9,
+      12,
+      14
+    ],
+    "non_air_blocks": 133,
+    "redstone_components": 74,
+    "component_census": {
+      "redstone_wire": 48,
+      "repeater": 7,
+      "redstone_lamp": 7,
+      "redstone_wall_torch": 5,
+      "redstone_torch": 4,
+      "lever": 3
+    },
+    "full_census": {
+      "redstone_wire": 48,
+      "lime_stained_glass": 31,
+      "lime_wool": 28,
+      "redstone_lamp": 7,
+      "repeater": 7,
+      "redstone_wall_torch": 5,
+      "redstone_torch": 4,
+      "lever": 3
+    }
+  },
+  {
+    "name": "build-17",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -23,
+      60,
+      -109
+    ],
+    "size": [
+      16,
+      7,
+      12
+    ],
+    "non_air_blocks": 126,
+    "redstone_components": 73,
+    "component_census": {
+      "redstone_wire": 53,
+      "redstone_wall_torch": 9,
+      "redstone_lamp": 7,
+      "lever": 4
+    },
+    "full_census": {
+      "red_wool": 53,
+      "redstone_wire": 53,
+      "redstone_wall_torch": 9,
+      "redstone_lamp": 7,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-18",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -24,
+      62,
+      -390
+    ],
+    "size": [
+      10,
+      10,
+      12
+    ],
+    "non_air_blocks": 98,
+    "redstone_components": 51,
+    "component_census": {
+      "redstone_wire": 39,
+      "repeater": 4,
+      "comparator": 4,
+      "redstone_lamp": 4
+    },
+    "full_census": {
+      "redstone_wire": 39,
+      "yellow_wool": 27,
+      "lime_stained_glass": 16,
+      "redstone_lamp": 4,
+      "comparator": 4,
+      "lime_wool": 4,
+      "repeater": 4
+    }
+  },
+  {
+    "name": "build-19",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      13,
+      69,
+      -158
+    ],
+    "size": [
+      14,
+      6,
+      11
+    ],
+    "non_air_blocks": 78,
+    "redstone_components": 45,
+    "component_census": {
+      "redstone_wire": 23,
+      "redstone_lamp": 8,
+      "repeater": 7,
+      "lever": 4,
+      "comparator": 3
+    },
+    "full_census": {
+      "red_wool": 31,
+      "redstone_wire": 23,
+      "redstone_lamp": 8,
+      "repeater": 7,
+      "lever": 4,
+      "comparator": 3,
+      "red_stained_glass": 2
+    }
+  },
+  {
+    "name": "build-20",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -26,
+      53,
+      -368
+    ],
+    "size": [
+      12,
+      13,
+      17
+    ],
+    "non_air_blocks": 527,
+    "redstone_components": 28,
+    "component_census": {
+      "redstone_wire": 14,
+      "redstone_lamp": 5,
+      "lever": 3,
+      "comparator": 2,
+      "redstone_wall_torch": 2,
+      "redstone_torch": 1,
+      "repeater": 1
+    },
+    "full_census": {
+      "sandstone": 466,
+      "yellow_wool": 30,
+      "redstone_wire": 14,
+      "redstone_lamp": 5,
+      "black_wool": 3,
+      "lever": 3,
+      "comparator": 2,
+      "redstone_wall_torch": 2,
+      "redstone_torch": 1,
+      "repeater": 1
+    }
+  },
+  {
+    "name": "build-21",
+    "labels": [],
+    "source_world": "LRR Combinational Logic",
+    "source_origin": [
+      -26,
+      58,
+      -300
+    ],
+    "size": [
+      12,
+      8,
+      12
+    ],
+    "non_air_blocks": 46,
+    "redstone_components": 26,
+    "component_census": {
+      "redstone_wire": 13,
+      "redstone_lamp": 4,
+      "lever": 3,
+      "redstone_wall_torch": 2,
+      "comparator": 2,
+      "redstone_torch": 1,
+      "repeater": 1
+    },
+    "full_census": {
+      "orange_wool": 20,
+      "redstone_wire": 13,
+      "redstone_lamp": 4,
+      "lever": 3,
+      "comparator": 2,
+      "redstone_wall_torch": 2,
+      "redstone_torch": 1,
+      "repeater": 1
+    }
+  }
+]

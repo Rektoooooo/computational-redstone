@@ -1,0 +1,71 @@
+{
+  "name": "build-07",
+  "labels": [],
+  "source_world": "CPU Episode 7",
+  "source_origin": [
+    -75,
+    145,
+    -350
+  ],
+  "size": [
+    18,
+    24,
+    26
+  ],
+  "non_air_blocks": 1781,
+  "redstone_components": 847,
+  "component_census": {
+    "redstone_wire": 551,
+    "repeater": 127,
+    "comparator": 97,
+    "redstone_wall_torch": 25,
+    "redstone_lamp": 22,
+    "lever": 20,
+    "redstone_torch": 4,
+    "target": 1
+  },
+  "full_census": {
+    "orange_wool": 755,
+    "redstone_wire": 551,
+    "orange_stained_glass": 151,
+    "repeater": 127,
+    "comparator": 97,
+    "redstone_wall_torch": 25,
+    "redstone_lamp": 22,
+    "lever": 20,
+    "lime_stained_glass": 15,
+    "lime_wool": 9,
+    "redstone_torch": 4,
+    "oak_sign": 4,
+    "target": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 847,
+      "size": [
+        18,
+        24,
+        26
+      ],
+      "levers": 20,
+      "lamps": 22,
+      "targets": 1,
+      "ratios": {
+        "comparator": 0.115,
+        "repeater": 0.15,
+        "torch": 0.034,
+        "wire": 0.651
+      },
+      "stack_period": null,
+      "palette": {
+        "orange_wool": 755,
+        "lime_wool": 9
+      }
+    },
+    "notes": [
+      "20 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

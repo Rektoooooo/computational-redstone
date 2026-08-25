@@ -1,0 +1,72 @@
+{
+  "name": "output-2",
+  "labels": [
+    "Output",
+    "Data"
+  ],
+  "source_world": "LRR Latches_Flipflops",
+  "source_origin": [
+    379,
+    54,
+    -121
+  ],
+  "size": [
+    10,
+    5,
+    9
+  ],
+  "non_air_blocks": 197,
+  "redstone_components": 13,
+  "component_census": {
+    "repeater": 6,
+    "redstone_wire": 4,
+    "redstone_lamp": 1,
+    "redstone_wall_torch": 1,
+    "lever": 1
+  },
+  "full_census": {
+    "sandstone": 180,
+    "repeater": 6,
+    "redstone_wire": 4,
+    "oak_sign": 2,
+    "redstone_lamp": 1,
+    "blue_wool": 1,
+    "lever": 1,
+    "redstone_wall_torch": 1,
+    "light_gray_wool": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 13,
+      "size": [
+        10,
+        5,
+        9
+      ],
+      "levers": 1,
+      "lamps": 1,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.462,
+        "torch": 0.077,
+        "wire": 0.308
+      },
+      "stack_period": null,
+      "palette": {
+        "blue_wool": 1,
+        "light_gray_wool": 1
+      }
+    },
+    "notes": [
+      "1 levers \u2014 small input, around 1 bits"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

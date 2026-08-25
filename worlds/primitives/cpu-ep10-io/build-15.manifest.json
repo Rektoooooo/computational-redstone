@@ -1,0 +1,73 @@
+{
+  "name": "build-15",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -1978,
+    104,
+    -91
+  ],
+  "size": [
+    20,
+    22,
+    13
+  ],
+  "non_air_blocks": 376,
+  "redstone_components": 164,
+  "component_census": {
+    "redstone_wire": 128,
+    "repeater": 17,
+    "redstone_lamp": 8,
+    "comparator": 4,
+    "stone_button": 4,
+    "redstone_block": 3
+  },
+  "full_census": {
+    "light_gray_wool": 173,
+    "redstone_wire": 128,
+    "gray_wool": 21,
+    "repeater": 17,
+    "redstone_lamp": 8,
+    "black_wool": 5,
+    "stone_pressure_plate": 4,
+    "comparator": 4,
+    "oak_sign": 4,
+    "stone_button": 4,
+    "redstone_block": 3,
+    "white_wool": 2,
+    "red_wool": 2,
+    "light_gray_stained_glass": 1
+  },
+  "profile": {
+    "measured": {
+      "components": 164,
+      "size": [
+        20,
+        22,
+        13
+      ],
+      "levers": 0,
+      "lamps": 8,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.024,
+        "repeater": 0.104,
+        "torch": 0.0,
+        "wire": 0.78
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 173,
+        "gray_wool": 21,
+        "black_wool": 5,
+        "white_wool": 2,
+        "red_wool": 2
+      }
+    },
+    "notes": [
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [],
+    "confidence": "inferred"
+  }
+}

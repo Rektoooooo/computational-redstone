@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #ffffff;
+      --text: #0f0f0f;
+      --muted: #606060;
+      --border: #d9d9d9;
+      --accent: #cc0000;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #212121;
+        --text: #f1f1f1;
+        --muted: #aaaaaa;
+        --border: #3f3f3f;
+        --accent: #ff4444;
+      }
+    }
+
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 14px;
+      font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    h1 span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex: none;
+    }
+
+    #videoTitle {
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 2px;
+      word-break: break-word;
+    }
+    #videoChannel {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    select {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--background);
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+    .checkbox-row label {
+      margin: 0;
+      color: var(--text);
+    }
+
+    button {
+      width: 100%;
+      padding: 9px;
+      border: none;
+      border-radius: 18px;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    #status {
+      margin-top: 10px;
+      min-height: 16px;
+      color: var(--muted);
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    #status.error { color: var(--accent); }
+
+    .hidden { display: none; }
+
+    footer {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <h1><span class="dot"></span>Transcript to Markdown</h1>
+
+  <div id="videoTitle">Reading page…</div>
+  <div id="videoChannel"></div>
+
+  <div id="controls" class="hidden">
+    <label for="trackSelect">Transcript language</label>
+    <select id="trackSelect"></select>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="includeTimestamps" checked>
+      <label for="includeTimestamps">Include timestamps</label>
+    </div>
+
+    <button id="saveButton">Save as .md</button>
+  </div>
+
+  <div id="status"></div>
+
+  <footer>Saves to Downloads / YouTube Transcripts. Shortcut: Alt+Shift+Y</footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

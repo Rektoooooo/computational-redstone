@@ -1,0 +1,720 @@
+[
+  {
+    "name": "build-00",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      18,
+      73,
+      -615
+    ],
+    "size": [
+      23,
+      35,
+      41
+    ],
+    "non_air_blocks": 9388,
+    "redstone_components": 4906,
+    "component_census": {
+      "redstone_wire": 2591,
+      "repeater": 883,
+      "barrel": 510,
+      "comparator": 493,
+      "redstone_wall_torch": 337,
+      "redstone_lamp": 37,
+      "redstone_torch": 33,
+      "lever": 21,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 2591,
+      "light_blue_wool": 1608,
+      "repeater": 883,
+      "orange_stained_glass": 866,
+      "orange_wool": 818,
+      "lime_stained_glass": 618,
+      "barrel": 510,
+      "comparator": 493,
+      "lime_wool": 355,
+      "redstone_wall_torch": 337,
+      "light_blue_stained_glass": 176,
+      "redstone_lamp": 37,
+      "redstone_torch": 33,
+      "red_wool": 31,
+      "lever": 21,
+      "red_stained_glass": 10,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-01",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      18,
+      75,
+      -566
+    ],
+    "size": [
+      23,
+      33,
+      40
+    ],
+    "non_air_blocks": 9304,
+    "redstone_components": 4863,
+    "component_census": {
+      "redstone_wire": 2569,
+      "repeater": 875,
+      "barrel": 510,
+      "comparator": 485,
+      "redstone_wall_torch": 337,
+      "redstone_lamp": 36,
+      "redstone_torch": 30,
+      "lever": 20,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 2569,
+      "light_blue_wool": 1608,
+      "repeater": 875,
+      "orange_stained_glass": 866,
+      "orange_wool": 818,
+      "lime_stained_glass": 618,
+      "barrel": 510,
+      "comparator": 485,
+      "lime_wool": 355,
+      "redstone_wall_torch": 337,
+      "light_blue_stained_glass": 176,
+      "redstone_lamp": 36,
+      "redstone_torch": 30,
+      "lever": 20,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-02",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      18,
+      75,
+      -518
+    ],
+    "size": [
+      16,
+      33,
+      40
+    ],
+    "non_air_blocks": 5233,
+    "redstone_components": 2736,
+    "component_census": {
+      "redstone_wire": 1535,
+      "repeater": 460,
+      "barrel": 255,
+      "comparator": 245,
+      "redstone_wall_torch": 185,
+      "redstone_lamp": 24,
+      "lever": 16,
+      "redstone_torch": 15,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 1535,
+      "light_blue_wool": 895,
+      "repeater": 460,
+      "orange_stained_glass": 433,
+      "orange_wool": 409,
+      "lime_stained_glass": 393,
+      "barrel": 255,
+      "lime_wool": 246,
+      "comparator": 245,
+      "redstone_wall_torch": 185,
+      "light_blue_stained_glass": 121,
+      "redstone_lamp": 24,
+      "lever": 16,
+      "redstone_torch": 15,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-03",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      19,
+      82,
+      -472
+    ],
+    "size": [
+      13,
+      26,
+      36
+    ],
+    "non_air_blocks": 3794,
+    "redstone_components": 1965,
+    "component_census": {
+      "redstone_wire": 937,
+      "repeater": 360,
+      "barrel": 248,
+      "comparator": 240,
+      "redstone_wall_torch": 120,
+      "redstone_torch": 45,
+      "stone_button": 15
+    },
+    "full_census": {
+      "redstone_wire": 937,
+      "light_blue_wool": 839,
+      "repeater": 360,
+      "orange_wool": 285,
+      "barrel": 248,
+      "comparator": 240,
+      "orange_stained_glass": 210,
+      "lime_stained_glass": 195,
+      "lime_wool": 180,
+      "light_blue_stained_glass": 120,
+      "redstone_wall_torch": 120,
+      "redstone_torch": 45,
+      "stone_button": 15
+    }
+  },
+  {
+    "name": "build-04",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      16,
+      79,
+      -334
+    ],
+    "size": [
+      30,
+      27,
+      29
+    ],
+    "non_air_blocks": 2580,
+    "redstone_components": 1314,
+    "component_census": {
+      "redstone_wire": 990,
+      "repeater": 197,
+      "comparator": 51,
+      "redstone_lamp": 30,
+      "redstone_wall_torch": 16,
+      "redstone_torch": 15,
+      "lever": 14,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 990,
+      "light_blue_wool": 848,
+      "repeater": 197,
+      "orange_wool": 151,
+      "orange_stained_glass": 118,
+      "lime_wool": 68,
+      "lime_stained_glass": 57,
+      "comparator": 51,
+      "redstone_lamp": 30,
+      "light_blue_stained_glass": 24,
+      "redstone_wall_torch": 16,
+      "redstone_torch": 15,
+      "lever": 14,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-05",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      23,
+      82,
+      -414
+    ],
+    "size": [
+      9,
+      24,
+      35
+    ],
+    "non_air_blocks": 2100,
+    "redstone_components": 1238,
+    "component_census": {
+      "redstone_wire": 457,
+      "repeater": 368,
+      "barrel": 128,
+      "comparator": 120,
+      "redstone_lamp": 120,
+      "redstone_torch": 30,
+      "stone_button": 15
+    },
+    "full_census": {
+      "redstone_wire": 457,
+      "light_blue_wool": 423,
+      "repeater": 368,
+      "lime_stained_glass": 195,
+      "lime_wool": 180,
+      "barrel": 128,
+      "redstone_lamp": 120,
+      "comparator": 120,
+      "light_blue_stained_glass": 64,
+      "redstone_torch": 30,
+      "stone_button": 15
+    }
+  },
+  {
+    "name": "build-06",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      23,
+      79,
+      -361
+    ],
+    "size": [
+      23,
+      27,
+      19
+    ],
+    "non_air_blocks": 2084,
+    "redstone_components": 1070,
+    "component_census": {
+      "redstone_wire": 763,
+      "repeater": 177,
+      "comparator": 51,
+      "redstone_lamp": 30,
+      "redstone_torch": 21,
+      "lever": 14,
+      "redstone_wall_torch": 13,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 763,
+      "light_blue_wool": 576,
+      "repeater": 177,
+      "orange_wool": 114,
+      "lime_wool": 113,
+      "orange_stained_glass": 112,
+      "lime_stained_glass": 99,
+      "comparator": 51,
+      "redstone_lamp": 30,
+      "redstone_torch": 21,
+      "lever": 14,
+      "redstone_wall_torch": 13,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-07",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      23,
+      79,
+      -297
+    ],
+    "size": [
+      23,
+      27,
+      18
+    ],
+    "non_air_blocks": 1172,
+    "redstone_components": 606,
+    "component_census": {
+      "redstone_wire": 430,
+      "repeater": 95,
+      "comparator": 27,
+      "redstone_lamp": 20,
+      "redstone_torch": 12,
+      "lever": 12,
+      "redstone_wall_torch": 9,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 430,
+      "light_blue_wool": 328,
+      "repeater": 95,
+      "lime_wool": 68,
+      "orange_wool": 57,
+      "lime_stained_glass": 57,
+      "orange_stained_glass": 56,
+      "comparator": 27,
+      "redstone_lamp": 20,
+      "lever": 12,
+      "redstone_torch": 12,
+      "redstone_wall_torch": 9,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-08",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      27,
+      79,
+      -203
+    ],
+    "size": [
+      14,
+      27,
+      22
+    ],
+    "non_air_blocks": 830,
+    "redstone_components": 443,
+    "component_census": {
+      "redstone_wire": 302,
+      "repeater": 76,
+      "redstone_lamp": 42,
+      "lever": 10,
+      "redstone_torch": 8,
+      "redstone_wall_torch": 4,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 302,
+      "light_blue_wool": 240,
+      "repeater": 76,
+      "lime_stained_glass": 76,
+      "lime_wool": 70,
+      "redstone_lamp": 42,
+      "lever": 10,
+      "redstone_torch": 8,
+      "redstone_wall_torch": 4,
+      "white_wool": 1,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-09",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      27,
+      84,
+      -156
+    ],
+    "size": [
+      11,
+      22,
+      22
+    ],
+    "non_air_blocks": 768,
+    "redstone_components": 408,
+    "component_census": {
+      "redstone_wire": 272,
+      "repeater": 76,
+      "redstone_lamp": 40,
+      "lever": 8,
+      "redstone_torch": 4,
+      "comparator": 4,
+      "stone_button": 4
+    },
+    "full_census": {
+      "redstone_wire": 272,
+      "light_blue_wool": 240,
+      "repeater": 76,
+      "lime_wool": 64,
+      "lime_stained_glass": 56,
+      "redstone_lamp": 40,
+      "lever": 8,
+      "redstone_torch": 4,
+      "comparator": 4,
+      "stone_button": 4
+    }
+  },
+  {
+    "name": "build-10",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      27,
+      79,
+      -271
+    ],
+    "size": [
+      19,
+      27,
+      18
+    ],
+    "non_air_blocks": 650,
+    "redstone_components": 349,
+    "component_census": {
+      "redstone_wire": 229,
+      "repeater": 61,
+      "redstone_lamp": 34,
+      "lever": 10,
+      "redstone_torch": 6,
+      "redstone_wall_torch": 5,
+      "comparator": 3,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 229,
+      "light_blue_wool": 176,
+      "lime_wool": 68,
+      "repeater": 61,
+      "lime_stained_glass": 57,
+      "redstone_lamp": 34,
+      "lever": 10,
+      "redstone_torch": 6,
+      "redstone_wall_torch": 5,
+      "comparator": 3,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-11",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      19,
+      85,
+      -433
+    ],
+    "size": [
+      12,
+      23,
+      8
+    ],
+    "non_air_blocks": 131,
+    "redstone_components": 74,
+    "component_census": {
+      "redstone_lamp": 16,
+      "redstone_wire": 16,
+      "lever": 9,
+      "barrel": 8,
+      "comparator": 8,
+      "repeater": 8,
+      "redstone_wall_torch": 8,
+      "redstone_torch": 1
+    },
+    "full_census": {
+      "light_blue_wool": 24,
+      "orange_wool": 19,
+      "redstone_lamp": 16,
+      "redstone_wire": 16,
+      "orange_stained_glass": 14,
+      "lever": 9,
+      "redstone_wall_torch": 8,
+      "barrel": 8,
+      "comparator": 8,
+      "repeater": 8,
+      "redstone_torch": 1
+    }
+  },
+  {
+    "name": "build-12",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      23,
+      86,
+      -376
+    ],
+    "size": [
+      9,
+      20,
+      7
+    ],
+    "non_air_blocks": 127,
+    "redstone_components": 72,
+    "component_census": {
+      "repeater": 24,
+      "redstone_wire": 23,
+      "barrel": 8,
+      "comparator": 8,
+      "redstone_lamp": 8,
+      "lever": 1
+    },
+    "full_census": {
+      "light_blue_wool": 32,
+      "repeater": 24,
+      "redstone_wire": 23,
+      "lime_stained_glass": 13,
+      "lime_wool": 10,
+      "redstone_lamp": 8,
+      "comparator": 8,
+      "barrel": 8,
+      "lever": 1
+    }
+  },
+  {
+    "name": "build-13",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      30,
+      79,
+      -226
+    ],
+    "size": [
+      15,
+      8,
+      20
+    ],
+    "non_air_blocks": 130,
+    "redstone_components": 69,
+    "component_census": {
+      "redstone_wire": 49,
+      "repeater": 7,
+      "redstone_wall_torch": 5,
+      "comparator": 3,
+      "redstone_lamp": 2,
+      "lever": 2,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 49,
+      "lime_wool": 38,
+      "lime_stained_glass": 23,
+      "repeater": 7,
+      "redstone_wall_torch": 5,
+      "comparator": 3,
+      "redstone_lamp": 2,
+      "lever": 2,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-14",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      28,
+      84,
+      -131
+    ],
+    "size": [
+      8,
+      22,
+      10
+    ],
+    "non_air_blocks": 100,
+    "redstone_components": 62,
+    "component_census": {
+      "redstone_wire": 18,
+      "repeater": 17,
+      "redstone_lamp": 16,
+      "lever": 8,
+      "stone_button": 1,
+      "comparator": 1,
+      "redstone_torch": 1
+    },
+    "full_census": {
+      "redstone_wire": 18,
+      "repeater": 17,
+      "redstone_lamp": 16,
+      "lime_wool": 16,
+      "lime_stained_glass": 14,
+      "light_blue_wool": 8,
+      "lever": 8,
+      "comparator": 1,
+      "stone_button": 1,
+      "redstone_torch": 1
+    }
+  },
+  {
+    "name": "build-15",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      30,
+      79,
+      -245
+    ],
+    "size": [
+      16,
+      8,
+      16
+    ],
+    "non_air_blocks": 100,
+    "redstone_components": 54,
+    "component_census": {
+      "redstone_wire": 36,
+      "redstone_wall_torch": 5,
+      "repeater": 5,
+      "comparator": 3,
+      "lever": 2,
+      "redstone_lamp": 2,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 36,
+      "lime_wool": 31,
+      "lime_stained_glass": 15,
+      "redstone_wall_torch": 5,
+      "repeater": 5,
+      "comparator": 3,
+      "redstone_lamp": 2,
+      "lever": 2,
+      "stone_button": 1
+    }
+  },
+  {
+    "name": "build-16",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      30,
+      79,
+      -178
+    ],
+    "size": [
+      8,
+      8,
+      19
+    ],
+    "non_air_blocks": 100,
+    "redstone_components": 54,
+    "component_census": {
+      "redstone_wire": 42,
+      "redstone_wall_torch": 4,
+      "repeater": 4,
+      "redstone_lamp": 2,
+      "lever": 2
+    },
+    "full_census": {
+      "redstone_wire": 42,
+      "lime_wool": 26,
+      "lime_stained_glass": 20,
+      "redstone_wall_torch": 4,
+      "repeater": 4,
+      "redstone_lamp": 2,
+      "lever": 2
+    }
+  },
+  {
+    "name": "build-17",
+    "labels": [],
+    "source_world": "Registers by mattbatwings",
+    "source_origin": [
+      27,
+      86,
+      -118
+    ],
+    "size": [
+      7,
+      9,
+      22
+    ],
+    "non_air_blocks": 78,
+    "redstone_components": 43,
+    "component_census": {
+      "redstone_wire": 24,
+      "repeater": 9,
+      "redstone_wall_torch": 4,
+      "redstone_lamp": 4,
+      "comparator": 1,
+      "stone_button": 1
+    },
+    "full_census": {
+      "redstone_wire": 24,
+      "lime_wool": 18,
+      "lime_stained_glass": 9,
+      "repeater": 9,
+      "light_blue_wool": 8,
+      "redstone_lamp": 4,
+      "redstone_wall_torch": 4,
+      "comparator": 1,
+      "stone_button": 1
+    }
+  }
+]

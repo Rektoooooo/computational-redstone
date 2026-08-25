@@ -1,0 +1,81 @@
+{
+  "name": "load",
+  "labels": [
+    "Load",
+    "Read",
+    "Count"
+  ],
+  "source_world": "LRR Sequential Blocks",
+  "source_origin": [
+    -90,
+    54,
+    -59
+  ],
+  "size": [
+    11,
+    27,
+    52
+  ],
+  "non_air_blocks": 1440,
+  "redstone_components": 255,
+  "component_census": {
+    "redstone_wire": 115,
+    "repeater": 59,
+    "redstone_lamp": 36,
+    "lever": 16,
+    "comparator": 15,
+    "redstone_wall_torch": 7,
+    "stone_button": 4,
+    "redstone_torch": 3
+  },
+  "full_census": {
+    "sandstone": 1040,
+    "redstone_wire": 115,
+    "light_blue_wool": 89,
+    "repeater": 59,
+    "light_blue_stained_glass": 39,
+    "redstone_lamp": 36,
+    "lever": 16,
+    "comparator": 15,
+    "cyan_wool": 13,
+    "redstone_wall_torch": 7,
+    "stone_button": 4,
+    "oak_sign": 4,
+    "redstone_torch": 3
+  },
+  "profile": {
+    "measured": {
+      "components": 255,
+      "size": [
+        11,
+        27,
+        52
+      ],
+      "levers": 16,
+      "lamps": 36,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.059,
+        "repeater": 0.231,
+        "torch": 0.039,
+        "wire": 0.451
+      },
+      "stack_period": null,
+      "palette": {
+        "light_blue_wool": 89,
+        "cyan_wool": 13
+      }
+    },
+    "notes": [
+      "tall and narrow \u2014 vertical, bit-per-layer construction",
+      "16 levers \u2014 likely two 8-bit inputs"
+    ],
+    "candidates": [
+      {
+        "guess": "register / counter / shift register",
+        "because": "repeater-dominant \u2014 repeater locks are the memory primitive"
+      }
+    ],
+    "confidence": "labelled"
+  }
+}

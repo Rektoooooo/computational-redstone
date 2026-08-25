@@ -1,0 +1,68 @@
+{
+  "name": "build-12",
+  "labels": [],
+  "source_world": "CPU Episode 10",
+  "source_origin": [
+    -2258,
+    91,
+    -77
+  ],
+  "size": [
+    20,
+    20,
+    13
+  ],
+  "non_air_blocks": 1536,
+  "redstone_components": 832,
+  "component_census": {
+    "redstone_wall_torch": 256,
+    "redstone_lamp": 256,
+    "redstone_wire": 128,
+    "repeater": 128,
+    "lever": 64
+  },
+  "full_census": {
+    "light_gray_wool": 640,
+    "redstone_wall_torch": 256,
+    "redstone_lamp": 256,
+    "redstone_wire": 128,
+    "repeater": 128,
+    "black_wool": 64,
+    "lever": 64
+  },
+  "profile": {
+    "measured": {
+      "components": 832,
+      "size": [
+        20,
+        20,
+        13
+      ],
+      "levers": 64,
+      "lamps": 256,
+      "targets": 0,
+      "ratios": {
+        "comparator": 0.0,
+        "repeater": 0.154,
+        "torch": 0.308,
+        "wire": 0.154
+      },
+      "stack_period": 2,
+      "palette": {
+        "light_gray_wool": 640,
+        "black_wool": 64
+      }
+    },
+    "notes": [
+      "64 levers \u2014 likely two 8-bit inputs",
+      "repeating vertical module every 2 blocks \u2014 stacked per-bit design"
+    ],
+    "candidates": [
+      {
+        "guess": "decoder / encoder",
+        "because": "torch-dominant with no comparators \u2014 matches 'torches on 1s, repeaters on 0s, OR into a torch'"
+      }
+    ],
+    "confidence": "inferred"
+  }
+}
