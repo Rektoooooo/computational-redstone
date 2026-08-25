@@ -2,6 +2,56 @@
 
 Corrections worth not repeating. Newest first.
 
+## Two lines in one plane cannot cross, and a router will not tell you that
+
+**Cost most of a session.** The signal-strength adder is seven comparators. Placing them
+took perhaps thirty attempts, and every failure had the same shape: a line laid early
+took the shortest route straight across the middle, and the lines laid after it found
+the board cut in half.
+
+A breadth-first router makes this *worse*, not better. It finds the shortest path, which
+is exactly the path most likely to be a wall. Reserving corridors in advance does not
+fix it either — a three-wide reserved corridor is itself a wall, and a one-wide one is
+useless because the next line can park against it and poison the cells either side.
+
+**What actually worked:** stop searching and write the topology down. Order the lines so
+they cannot cross:
+
+- every input line turns off its lane at its own column, and a column crosses every lane
+  south of its own — so the northernmost line must turn **last**
+- the last stage of each stream ends at the same place, so put the merge where both can
+  reach it from opposite sides rather than in the middle of the board
+
+**How to apply:** for a planar build, decide the crossing order before the coordinates.
+If two lines genuinely have to cross, one of them has to leave the plane — a boolean can
+go up two levels and back down for free, an analog value cannot, and that difference
+decides which one moves.
+
+## An analog value is not a signal, it is a distance
+
+Redstone dust loses one level per block, so **where a wire goes changes what it says**.
+An extra cell is not a longer wire, it is a different number.
+
+Three consequences, all of which cost time before they were understood:
+
+- a **comparator** relays a value losslessly and a **repeater** destroys it, flattening
+  everything to 15. The two kinds of line need different code, and mixing them up is
+  silent.
+- a chain of comparators alternates comparator, dust, comparator, dust, and a comparator
+  cannot turn — so a value can only reach cells an **even** distance away in both axes.
+  Space is divided into four classes and no route moves a value between them. A design
+  that needs an odd offset is not a longer route, it is an impossible one.
+- a stray dust cell or redstone block beside a comparator feeds its side input and
+  changes the arithmetic, while looking completely normal in the schematic. The redstone
+  block a gadget puts behind itself is placed *last*, so it never collides with
+  anything — it just quietly powers whatever was routed alongside it.
+
+**How to apply:** `interference()` and `stray_dust()` in `pipeline/analog.py` look for
+exactly these. Run them before believing any sweep, and give every gadget's rear block
+its own clearance rather than trusting that nothing was routed there.
+
+Corrections worth not repeating. Newest first.
+
 ## Give the user a way to tell two builds apart in world
 
 **Cost an entire test round.** M3's staggered and aligned builds differ by five block
