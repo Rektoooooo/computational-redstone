@@ -68,7 +68,7 @@ cd worlds && unzip '*.zip'          # restore the worlds from the committed arch
 | `worlds/portmap.py` | derive I/O port maps — levers/buttons are inputs, lamps/trapdoors outputs |
 | `worlds/sim/` | **redstone simulator** — solves circuits without Minecraft; `python -m sim.oracle primitives` |
 | `worlds/containers.py` | recover container fill levels from source worlds into manifests |
-| `worlds/signs.py` | recover sign text **and position** — this is what gives real bit ordering |
+| `worlds/signs.py` | recover sign text **and position**, and write it back into the `.litematic` so pasted signs read |
 | `worlds/render_png.py` | render a build as layer-by-layer plates using **real Minecraft textures** |
 | `worlds/render.py` | the earlier SVG renderer (vector, but slow to display at scale) |
 | `worlds/fetch.sh [core\|rest]` | open the source world downloads in your browser |
@@ -110,11 +110,13 @@ useful; it is not used for labelling.
 
 - **152 of 195 builds are unlabelled.** The 18 ALU builds — the most valuable for CPU
   work — have **zero** signs and need identifying in-game.
-- **Bit ordering is now measured wherever the author labelled a port.** `signs.py`
-  recovers sign text *and position* from the source worlds, so the `[1][2][4]…[128]`
-  labels give the real ordering instead of `portmap.py` having to guess "ascending y".
-  95 signs recovered so far — only for worlds that have been unzipped. Where a port has
-  no signs, the ordering is still inferred, so check before wiring.
+- **Bit ordering is now measured wherever the author labelled a port**, and pasted
+  signs read again. `signs.py` recovers sign text *and position* from the source
+  worlds and embeds it back into the `.litematic` as block entities, so the
+  `[1][2][4]…[128]` labels give the real ordering instead of `portmap.py` guessing
+  "ascending y", and they are legible in game instead of pasting blank. 95 recovered,
+  86 embedded — **only for worlds that have been unzipped**, so most builds still have
+  neither. Where a port has no signs, ordering is still inferred; check before wiring.
 - **Only two circuits have been checked in the real game**, not whole builds. Both
   passed exactly — see [`verify/`](verify/) — and one of them confirmed the asymmetric
   dust-stepping rule that the largest simulator correction rests on. Block-level
