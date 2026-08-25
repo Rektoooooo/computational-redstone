@@ -13,6 +13,7 @@ rather than a saved snapshot — an item open since session 2.
 | `alus/build-17` | 3-input XOR, **not** the AND its label claimed | ✅ label corrected |
 | `addition/3-ticks-8-bit-cca-by-don` | 37 + 155 = 192 | ✅ identical |
 | `comparator` | 8, 8, 0 — reads through stone, not through glass | ✅ identical |
+| `alus/build-16` | 4-bit ripple-carry adder, **not** four independent gates | ✅ label corrected |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator

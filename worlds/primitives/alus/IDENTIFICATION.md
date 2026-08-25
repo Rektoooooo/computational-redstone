@@ -132,6 +132,13 @@ Driven over every combination of A (0–15), B (0–15) and carry-in: **512/512 
 > pair *and every higher-numbered one*, which is a carry chain. A visual read cannot
 > see that, because the carry is the one wire that makes four gates into an adder.
 > Driving it takes seconds and settles it outright.
+>
+> **Confirmed in game.** Both levers on at each of the two LEFT stations - A=12, B=12,
+> so 12+12=24, which in four bits is 8: only the leftmost lamp. That observation
+> refutes the old reading by itself. Those two stations have *identical* local inputs,
+> both levers on, so four independent gates would have to give identical outputs. One
+> is lit and the other dark, and the only thing separating them is the carry arriving
+> from the right: bit 2 is `1 XOR 1 XOR 0` = 0, bit 3 is `1 XOR 1 XOR 1` = 1.
 
 ---
 
