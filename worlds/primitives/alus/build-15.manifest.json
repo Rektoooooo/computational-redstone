@@ -78,5 +78,12 @@
     "outputs": 14,
     "ports": [],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "identification": {
+    "reading": "4-bit RCA-based ALU, one stage of successive modification",
+    "confidence": "medium",
+    "evidence": "flat (10-12 tall) vs CCA's 20+, torch-dominant, 4 repeating units, sizes climb 280-638",
+    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "see": "IDENTIFICATION.md"
   }
 }

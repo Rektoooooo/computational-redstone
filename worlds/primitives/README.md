@@ -72,10 +72,19 @@ signs read `Smiley | Sad | Surprised` — straight out of LRR #9.
 ## Two worlds worth special mention
 
 **`alus/` has zero signs.** Eighteen builds, none labelled — and it is the most
-valuable world for CPU work. LMRC #2 says it should contain the brute-force ALU, the
-modified ripple-carry ALU and the modified CCA ALU, plus six bitwise gate stacks and
-a control ROM. Matching those to the 18 builds is guesswork the classifier is not
-good enough to do. Best resolved by opening the world in Minecraft and looking.
+valuable world for CPU work.
+
+All 18 have now been **identified visually** by rendering each build and reading its
+structure against LMRC #2. Three are high confidence: `build-03` is the six bitwise
+gates at 8 bits each (six columns × eight layers = 48 two-input units, matching its 96
+levers and 144 lamps), `build-00` is the brute-force ALU (full-width distribution rails
+into ~8 parallel units, 474 repeaters of cancel tower), and `build-17` is a single AND
+gate. The rest group into RCA-based ALU stages, plain carry-cancel adders, CCA-based
+ALUs, and two ALUs carrying an operation-selector port.
+
+See [`alus/IDENTIFICATION.md`](alus/IDENTIFICATION.md). **These are inferences, not
+signs** — each carries its confidence and evidence, and ten minutes in-game would
+settle them properly.
 
 **`cpu/` is empty, deliberately.** *Computer v2* clusters as one build of
 227×136×183 = 5.6M blocks, because the whole machine is electrically connected.

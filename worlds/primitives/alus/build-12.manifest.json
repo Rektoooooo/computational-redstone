@@ -620,5 +620,12 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "identification": {
+    "reading": "8-bit carry-cancel adder",
+    "confidence": "medium",
+    "evidence": "18 layers on a strict 2-block period = one module per bit; glass + 41 comparators",
+    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "see": "IDENTIFICATION.md"
   }
 }

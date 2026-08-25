@@ -115,5 +115,12 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "identification": {
+    "reading": "single AND gate",
+    "confidence": "high",
+    "evidence": "two levers, torch per input, dust merge, final torch - the De Morgan construction",
+    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "see": "IDENTIFICATION.md"
   }
 }
