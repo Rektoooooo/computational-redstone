@@ -117,6 +117,22 @@ first pass missed entirely.
 If a world returns implausibly few builds, lower the threshold before concluding it
 is sparse.
 
+## Renders
+
+Every build under ~400k cells has a `.svg` beside it — one top-down grid per layer.
+Redstone dust is drawn as a **wire**, not a tile: a centre node with one arm per
+connection, and **amber arms with a chevron where the wire climbs to the layer above**.
+
+That last part matters more than it sounds. Dust carries 13 distinct connection shapes
+and an earlier version drew all of them as the same red square, which meant vertical
+connections — the entire mechanism of a glass tower — were invisible. With the arms
+drawn, 99 of the builds show their vertical wire runs and a circuit can actually be
+followed.
+
+```bash
+../.venv/bin/python ../render.py --dir primitives/alus
+```
+
 ## Still to do
 
 - **Identify the unlabelled builds** — 152 of them. Best done in-game, not by heuristic.

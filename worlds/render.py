@@ -41,6 +41,55 @@ STYLE = {
 ARROW = {"north": "↑", "south": "↓", "east": "→", "west": "←"}
 
 
+DUST = "#c1121f"        # flat connection
+DUST_UP = "#ffb703"     # connection climbing to the layer above - the one a flat
+                        # top-down view would otherwise lose completely
+DUST_DOT = "#e5383b"    # centre node
+
+# Minecraft compass -> screen offset. Render maps x to screen-x and z to screen-y,
+# so north (-Z) is up the page and east (+X) is to the right.
+DIRS = {"north": (0, -1), "south": (0, 1), "east": (1, 0), "west": (-1, 0)}
+
+
+def dust_glyph(cx, cy, block):
+    """
+    Draw redstone dust as an actual wire.
+
+    Each of north/east/south/west is one of none / side / up. A 'side' arm reaches the
+    cell edge; an 'up' arm is drawn in amber and capped with a chevron, because that is
+    the wire climbing to the next layer - the single most important thing a stack of
+    flat slices otherwise cannot show.
+    """
+    m = CELL / 2
+    parts = [f'<rect x="{cx}" y="{cy}" width="{CELL-1}" height="{CELL-1}" fill="#241016"/>']
+    arms = 0
+    for name, (dx, dz) in DIRS.items():
+        try:
+            v = block[name]
+        except Exception:
+            v = "none"
+        if v == "none":
+            continue
+        arms += 1
+        up = (v == "up")
+        col = DUST_UP if up else DUST
+        x2, y2 = cx + m + dx * m, cy + m + dz * m
+        parts.append(f'<line x1="{cx+m}" y1="{cy+m}" x2="{x2}" y2="{y2}" '
+                     f'stroke="{col}" stroke-width="{3.2 if up else 2.6}" stroke-linecap="round"/>')
+        if up:
+            # chevron at the edge, pointing the way the wire climbs
+            px, py = -dz, dx          # perpendicular
+            t = 2.6
+            ax, ay = cx + m + dx * (m - 1.5), cy + m + dz * (m - 1.5)
+            parts.append(f'<polygon points="{x2},{y2} {ax+px*t},{ay+py*t} '
+                         f'{ax-px*t},{ay-py*t}" fill="{DUST_UP}"/>')
+    # centre node: bigger when nothing connects, so a lone dot still reads
+    r = 2.9 if arms else 3.4
+    parts.append(f'<rect x="{cx+m-r}" y="{cy+m-r}" width="{r*2}" height="{r*2}" '
+                 f'rx="1" fill="{DUST_DOT}"/>')
+    return "".join(parts)
+
+
 def style_for(bid, props):
     b = bid.replace("minecraft:", "")
     if b in STYLE:
@@ -102,6 +151,15 @@ def render(path, out=None):
                 if colour is None:
                     continue
                 cx, cy = ox + x * CELL, oy + z * CELL
+
+                # Dust is drawn as a wire, not a tile: a centre node plus one arm per
+                # connection. Without this a top-down slice loses the whole topology -
+                # every one of the 13 possible shapes looked like the same red square,
+                # and vertical ("up") connections were invisible entirely.
+                if b.id.endswith("redstone_wire"):
+                    p.append(dust_glyph(cx, cy, b))
+                    continue
+
                 p.append(f'<rect x="{cx}" y="{cy}" width="{CELL-1}" height="{CELL-1}" '
                          f'fill="{colour}" opacity="0.92"/>')
                 mark = glyph
@@ -117,8 +175,9 @@ def render(path, out=None):
     # legend
     lx = GAP
     p.append(f'<text x="{lx}" y="{sh - 8}" fill="#8b98a5" font-size="9">'
-             f'R repeater · C comparator · T/t torch · L lamp · v lever · '
-             f'x target · arrows = facing · red = dust · pale blue = glass</text>')
+             f'dust: red arms = flat connection · AMBER arms + chevron = wire climbs to '
+             f'the layer above · R repeater · C comparator · T/t torch · L lamp · v lever · '
+             f'x target · arrows on R/C/t = facing · pale blue = glass</text>')
     p.append("</svg>")
 
     out = out or path.replace(".litematic", ".svg")
