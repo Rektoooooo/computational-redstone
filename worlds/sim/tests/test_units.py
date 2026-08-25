@@ -159,6 +159,78 @@ f = solve(build(cells), {})
 check("repeater output restores dust to 15",
       f.dust.get((12, 1, 0), 0), 15)
 
+# 8. point sources feeding a diode's REAR.
+#    Written from the rule, not from the solver: a torch powers all six of its
+#    neighbours except the block it is mounted on, and a diode's `facing` points at
+#    its input. A torch sitting directly behind a repeater used to read as 0, which
+#    left whole lamp screens stuck on.
+def diode_fed_by(source):
+    """Repeater at (1,1,0) reading east, with `source` placed at (2,1,0)."""
+    pos = (1, 1, 0)
+    cells = {pos: ("repeater", {"facing": "east", "delay": "1",
+                                "powered": "false", "locked": "false"}),
+             (1, 0, 0): ("purple_wool", {}),
+             (3, 1, 0): ("purple_wool", {})}       # the wall torch's support
+    if source == "wall_torch":
+        # facing=west => mounted on the block to its EAST, pointing at the repeater
+        cells[(2, 1, 0)] = ("redstone_wall_torch", {"facing": "west", "lit": "true"})
+    elif source == "wall_torch_unlit":
+        cells[(2, 1, 0)] = ("redstone_wall_torch", {"facing": "west", "lit": "false"})
+    elif source == "lever":
+        cells[(2, 1, 0)] = ("lever", {"powered": "true"})
+        cells[(2, 0, 0)] = ("purple_wool", {})
+    elif source == "button":
+        cells[(2, 1, 0)] = ("stone_button", {"powered": "true"})
+        cells[(2, 0, 0)] = ("purple_wool", {})
+    g = build(cells)
+    f = solve(g, {})
+    return C.eval_repeater(g, f, {}, pos, g.get(pos))
+
+
+check("lit torch behind a repeater powers it", diode_fed_by("wall_torch"), True)
+check("unlit torch behind a repeater does not", diode_fed_by("wall_torch_unlit"), False)
+check("lever behind a repeater powers it", diode_fed_by("lever"), True)
+check("pressed button behind a repeater powers it", diode_fed_by("button"), True)
+
+# 9. a torch never powers the block it is mounted on
+cells = {(2, 1, 0): ("purple_wool", {}),
+         (2, 2, 0): ("redstone_torch", {"lit": "true"})}
+g = build(cells)
+check("torch emits nothing toward its own support",
+      C.source_signal(g, {}, (2, 2, 0), (2, 1, 0)), 0)
+check("torch emits 15 to a neighbour that is not its support",
+      C.source_signal(g, {}, (2, 2, 0), (3, 2, 0)), 15)
+
+# 10. a comparator SIDE takes only dust, a redstone block or a diode pointing in.
+#     A torch beside one must still read 0 - vanilla's sideInputDiodesOnly rule.
+pos = (1, 1, 0)
+cells = {pos: ("comparator", {"facing": "north", "mode": "compare", "powered": "false"}),
+         (1, 0, 0): ("purple_wool", {}),
+         (0, 1, 0): ("redstone_torch", {"lit": "true"}),      # west = a SIDE
+         (0, 0, 0): ("purple_wool", {}),
+         (1, 1, -1): ("redstone_torch", {"lit": "true"}),     # north = the REAR
+         (1, 0, -1): ("purple_wool", {})}
+g = build(cells)
+f = solve(g, {})
+check("torch on a comparator SIDE reads 0 (diodes only)",
+      C.input_from(g, f, {}, pos, "west", sides_only=True), 0)
+check("torch on a comparator REAR reads 15",
+      C.input_from(g, f, {}, pos, "north"), 15)
+
+# 11. a lever mounted straight onto a lamp lights it
+cells = {(0, 1, 0): ("redstone_lamp", {"lit": "true"}),
+         (1, 1, 0): ("lever", {"powered": "true"}),
+         (1, 0, 0): ("purple_wool", {})}
+g = build(cells)
+f = solve(g, {})
+check("lever on a lamp lights it",
+      C.eval_lamp(g, f, {}, (0, 1, 0), g.get((0, 1, 0))), True)
+cells[(1, 1, 0)] = ("lever", {"powered": "false"})
+g = build(cells)
+f = solve(g, {})
+check("lever off leaves the lamp dark",
+      C.eval_lamp(g, f, {}, (0, 1, 0), g.get((0, 1, 0))), False)
+
 print(f"\n{len(PASS)} passed, {len(FAIL)} failed")
 if FAIL:
     print("failed:", ", ".join(FAIL))

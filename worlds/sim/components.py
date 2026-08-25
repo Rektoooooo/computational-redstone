@@ -16,9 +16,9 @@ assumed:
   * `facing` on a repeater/comparator points at its INPUT. The output leaves the
     OPPOSITE side. This is the single most consequential convention in the file.
 """
-from .grid import (COMPARATOR, DOWN, DUST, LEFT, OPPOSITE, REDSTONE_BLOCK,
-                   REPEATER, RIGHT, TORCHES, UP, is_conductive, neighbour, prop,
-                   step, truthy, as_int)
+from .grid import (COMPARATOR, DOWN, DUST, LEFT, LEVER, OPPOSITE, REDSTONE_BLOCK,
+                   REPEATER, RIGHT, TORCHES, UP, is_button, is_conductive, neighbour,
+                   prop, step, truthy, as_int)
 from .power import torch_attachment
 
 
@@ -30,6 +30,35 @@ def _diode_output(grid, field, states, pos, cell):
         return 15 if powered else 0
     level = out if out is not None else (15 if truthy(prop(cell, "powered")) else 0)
     return as_int(level, 0)
+
+
+def source_signal(grid, states, n, toward):
+    """
+    Signal a point source at `n` emits toward the neighbouring position `toward`.
+
+    Covers the sources that are not dust, not a diode and not a powered block:
+    torches, levers, buttons and pressure plates. Returns None when `n` is none of
+    those, so callers can fall through to their own handling.
+
+    These were missing from the diode input path entirely, which made every repeater
+    fed directly by a torch read 0. A torch behind a repeater is one of the most
+    common patterns there is - 1799 diodes in the library sit against one - and it
+    left whole lamp screens stuck on.
+    """
+    cell = grid.get(n)
+    bid = cell.id
+
+    if bid in TORCHES:
+        lit = states.get(n)
+        if lit is None:
+            lit = truthy(prop(cell, "lit", "true"))
+        # A torch powers all six neighbours EXCEPT the block it is mounted on.
+        return 15 if lit and torch_attachment(grid, n, cell) != toward else 0
+
+    if bid == LEVER or is_button(bid) or "pressure_plate" in bid:
+        return 15 if truthy(prop(cell, "powered")) else 0
+
+    return None
 
 
 def input_from(grid, field, states, pos, direction, sides_only=False):
@@ -54,6 +83,12 @@ def input_from(grid, field, states, pos, direction, sides_only=False):
         return 0
     if sides_only:
         return 0
+    # Torch / lever / button / plate feeding the rear directly. Deliberately below the
+    # sides_only gate: a comparator's SIDE accepts only dust, a redstone block or a
+    # diode pointing in, so a torch beside one must keep reading 0.
+    sig = source_signal(grid, states, n, pos)
+    if sig is not None:
+        return sig
     # A container behind a comparator feeds its rear with the container's fill level.
     # Only the rear reads containers, never the sides.
     if bid in grid.CONTAINERS:
@@ -150,7 +185,13 @@ def dust_activates(grid, dust_pos, target_pos):
 
 
 def eval_lamp(grid, field, states, pos, cell):
-    """Lit if any neighbour powers it: dust pointing in, a diode, or a powered block."""
+    """
+    Lit if any neighbour powers it: dust pointing in, a point source, a diode, or a
+    powered block.
+
+    A weakly powered block DOES light an adjacent lamp - weak vs strong only decides
+    whether a block can start a new dust run, so `block_power` is the right test here.
+    """
     from .grid import DIRS
     for delta in list(DIRS.values()) + [UP, DOWN]:
         n = step(pos, delta)
@@ -159,11 +200,10 @@ def eval_lamp(grid, field, states, pos, cell):
             return True
         if c.id == REDSTONE_BLOCK:
             return True
-        if c.id in TORCHES:
-            lit = states.get(n)
-            if lit if lit is not None else truthy(prop(c, "lit", "true")):
-                if torch_attachment(grid, n, c) != pos:
-                    return True
+        # torch, lever, button, pressure plate - a lever mounted straight onto a lamp
+        # is common and used to read as nothing at all
+        if source_signal(grid, states, n, pos):
+            return True
         if c.id in (REPEATER, COMPARATOR):
             if neighbour(n, OPPOSITE[prop(c, "facing", "north")]) == pos:
                 if _diode_output(grid, field, states, n, c) > 0:
