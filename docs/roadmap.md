@@ -59,11 +59,27 @@ Two things it taught, beyond proving composition works:
   with sixteen repeaters floating in mid-air, and fell apart on paste. A composed build
   now gets a structural check as well as a behavioural one.
 
-### M2 — route around obstacles — **next**
+### M2 — route around obstacles — **DONE (pending in-game check)**
 
-M1 used a hand-chosen straight path, made straight by offsetting the second component
-so the ports lined up. M2 needs a router that finds one: dust runs,
-level changes, repeaters for distance, avoiding collisions with either component.
+The adder was inside-out for whoever used it: inputs on the west face, sum lamps on the
+east, so you set the numbers and then walked around 517 blocks to read the answer. All
+eight bits are now routed round to the front, giving
+`(Input A) (Input B) (Output)` side by side.
+
+517 cases, 0 wrong. `route_plane()` and `lay_route()` in `pipeline/compose.py`.
+
+What made it tractable: **each bit routes inside its own horizontal plane**, so the
+search is two-dimensional. The bits sit 2 apart in `y`, and a support block over a live
+wire does not leak — simulated directly before relying on it — so the eight lines cannot
+reach each other. In any one plane the adder occupies only ~26 cells, leaving plenty of
+room to go around.
+
+The bug worth remembering: the drive repeater's facing was **hardcoded** to east, on the
+assumption the wire would arrive from the east. The router approached from the north
+instead, and the signal travelled the entire route and then died at the last block. A
+repeater takes its input from one specific side, so the arrival direction is not
+something a router may choose freely. Fixed by routing to the cell east of the repeater
+rather than to the repeater itself — making the approach a fact rather than a hope.
 
 ### M3 — timing alignment
 

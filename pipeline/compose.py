@@ -62,6 +62,41 @@ def repeater(facing, delay=1):
                       locked="false", powered="false")
 
 
+def direction(frm, to):
+    """Compass name for a step from one (x, z) to an adjacent one."""
+    dx, dz = to[0] - frm[0], to[1] - frm[1]
+    if dx > 0:
+        return "east"
+    if dx < 0:
+        return "west"
+    return "south" if dz > 0 else "north"
+
+
+def facing_from(prev, cur):
+    """
+    Which way a repeater at `cur` should face, having been reached from `prev`.
+
+    A repeater's `facing` points at its INPUT, so it looks back the way the signal
+    came. Getting this backwards points it into the wall and the line dies silently.
+    """
+    return direction(cur, prev)
+
+
+def dust_shaped(prev, nxt, cur):
+    """
+    Dust carrying the connection shape this path implies.
+
+    The game recomputes wire shape on placement anyway, but writing it correctly means
+    the simulator sees the same wire the game will draw - so a prediction made here is
+    a prediction about the real thing.
+    """
+    sides = {"north": "none", "south": "none", "east": "none", "west": "none"}
+    for other in (prev, nxt):
+        if other is not None:
+            sides[direction(cur, other)] = "side"
+    return BlockState("minecraft:redstone_wire", power="0", **sides)
+
+
 class Composition:
     """A region under construction, plus a record of anything that went wrong."""
 
@@ -226,6 +261,102 @@ class Composition:
             self.put((x, y, z), DUST, "bus dust")
         return length
 
+    # -- routing, the general case ----------------------------------------
+
+    REDSTONE = ("redstone_wire", "repeater", "comparator", "redstone_torch",
+                "redstone_wall_torch", "lever", "redstone_block")
+
+    def keepout(self):
+        """
+        Cells a route must not enter, beyond the ones already filled.
+
+        A dust line running alongside a machine's own wiring joins it, and the result
+        is a build that looks right and computes nonsense. So every cell touching a
+        redstone component is reserved - one block of clearance in every direction,
+        including up and down, since dust reaches diagonally between levels too.
+        """
+        out = set()
+        for x, y, z in list(self.occupied):
+            bid = self.region[x, y, z].id.replace("minecraft:", "")
+            if bid not in self.REDSTONE:
+                continue
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    for dz in (-1, 0, 1):
+                        out.add((x + dx, y + dy, z + dz))
+        return out
+
+    def route_plane(self, y, start, goal, blocked):
+        """
+        Shortest path from `start` to `goal` across one horizontal plane.
+
+        Breadth-first over (x, z) at fixed y. Each bit gets its own plane, which is what
+        keeps this two-dimensional: the bits sit 2 apart in y and a support block over a
+        live wire does not leak, so the lines cannot reach each other.
+
+        Returns the cells from just after `start` up to and INCLUDING `goal`, or None if
+        boxed in - which is a real answer and better than routing through something.
+        """
+        from collections import deque
+        sx, sz = start
+        gx, gz = goal
+        seen = {(sx, sz): None}
+        q = deque([(sx, sz)])
+        while q:
+            cur = q.popleft()
+            if cur == (gx, gz):
+                path = []
+                while cur is not None:
+                    path.append(cur)
+                    cur = seen[cur]
+                return list(reversed(path))[1:]
+            for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nxt = (cur[0] + dx, cur[1] + dz)
+                if nxt in seen:
+                    continue
+                if not (0 <= nxt[0] < self.region.width and 0 <= nxt[1] < self.region.length):
+                    continue
+                cell = (nxt[0], y, nxt[1])
+                if nxt != (gx, gz) and cell in blocked:
+                    continue
+                # a sign can be routed through - it is a label, not circuitry - but
+                # anything else in the way is a wall
+                if nxt != (gx, gz) and cell in self.occupied and not self.is_decoration(cell):
+                    continue
+                seen[nxt] = cur
+                q.append(nxt)
+        return None
+
+    def lay_route(self, path, y, colour, max_run=14):
+        """
+        Lay dust along `path`, with its floor, and a repeater before the signal dies.
+
+        Dust loses one per block and starts at 15, so a run longer than 15 arrives as
+        nothing. A repeater restores it - but only ever on a STRAIGHT stretch: put one
+        on a corner and it faces the wrong way and silently breaks the line.
+
+        Each dust cell is given the connection shape its own path implies, so the
+        simulator sees the same wire the game will draw.
+        """
+        placed, since_repeater = [], 0
+        for i, (x, z) in enumerate(path):
+            if self.is_decoration((x, y, z)):
+                self.clear((x, y, z), "route passes through a sign")
+            prev = path[i - 1] if i > 0 else None
+            nxt = path[i + 1] if i + 1 < len(path) else None
+            straight = (prev and nxt and
+                        (prev[0] == x == nxt[0] or prev[1] == z == nxt[1]))
+            since_repeater += 1
+
+            if since_repeater >= max_run and straight:
+                self.put((x, y, z), repeater(facing_from(prev, (x, z))), "route repeater")
+                since_repeater = 0
+            else:
+                self.put((x, y, z), dust_shaped(prev, nxt, (x, z)), "route dust")
+            self.support((x, y, z), colour)
+            placed.append((x, y, z))
+        return placed
+
     # -- output -----------------------------------------------------------
 
     def save(self, path, name, description):
@@ -308,6 +439,133 @@ def compose_m1(out=None):
     return out, a1, a2
 
 
+def compose_m2(out=None):
+    """
+    One adder with its output brought round to the FRONT.
+
+    As extracted, the machine is inside-out for whoever is using it: inputs on the west
+    face, sum lamps on the east, so you set the numbers and then walk around 517 blocks
+    to read the answer. This routes all eight bits round to the front, giving
+
+        (Input A, z=4)   (Input B, z=7)   (Output, z=10)
+
+    Unlike M1 there is no freedom to line the ports up by choosing an offset - the
+    adder sits where it sits and the wire has to get past it. Each bit is routed inside
+    its own horizontal plane, which is what keeps this a two-dimensional search: the
+    bits are 2 apart in y and a support block over a live wire does not leak, so the
+    eight lines cannot reach one another.
+    """
+    out = out or next_version("pipeline/m2-front-output")
+    c = Composition(13, 22, 11)          # one deeper than the adder, for the front row
+    print("routing the adder's output round to the front")
+    c.place(ADDER, (0, 0, 0), "adder")
+
+    # Work out the no-go zone BEFORE adding anything of our own, so the margin is drawn
+    # around the machine's wiring rather than around our own wire as it grows.
+    blocked = c.keepout()
+    print(f"  {len(blocked)} cells reserved as clearance around the adder's wiring\n")
+
+    print("  bit   y  route                                  cells")
+    routed = []
+    for i in range(8):
+        y = 2 + 2 * i
+        colour = BUS_COLOURS[i]
+        tap = (10, y, 3)                 # the sum lamp becomes the tap
+        drive = (3, y, 10)               # repeater that lights the new front lamp
+        lamp = (2, y, 10)
+        # Route to the cell EAST of the drive repeater rather than to the repeater
+        # itself. A repeater takes its input from one specific side, so the direction
+        # the wire arrives from is not a detail the router may choose freely - the
+        # first attempt hardcoded "east", the router approached from the north, and
+        # the signal reached the last cell and stopped dead there.
+        arrival = (drive[0] + 1, drive[2])
+
+        c.tap_output(tap, "west", colour)
+        path = c.route_plane(y, (tap[0], tap[2]), arrival, blocked)
+        if path is None:
+            print(f"  {i:3} {y:3}  NO ROUTE FOUND")
+            c.collisions.append((tap, "no route to the front"))
+            continue
+        cells = c.lay_route(path, y, colour)
+        routed += cells
+        c.drive_input(drive, "east", colour)
+        c.put(lamp, BlockState("minecraft:redstone_lamp", lit="false"), "front lamp",
+              allow_replace=True)
+        c.support(lamp, colour)
+        print(f"  {i:3} {y:3}  {str(path[0])} -> {str(path[-1]):9} "
+              f"{colour:11} {len(cells):3}")
+
+    if c.removed:
+        print(f"\n  removed {len(c.removed)} decorative blocks the routes pass through")
+    print(f"  {len(c.collisions)} collisions" if c.collisions else "  no collisions")
+
+    loose = c.floating()
+    if loose:
+        print(f"  {len(loose)} BLOCKS WITH NO FLOOR - would break on paste:")
+        for pos, bid in loose[:8]:
+            print(f"     {pos}  {bid}")
+    else:
+        print("  nothing unsupported")
+
+    # Cross-talk is the failure this whole design is arranged to avoid, so assert it
+    # rather than hope. A routed cell touching the machine's wiring joins it.
+    touching = [p for p in routed if p in blocked]
+    print(f"  {len(touching)} routed cells touching the adder's wiring"
+          if touching else "  no routed cell touches the adder's wiring")
+
+    c.save(out, "m2-front-output", "8-bit adder with its output routed to the front")
+    print(f"\n  wrote {out}")
+    return out
+
+
+def verify_m2(path):
+    """
+    Sweep the front-output adder.
+
+    The back lamps are gone - that was the point - so arithmetic is the reference: the
+    front lamps must read (A + B) & 0xFF. A mis-routed line shows up as a bit that is
+    always wrong; cross-talk shows up as bits that are wrong together.
+    """
+    from sim.engine import Sim
+
+    grid = Grid.from_file(path)
+    A = [(2, 3 + 2 * i, 4) for i in range(8)]
+    B = [(2, 3 + 2 * i, 7) for i in range(8)]
+    OUT = [(2, 2 + 2 * i, 10) for i in range(8)]
+
+    def run(a, b):
+        sim = Sim(grid)
+        sim.set_port(A, a)
+        sim.set_port(B, b)
+        sim.prime()
+        settled = sim.run_until_stable(max_ticks=600)
+        lamps = sim.lamp_states()
+        return sum(1 << i for i, p in enumerate(OUT) if lamps.get(p)), settled, sim.time
+
+    cases = ([(v, 0) for v in range(256)]
+             + [(a, b) for a in range(16) for b in range(16)]
+             + [(255, 1), (128, 128), (37, 91), (255, 255), (170, 85)])
+    bad, slowest, wrong_bits = [], 0, [0] * 8
+    for a, b in cases:
+        got, settled, t = run(a, b)
+        slowest = max(slowest, t)
+        want = (a + b) & 0xFF
+        if got != want or not settled:
+            bad.append((a, b, got, want))
+            for i in range(8):
+                if ((got >> i) & 1) != ((want >> i) & 1):
+                    wrong_bits[i] += 1
+
+    print(f"\n  front lamps vs (A + B): {len(cases)} cases, {len(bad)} wrong"
+          f"   (slowest settle: {slowest} game ticks)")
+    if bad:
+        print(f"  wrong-bit counts by position (LSB first): {wrong_bits}")
+        for a, b, got, want in bad[:6]:
+            print(f"     {a}+{b}: got {got:08b} want {want:08b}")
+    print(f"\n   {'PASS - safe to paste' if not bad else 'FAIL - do not paste'}\n")
+    return not bad
+
+
 def verify_m1(path):
     """
     Sweep the composed build in the simulator.
@@ -377,6 +635,11 @@ def verify_m1(path):
 
 
 if __name__ == "__main__":
-    written, _, _ = compose_m1()
-    if "--verify" in sys.argv:
-        verify_m1(written)
+    if "--m1" in sys.argv:
+        written, _, _ = compose_m1()
+        if "--verify" in sys.argv:
+            verify_m1(written)
+    else:
+        written = compose_m2()
+        if "--verify" in sys.argv:
+            verify_m2(written)
