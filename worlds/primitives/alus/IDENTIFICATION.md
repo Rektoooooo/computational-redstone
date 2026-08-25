@@ -107,6 +107,22 @@ built up on camera, saved at each step.
 `build-10`'s fourth control is the interesting one — it switches the adder out of
 arithmetic entirely and into bitwise logic, which is what turns an adder into an ALU.
 
+**`build-13` confirmed in game.** With A=9 and B=4, carry-in and invert-B both on, the
+output read **5** — the `4` and `1` lamps lit. That is `9 - 4` by two's complement,
+observed rather than simulated.
+
+It arrived in two steps, which made it a better check. The first reading had invert-B
+on but carry-in off and came back **4**, and only one of the eight control settings
+produces a single lamp in that position: `A + ~B` = 9 + 11 = 20 → 4. Adding the carry
+turned it into 5. Getting `A + ~B` and then `A + ~B + 1` from the same operands is the
+two's complement mechanism itself, not just one right answer.
+
+That also settles three things that had only been inferred: the bit order really does
+run 8-4-2-1 left to right, the upper of the two stacked levers really is invert-B, and
+the lone lever really is the carry-in. And it validates the **prober**, since all eight
+of these modes came out of a tool that had already produced three plausible-looking
+wrong answers before it was corrected.
+
 ### `build-09`, `build-04` — the same family, further along
 **~22×12×27 · 280–638 components · torch-dominant (53–93), few comparators**
 
