@@ -240,6 +240,58 @@ def eval_lamp(grid, field, states, pos, cell):
 
 # -- driver -----------------------------------------------------------------
 
+STATEFUL = (REPEATER, COMPARATOR) + TORCHES
+
+
+def eval_one(grid, field, states, pos, cell=None):
+    """
+    What a single stateful component should be outputting. None if it has no state.
+
+    Bool for a torch or repeater, 0-15 for a comparator.
+    """
+    cell = cell or grid.get(pos)
+    if cell.id in TORCHES:
+        return eval_torch(grid, field, states, pos, cell)
+    if cell.id == REPEATER:
+        return eval_repeater(grid, field, states, pos, cell)
+    if cell.id == COMPARATOR:
+        return eval_comparator(grid, field, states, pos, cell)
+    return None
+
+
+def component_delay(cell):
+    """
+    How long this component waits before its output changes, in GAME ticks.
+
+    One redstone tick is two game ticks, so a repeater set to "1" is 2 here. A
+    comparator is always 2, and so is a torch.
+    """
+    if cell.id == REPEATER:
+        return max(1, as_int(prop(cell, "delay", "1"), 1)) * 2
+    return 2
+
+
+def component_priority(grid, pos, cell, powered):
+    """
+    Which of several components due on the same tick goes first. Lower runs earlier.
+
+    The interesting case is the first one: if the block this diode outputs INTO is
+    another diode that is not pointing back at us - one facing across our output
+    rather than into it - we go first. That is the rule that makes two repeaters
+    feeding each other's sides resolve deterministically instead of by update order.
+    """
+    from .ticks import EXTREMELY_HIGH, VERY_HIGH, HIGH, NORMAL
+
+    if cell.id in TORCHES:
+        return NORMAL
+
+    out_dir = OPPOSITE[prop(cell, "facing", "north")]
+    front = grid.get(neighbour(pos, out_dir))
+    if front.id in (REPEATER, COMPARATOR) and prop(front, "facing", "north") != out_dir:
+        return EXTREMELY_HIGH
+    return VERY_HIGH if powered else HIGH
+
+
 def evaluate_all(grid, field, states):
     """One evaluation pass: what every component should be, given this field."""
     nxt = {}

@@ -426,3 +426,71 @@ Lower priority, only if the residue starts mattering: comparators are the weakes
 category at 94.4%; four builds oscillate instead of settling, and some of those are
 probably genuine clocks, which have no steady state and are not failures; the worst
 builds are `displays/blank`, `displays/build-02`, `cpu-ep07-branching/build-07`.
+
+---
+
+# Session 5c — the tick loop
+
+## Done
+
+**Built the tick loop.** Steady state answers "where does this rest"; this answers
+"what does it do", which is what anything sequential needs. 14 timing tests, and the
+steady-state oracle is byte-identical at 97.59% — the tick loop sits alongside
+`settle()` rather than replacing it.
+
+Rules read from decompiled 1.18.2 before writing any of it, not guessed:
+
+- one redstone tick is **two game ticks**; everything counts in game ticks
+- repeater `delay x 2`, comparator always 2, torch 2
+- draining is ordered by trigger tick, then **priority**, then insertion order
+- a diode goes first when the block it outputs into is another diode NOT pointing back
+  at it — the "repeater facing into another's side" case. Otherwise one turning off
+  outranks one turning on
+- a component with a tick already pending does not get another, so two neighbours
+  changing at once cannot make one repeater fire twice
+
+New: `sim/ticks.py` (the queue), `component_delay`/`component_priority`/`eval_one` in
+components, and `tick`/`run`/`run_until_stable`/`prime` on `Sim`. `set_lever` now
+re-solves immediately, because flipping a lever updates its neighbours at once in the
+game and only then does anything wait its delay.
+
+## Judgement calls
+
+**Reused the solver rather than rewriting.** Dust is instantaneous in the game, so the
+proven three-pass solve became the "settle the field" step unchanged and only the three
+stateful components needed scheduling. Nothing already validated was disturbed.
+
+**Re-solve before each due component, not once per tick.** Components due on the same
+tick are ordered by priority precisely because an earlier one can change what a later
+one reads. Solving once per batch would have made the ordering meaningless and quietly
+wasted the priority rules.
+
+## Unexpected result
+
+**The tick loop resolved three builds steady state could not.** Of the four where
+`settle()` never converges, three — all latches — come to rest once time exists. Their
+bistability was never a failure of the solver: a latch's state is history, and history
+is what steady state does not have. Only `displays/convert` genuinely clocks, at 13
+repeaters and 10 torches, which is right for an animation driver.
+
+## A correction
+
+Repeaters and comparators do **not** share a side-input rule. A repeater's lock is
+restricted to diodes outright; a comparator's side accepts any signal source and takes
+its DIRECT signal. A comment added in 5a had applied the comparator's rule to both.
+Same outcome in this subset — a torch emits direct signal only upward and a lever only
+into its support, so neither reaches a comparator sideways — but a different rule, and
+the wrong reason would have misled the next change. Fixed.
+
+## Next — start here
+
+1. **Behavioural tests.** This is the gap now: the timing rules are checked against the
+   game's own and the micro-circuits pass, but nothing has been driven through a whole
+   extracted build. AND truth table through `alus/build-17`, then 37+91 through
+   `addition/3-ticks-8-bit-cca-by-don` using its port map. Use `prime()`, `set_port()`,
+   `run_until_stable()`.
+2. **Real Minecraft.** 1.18.2 is installed with a flat world, and Litematica pastes a
+   `.litematic` straight in. Nothing has ever been pasted back and tested — the oldest
+   open item in the project, open since session 2. The game outranks the oracle.
+3. **Torch burnout**, if a fast clock misbehaves: 8 toggles in a 60-tick window burns a
+   torch out for 160 ticks. Only reachable now that time exists.

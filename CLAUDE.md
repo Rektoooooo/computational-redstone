@@ -33,14 +33,6 @@ Only needed if you are re-extracting from source worlds:
 cd worlds && unzip '*.zip'      # 115 MB of committed zips -> 925 MB of worlds
 ```
 
-## Verify it works
-
-```bash
-cd worlds
-../.venv/bin/python -m sim.tests.test_units      # expect 13/13
-../.venv/bin/python -m sim.oracle primitives     # expect ~88%, takes ~5 min
-```
-
 ## Current state
 
 | | |
@@ -49,25 +41,34 @@ cd worlds
 | Skill library | 8 skills, ~2,500 lines, audited against real blocks |
 | Extracted builds | 195, of which 43 named from in-world signs |
 | Simulator | steady state, **97.59%** per-block agreement, **153/175 builds exact** (dust 97.7, repeater 97.8, torch 98.5, comparator 94.4, lamp 96.7) |
-| Tick loop | **not built** |
+| Tick loop | **built** — delays, priority, scheduling; 14 timing tests. Not yet driven through a whole real build |
+
+## Verify it works
+
+```bash
+cd worlds
+../.venv/bin/python -m sim.tests.test_units      # expect 28/28
+../.venv/bin/python -m sim.tests.test_ticks      # expect 14/14
+../.venv/bin/python -m sim.oracle primitives     # expect 97.59%, takes ~5 min
+```
 
 ## What to do next
 
-Steady state is now good enough to build on — 153 of 175 builds reproduce exactly, and
-the residue is concentrated in a handful rather than spread thin.
+Steady state and time are both in place. What is missing is proof that they work
+together on a real build rather than on micro-circuits.
 
-1. **The tick loop.** This is the main thing standing between the simulator and being
-   useful, and everything sequential is blocked on it. Repeater delay is `delay * 2`
-   game ticks and a comparator is always 2; both schedule at a priority that depends
-   on whether they are turning off, which is what makes diode ordering deterministic.
-   Read the rules in the reference before building — this is exactly the area where
-   guessing costs the most.
-2. **Then the behavioural tests**: drive `alus/build-17` through an AND truth table,
-   and `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The
-   adder is the headline — computing 37+91 from nothing but extracted blocks would
-   validate the whole model.
-3. **Compare against real Minecraft.** The game outranks the oracle, which is only a
-   saved snapshot. Possible on this machine now — see below.
+1. **The behavioural tests.** Drive `alus/build-17` through an AND truth table, then
+   `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The adder is
+   the headline — computing 37+91 from nothing but extracted blocks would validate the
+   whole model. Use `sim.prime()`, `set_port(...)`, then `run_until_stable()`.
+2. **Compare against real Minecraft.** 1.18.2 is installed with a flat world; Litematica
+   pastes a `.litematic` straight in. Nothing has ever been pasted back and tested, so
+   this closes the oldest open item in the project. The game outranks the oracle.
+3. **Torch burnout**, if a fast clock ever misbehaves — 8 toggles in a 60-tick window
+   burns a torch out for 160 ticks. Only reachable now that time exists.
+
+Lower priority: comparators are the weakest category at 94.4%, and the worst builds are
+`displays/blank`, `displays/build-02` and `cpu-ep07-branching/build-07`.
 
 Lower priority, if the residue starts mattering: comparators are the weakest category
 at 94.4%, four builds oscillate instead of settling (some are probably genuine clocks,

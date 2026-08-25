@@ -23,14 +23,17 @@ twice.
 | comparator | 94.44% | 82.64% |
 | lamp | 96.72% | 69.66% |
 
-**153 of 175 builds reproduce at exactly 100%**, up from 68. Four oscillate rather
-than settling. The tick loop is not built yet.
+**153 of 175 builds reproduce at exactly 100%**, up from 68.
 
 `was` is the state before the four fixes below.
 
+**The tick loop is built.** Steady state answers "where does this rest"; the tick loop
+answers "what does it do", which is what sequential circuits need.
+
 ```
-python -m sim.tests.test_units          # 13 hand-built micro-circuits
-python -m sim.oracle primitives         # per-block diff against 173 real builds
+python -m sim.tests.test_units          # 28 steady-state micro-circuits
+python -m sim.tests.test_ticks          # 14 timing micro-circuits
+python -m sim.oracle primitives         # per-block diff against 175 real builds
 ```
 
 ## How it works
@@ -51,9 +54,46 @@ Component outputs are an *input* to the solver, evaluated separately against the
 it produces. That separation is what lets a bistable circuit exist: an SR latch's state
 is history, not a function of the current field.
 
-Dust connection shape is read from the saved blockstate (`north/east/south/west`), so
-Minecraft's connection logic is not reimplemented — only how power flows along
-connections that already exist.
+Dust-to-dust power flow is worked out from **block occupancy**, not from the wire's
+saved `north/east/south/west` shape. Those properties say how the wire is drawn and
+which mechanisms it feeds, and reading them to decide power flow was bug 7 below. The
+shape is still what decides which blocks and mechanisms a dust *feeds*.
+
+## Time
+
+Steady state answers "where does this rest". The tick loop answers "what does it do",
+which is what anything sequential needs.
+
+Dust is instantaneous and never schedules, so the solver above is reused unchanged as
+the "settle the field" step. Only the stateful components — torch, repeater,
+comparator — are scheduled. Each game tick:
+
+1. drain everything due now, in order, re-solving the field before each one, because
+   an earlier component in the same drain can change what a later one reads
+2. re-solve
+3. queue any component whose target now differs from its state, unless one is pending
+
+Three things fix the order, and all three matter:
+
+| | |
+|---|---|
+| **trigger tick** | one redstone tick is two game ticks; everything here counts in game ticks |
+| **priority** | which of several due on the same tick goes first |
+| **insertion order** | the tie-break within a priority |
+
+A diode goes to the front of the queue when the block it outputs into is another diode
+*not* pointing back at it — the "repeater facing into another's side" case. That is
+what makes diode ordering deterministic instead of dependent on update order. Otherwise
+one turning off outranks one turning on. Delays are `delay × 2` game ticks for a
+repeater, always 2 for a comparator and a torch.
+
+The other load-bearing rule is that a component with a tick already pending does not
+get another, so two neighbours changing at once cannot make one repeater fire twice.
+
+**It resolved three builds that steady state could not.** Of the four builds where
+`settle()` never converges, three are bistable latches that simply come to rest once
+time exists. The fourth, `displays/convert`, genuinely clocks — 13 repeaters and 10
+torches toggling — which is what an animation driver should do.
 
 ## The oracle
 
@@ -157,8 +197,12 @@ whether a block can start a new dust run. Corrected.
 
 ## Known gaps
 
-- **No tick loop.** Steady state only; sequential timing is unbuilt. This is now the
-  main thing standing between the simulator and being useful.
+- **The tick loop is unvalidated against real builds.** Its rules are checked against
+  the game's own and its micro-circuits pass, but nothing has yet driven a whole
+  extracted build through time and compared the result. That is the next thing: an AND
+  truth table through `alus/build-17`, then 37+91 through the CCA adder.
+- **Torch burnout is not modelled** — 8 toggles inside a 60-tick window burns a torch
+  out for 160 ticks. Only reachable now that time exists, and only bites fast clocks.
 - **Comparators are the weakest category at 94.44%**, and the schematic records only
   powered/not, never the output LEVEL, so levels have to be re-derived by settling.
   In comparator-heavy builds one wrong level corrupts everything downstream.
@@ -181,8 +225,10 @@ whether a block can start a new dust run. Corrected.
 | `grid.py` | load a `.litematic`, classify blocks, attach container levels |
 | `power.py` | the three-pass steady-state solver |
 | `components.py` | torch / repeater / comparator / lamp evaluation |
-| `engine.py` | public API — `Sim.from_file`, `set_lever`, `settle`, `lamp_states` |
+| `engine.py` | public API — `Sim.from_file`, `set_lever`, `settle`, `tick`, `lamp_states` |
+| `ticks.py` | the scheduled-tick queue: trigger tick, priority, insertion order |
 | `oracle.py` | validation against the saved state of the whole library |
 | `lampdiag.py` | lamp mismatches split by direction and correlated with neighbours |
 | `probe_lamp.py` | a 2D slice around one cell, showing computed against saved |
-| `tests/test_units.py` | hand-built micro-circuits |
+| `tests/test_units.py` | hand-built steady-state micro-circuits |
+| `tests/test_ticks.py` | hand-built timing micro-circuits |

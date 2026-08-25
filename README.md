@@ -115,8 +115,10 @@ useful; it is not used for labelling.
 - **Nothing has been pasted back into Minecraft and tested.** Block-level fidelity is
   verified (properties round-trip correctly); in-world behaviour is not.
 - **The simulator solves steady state at 97.6% per-block agreement** across 175 real
-  builds, with 153 of them reproducing exactly. It has no tick loop yet, so sequential
-  timing is unmodelled — that is the main gap now. See [`worlds/sim/`](worlds/sim/).
+  builds, with 153 of them reproducing exactly, and now has a **tick loop** — delays,
+  priority and scheduling — so sequential circuits run in time. The timing rules are
+  checked against the game's own, but nothing has yet been driven through a whole real
+  build, which is the next step. See [`worlds/sim/`](worlds/sim/).
 
 See [BUILD-PIPELINE-RESEARCH.md](BUILD-PIPELINE-RESEARCH.md) for the design work behind
 generating builds programmatically — including why **composition beats synthesis** here,

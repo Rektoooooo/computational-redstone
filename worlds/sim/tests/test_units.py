@@ -202,11 +202,17 @@ check("torch emits 15 to a neighbour that is not its support",
       C.source_signal(g, {}, (2, 2, 0), (3, 2, 0)), 15)
 
 # 10. a comparator SIDE takes only dust, a redstone block or a diode pointing in.
-#     The reason is worth stating correctly: side inputs are not restricted to diodes.
-#     A side reads any signal SOURCE, but takes its DIRECT signal - and a torch emits
-#     direct signal only upward, a lever only into its support, so neither reaches a
-#     comparator sideways. Dust and redstone blocks are special-cased to their full
-#     level, and a diode gives direct signal only out of its front.
+#
+#     The two diodes reach that answer by DIFFERENT rules, which is worth stating
+#     because they are different code paths here too:
+#
+#       repeater (locking) - restricted to diodes outright
+#       comparator (side)  - accepts any signal SOURCE, but takes its DIRECT signal
+#
+#     The comparator's looser rule still lets nothing extra through in this subset: a
+#     torch emits direct signal only upward and a lever only into its support, so
+#     neither reaches a comparator sideways. Dust and redstone blocks are special-cased
+#     to their full level, and a diode gives direct signal only out of its front.
 pos = (1, 1, 0)
 cells = {pos: ("comparator", {"facing": "north", "mode": "compare", "powered": "false"}),
          (1, 0, 0): ("purple_wool", {}),
