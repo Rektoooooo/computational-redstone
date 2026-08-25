@@ -19,7 +19,7 @@ rather than a saved snapshot — an item open since session 2.
 | `alus/build-13` | 9 − 4 = 5 by two's complement | ✅ identical |
 | `m1-two-adders` (**composed**) | (37 + 91) + 64 = 192 | ✅ identical |
 | `m2-front-output` (**routed**) | 37 + 91 = 128 with the output moved to the front | ✅ identical |
-| `timing` | a 3.2-second cascade at 8, 16, 24 … 64 ticks | ⏳ awaiting the game |
+| `timing` | 8, 16, 24 … 64 ticks | ✅ spacing exact, **+1 offset** |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator
@@ -98,11 +98,31 @@ settings 1–4. This is the one M3.2 depends on.
 | B d3 | 3 | 48 (2.4 s) |
 | B d4 | 4 | **64 (3.2 s)** |
 
-Three things are falsifiable by eye: the **order** the lamps light, the **even spacing**
-between them, and the **total** — 3.2 seconds, not 1.6 or 6.4. A model wrong by a factor
-of two cannot hide.
+**Result: the clock is right.** Measured exactly with `/tick freeze` + `/tick step`
+rather than by eye, which turned a rough check into a precise one.
 
-Each lane carries a sign with its own predicted tick count.
+| | predicted | measured |
+|---|---|---|
+| A0 … A7 | 8, 16, 24 … 64 | **9, 17, 25 … 65** |
+| B d1 … d4 | 16, 32, 48, 64 | **17, 33, 49, 65** |
+
+Three things confirmed exactly: **delay setting N is 2N game ticks** (B's spacing is 16
+for eight delay-1 repeaters), **delays add linearly** (A's spacing is 8, eight times
+over), and the **order** is strictly correct.
+
+The sharpest data point was B d1: seven of eight repeaters powered at step 15, still
+seven at 16, lamp at 17 — the chain advancing repeater by repeater, one tick later than
+predicted.
+
+**Every lane is exactly one tick late**, systematically and never variably. The lever is
+flipped while the game is frozen, so the neighbour update that schedules the first
+repeater is processed on the first stepped tick rather than instantly, and the chain
+starts one tick after the simulator's `time = 0`.
+
+That offset does **not** affect alignment, because skew is a difference between lanes and
+a constant cancels. It would have mattered if the spacing varied, or if the whole thing
+came out at half or double — either of which would have meant the tick model was wrong
+and M3.2 was building on sand.
 
 ## Test 5 — `comparator`
 
