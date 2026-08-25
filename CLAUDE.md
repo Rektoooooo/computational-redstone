@@ -155,6 +155,7 @@ for any cell. Both are worth copying for whatever category is currently worst.
 | `worlds/primitives/README.md` | the 195 extracted builds and how far to trust each label |
 | `BUILD-PIPELINE-RESEARCH.md` | design work on generating builds — composition vs synthesis |
 | `docs/plan-simulator.md` | the approved plan the simulator was built from |
+| `docs/timing.md` | **tick delays for every component**, each cross-checked against the decompiled client and measured in game |
 
 ## House rules for this project
 
