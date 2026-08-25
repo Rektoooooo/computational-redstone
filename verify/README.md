@@ -2,7 +2,7 @@
 
 ## Results so far
 
-All nine **passed in Minecraft 1.18.2**. Two corrected labels the project had wrong,
+All ten **passed in Minecraft 1.18.2**. Two corrected labels the project had wrong,
 and the last two did not previously exist at all: components composed into a new
 device, and then a machine rearranged so its output reads on the same face as its
 inputs. This is the first time anything here has been checked against the game
@@ -20,6 +20,7 @@ rather than a saved snapshot — an item open since session 2.
 | `m1-two-adders` (**composed**) | (37 + 91) + 64 = 192 | ✅ identical |
 | `m2-front-output` (**routed**) | 37 + 91 = 128 with the output moved to the front | ✅ identical |
 | `timing` | 8, 16, 24 … 64 ticks | ✅ exact — and **found a missing rule** |
+| `m3-aligned` (**timing-aligned**) | every repeater fires on its predicted tick; all bits land on 15 | ✅ identical |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator

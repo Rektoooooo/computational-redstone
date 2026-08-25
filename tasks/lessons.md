@@ -2,6 +2,22 @@
 
 Corrections worth not repeating. Newest first.
 
+## Give the user a way to tell two builds apart in world
+
+**Cost an entire test round.** M3's staggered and aligned builds differ by five block
+properties and nothing else — same size, same block count, same layout. I said as much,
+then handed both over with no way to identify which was which once pasted, and the
+aligned one got tested twice.
+
+The evidence was recoverable — the firing sequence identified the build unambiguously
+after the fact — but only because the tick-by-tick data happened to be detailed enough.
+
+**How to apply:** when two builds are meant to be compared and look alike, build the
+difference in visibly. A sign, a marker block, a distinct wool colour on one component.
+Failing that, say up front exactly what to look at to tell them apart — for these, the
+repeater behind the white lamp has its torches far apart when aligned and close together
+when not.
+
 ## Steady state hides timing behaviour entirely
 
 **Found by the user**, stepping the game one tick at a time: a redstone lamp lights
