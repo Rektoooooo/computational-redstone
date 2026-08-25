@@ -30,7 +30,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "worlds"))
 
-from sim.grid import Grid, Cell, DIRS, LEFT, RIGHT, OPPOSITE, step, neighbour
+from sim.grid import (Grid, Cell, DIRS, LEFT, RIGHT, OPPOSITE, UP, step,
+                      neighbour)
 
 DUST_PROPS = {"north": "side", "south": "side", "east": "side", "west": "side"}
 
@@ -416,6 +417,28 @@ def constant(b, end, direction, level, why=None):
         pos = step(pos, d)
     b.torch_block(pos, f"{why} source")
     return end
+
+
+def stair(b, source, steps, direction, why="stair"):
+    """
+    Carry a value up out of its plane, one level per block.
+
+    Dust reaches diagonally to the block above the one beside it, so a staircase is just
+    a step of solid blocks with dust on top. It costs exactly one level per step -
+    measured, not assumed - which for an analog value means the climb has to be paid for
+    in advance: send `v + steps` and it arrives as `v`.
+
+    That is the whole reason this exists. Two lines in one plane cannot cross, and a
+    boolean can leave the plane for free while an analog value cannot. Being able to buy
+    the climb turns "impossible" into "two comparators and a stub".
+    """
+    d = DIRS[direction]
+    pos = source
+    for _ in range(steps):
+        b.block(step(pos, d), why=why)
+        pos = step(step(pos, d), UP)
+        b.dust(pos, why)
+    return pos
 
 
 def wire(b, start, legs, max_run=12, why="wire"):
