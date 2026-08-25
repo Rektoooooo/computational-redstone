@@ -72,5 +72,376 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 60,
+    "inputs": 26,
+    "outputs": 34,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "x",
+        "width": 10,
+        "positions": [
+          [
+            14,
+            4,
+            17
+          ],
+          [
+            16,
+            4,
+            17
+          ],
+          [
+            18,
+            4,
+            17
+          ],
+          [
+            20,
+            4,
+            17
+          ],
+          [
+            22,
+            4,
+            17
+          ],
+          [
+            24,
+            4,
+            17
+          ],
+          [
+            26,
+            4,
+            17
+          ],
+          [
+            28,
+            4,
+            17
+          ],
+          [
+            30,
+            4,
+            17
+          ],
+          [
+            32,
+            4,
+            17
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending x"
+      },
+      {
+        "kind": "output",
+        "axis": "x",
+        "width": 10,
+        "positions": [
+          [
+            14,
+            4,
+            16
+          ],
+          [
+            16,
+            4,
+            16
+          ],
+          [
+            18,
+            4,
+            16
+          ],
+          [
+            20,
+            4,
+            16
+          ],
+          [
+            22,
+            4,
+            16
+          ],
+          [
+            24,
+            4,
+            16
+          ],
+          [
+            26,
+            4,
+            16
+          ],
+          [
+            28,
+            4,
+            16
+          ],
+          [
+            30,
+            4,
+            16
+          ],
+          [
+            32,
+            4,
+            16
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending x"
+      },
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 8,
+        "positions": [
+          [
+            2,
+            5,
+            20
+          ],
+          [
+            2,
+            7,
+            20
+          ],
+          [
+            2,
+            9,
+            20
+          ],
+          [
+            2,
+            11,
+            20
+          ],
+          [
+            2,
+            13,
+            20
+          ],
+          [
+            2,
+            15,
+            20
+          ],
+          [
+            2,
+            17,
+            20
+          ],
+          [
+            2,
+            19,
+            20
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 8,
+        "positions": [
+          [
+            10,
+            5,
+            20
+          ],
+          [
+            10,
+            7,
+            20
+          ],
+          [
+            10,
+            9,
+            20
+          ],
+          [
+            10,
+            11,
+            20
+          ],
+          [
+            10,
+            13,
+            20
+          ],
+          [
+            10,
+            15,
+            20
+          ],
+          [
+            10,
+            17,
+            20
+          ],
+          [
+            10,
+            19,
+            20
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 8,
+        "positions": [
+          [
+            2,
+            5,
+            19
+          ],
+          [
+            2,
+            7,
+            19
+          ],
+          [
+            2,
+            9,
+            19
+          ],
+          [
+            2,
+            11,
+            19
+          ],
+          [
+            2,
+            13,
+            19
+          ],
+          [
+            2,
+            15,
+            19
+          ],
+          [
+            2,
+            17,
+            19
+          ],
+          [
+            2,
+            19,
+            19
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 8,
+        "positions": [
+          [
+            6,
+            5,
+            2
+          ],
+          [
+            6,
+            7,
+            2
+          ],
+          [
+            6,
+            9,
+            2
+          ],
+          [
+            6,
+            11,
+            2
+          ],
+          [
+            6,
+            13,
+            2
+          ],
+          [
+            6,
+            15,
+            2
+          ],
+          [
+            6,
+            17,
+            2
+          ],
+          [
+            6,
+            19,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 8,
+        "positions": [
+          [
+            10,
+            5,
+            19
+          ],
+          [
+            10,
+            7,
+            19
+          ],
+          [
+            10,
+            9,
+            19
+          ],
+          [
+            10,
+            11,
+            19
+          ],
+          [
+            10,
+            13,
+            19
+          ],
+          [
+            10,
+            15,
+            19
+          ],
+          [
+            10,
+            17,
+            19
+          ],
+          [
+            10,
+            19,
+            19
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

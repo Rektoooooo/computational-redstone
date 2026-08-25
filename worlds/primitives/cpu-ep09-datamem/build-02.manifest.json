@@ -76,5 +76,112 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 35,
+    "inputs": 18,
+    "outputs": 17,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 18,
+        "positions": [
+          [
+            36,
+            3,
+            71
+          ],
+          [
+            36,
+            5,
+            71
+          ],
+          [
+            36,
+            7,
+            71
+          ],
+          [
+            36,
+            9,
+            71
+          ],
+          [
+            36,
+            11,
+            71
+          ],
+          [
+            36,
+            13,
+            71
+          ],
+          [
+            36,
+            15,
+            71
+          ],
+          [
+            36,
+            17,
+            71
+          ],
+          [
+            36,
+            19,
+            71
+          ],
+          [
+            36,
+            21,
+            71
+          ],
+          [
+            36,
+            23,
+            71
+          ],
+          [
+            36,
+            25,
+            71
+          ],
+          [
+            36,
+            27,
+            71
+          ],
+          [
+            36,
+            29,
+            71
+          ],
+          [
+            36,
+            31,
+            71
+          ],
+          [
+            36,
+            33,
+            71
+          ],
+          [
+            36,
+            35,
+            71
+          ],
+          [
+            36,
+            37,
+            71
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending y"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

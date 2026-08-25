@@ -86,5 +86,32 @@
     ],
     "candidates": [],
     "confidence": "labelled"
+  },
+  "ports": {
+    "io_blocks": 56,
+    "inputs": 54,
+    "outputs": 2,
+    "ports": [
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            14,
+            4,
+            2
+          ],
+          [
+            14,
+            6,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

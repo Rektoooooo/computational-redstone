@@ -53,5 +53,247 @@
     "notes": [],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 15,
+    "inputs": 8,
+    "outputs": 7,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "x",
+        "width": 4,
+        "positions": [
+          [
+            3,
+            4,
+            6
+          ],
+          [
+            4,
+            4,
+            6
+          ],
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            6,
+            4,
+            6
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending x"
+      },
+      {
+        "kind": "input",
+        "axis": "x",
+        "width": 4,
+        "positions": [
+          [
+            3,
+            5,
+            6
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            5,
+            5,
+            6
+          ],
+          [
+            6,
+            5,
+            6
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending x"
+      },
+      {
+        "kind": "output",
+        "axis": "x",
+        "width": 3,
+        "positions": [
+          [
+            2,
+            5,
+            2
+          ],
+          [
+            5,
+            5,
+            2
+          ],
+          [
+            7,
+            5,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending x"
+      },
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            3,
+            4,
+            6
+          ],
+          [
+            3,
+            5,
+            6
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            4,
+            4,
+            6
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            5,
+            4,
+            6
+          ],
+          [
+            5,
+            5,
+            6
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            6,
+            4,
+            6
+          ],
+          [
+            6,
+            5,
+            6
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "x",
+        "width": 2,
+        "positions": [
+          [
+            4,
+            3,
+            2
+          ],
+          [
+            7,
+            3,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending x"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            4,
+            3,
+            2
+          ],
+          [
+            4,
+            6,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            5,
+            2,
+            2
+          ],
+          [
+            5,
+            5,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 2,
+        "positions": [
+          [
+            7,
+            3,
+            2
+          ],
+          [
+            7,
+            5,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

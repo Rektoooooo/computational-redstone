@@ -60,5 +60,57 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 20,
+    "inputs": 7,
+    "outputs": 13,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "z",
+        "width": 7,
+        "positions": [
+          [
+            14,
+            2,
+            35
+          ],
+          [
+            14,
+            2,
+            37
+          ],
+          [
+            14,
+            2,
+            39
+          ],
+          [
+            14,
+            2,
+            41
+          ],
+          [
+            14,
+            2,
+            43
+          ],
+          [
+            14,
+            2,
+            45
+          ],
+          [
+            14,
+            2,
+            47
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending z"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

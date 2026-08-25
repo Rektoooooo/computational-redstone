@@ -60,6 +60,8 @@ cd worlds && unzip '*.zip'          # restore the worlds from the committed arch
 | `worlds/extract.py extract <world> x1 y1 z1 x2 y2 z2 <name>` | pull a bounding box |
 | `worlds/harvest.py <world> <out>` | bulk-extract every build, auto-named from signs |
 | `worlds/profile.py` | add measured structural features to every manifest |
+| `worlds/portmap.py` | derive I/O port maps — levers/buttons are inputs, lamps/trapdoors outputs |
+| `worlds/render.py` | render a build as layer-by-layer SVG diagrams |
 | `worlds/fetch.sh [core\|rest]` | open the source world downloads in your browser |
 | `pipeline/poc_litematic.py` | assembly → `.litematic`, with round-trip verification |
 
@@ -99,8 +101,9 @@ useful; it is not used for labelling.
 
 - **152 of 195 builds are unlabelled.** The 18 ALU builds — the most valuable for CPU
   work — have **zero** signs and need identifying in-game.
-- **No I/O port maps.** We know what each build contains, not where its inputs and
-  outputs are. This is the blocker for programmatic wiring.
+- **Bit ordering within ports is inferred**, not known. `portmap.py` measures port
+  positions and widths from the blocks, but the `[1][2][4]…[128]` bit signs that give
+  the real ordering are not carried into a `.litematic`. Check before wiring.
 - **Nothing has been pasted back into Minecraft and tested.** Block-level fidelity is
   verified (properties round-trip correctly); in-world behaviour is not.
 

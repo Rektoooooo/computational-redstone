@@ -78,5 +78,209 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 34,
+    "inputs": 17,
+    "outputs": 17,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "z",
+        "width": 8,
+        "positions": [
+          [
+            2,
+            5,
+            3
+          ],
+          [
+            2,
+            5,
+            5
+          ],
+          [
+            2,
+            5,
+            7
+          ],
+          [
+            2,
+            5,
+            9
+          ],
+          [
+            2,
+            5,
+            11
+          ],
+          [
+            2,
+            5,
+            13
+          ],
+          [
+            2,
+            5,
+            15
+          ],
+          [
+            2,
+            5,
+            17
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending z"
+      },
+      {
+        "kind": "input",
+        "axis": "z",
+        "width": 8,
+        "positions": [
+          [
+            4,
+            7,
+            3
+          ],
+          [
+            4,
+            7,
+            5
+          ],
+          [
+            4,
+            7,
+            7
+          ],
+          [
+            4,
+            7,
+            9
+          ],
+          [
+            4,
+            7,
+            11
+          ],
+          [
+            4,
+            7,
+            13
+          ],
+          [
+            4,
+            7,
+            15
+          ],
+          [
+            4,
+            7,
+            17
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending z"
+      },
+      {
+        "kind": "output",
+        "axis": "z",
+        "width": 8,
+        "positions": [
+          [
+            3,
+            5,
+            3
+          ],
+          [
+            3,
+            5,
+            5
+          ],
+          [
+            3,
+            5,
+            7
+          ],
+          [
+            3,
+            5,
+            9
+          ],
+          [
+            3,
+            5,
+            11
+          ],
+          [
+            3,
+            5,
+            13
+          ],
+          [
+            3,
+            5,
+            15
+          ],
+          [
+            3,
+            5,
+            17
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending z"
+      },
+      {
+        "kind": "output",
+        "axis": "z",
+        "width": 8,
+        "positions": [
+          [
+            5,
+            7,
+            3
+          ],
+          [
+            5,
+            7,
+            5
+          ],
+          [
+            5,
+            7,
+            7
+          ],
+          [
+            5,
+            7,
+            9
+          ],
+          [
+            5,
+            7,
+            11
+          ],
+          [
+            5,
+            7,
+            13
+          ],
+          [
+            5,
+            7,
+            15
+          ],
+          [
+            5,
+            7,
+            17
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending z"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

@@ -68,5 +68,12 @@
       }
     ],
     "confidence": "labelled"
+  },
+  "ports": {
+    "io_blocks": 2,
+    "inputs": 1,
+    "outputs": 1,
+    "ports": [],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

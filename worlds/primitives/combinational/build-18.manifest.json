@@ -55,5 +55,42 @@
     "notes": [],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 4,
+    "inputs": 0,
+    "outputs": 4,
+    "ports": [
+      {
+        "kind": "output",
+        "axis": "z",
+        "width": 4,
+        "positions": [
+          [
+            2,
+            6,
+            3
+          ],
+          [
+            2,
+            6,
+            5
+          ],
+          [
+            2,
+            6,
+            7
+          ],
+          [
+            2,
+            6,
+            9
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending z"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

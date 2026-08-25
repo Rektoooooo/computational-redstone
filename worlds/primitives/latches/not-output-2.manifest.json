@@ -70,5 +70,32 @@
     ],
     "candidates": [],
     "confidence": "labelled"
+  },
+  "ports": {
+    "io_blocks": 7,
+    "inputs": 3,
+    "outputs": 4,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "x",
+        "width": 2,
+        "positions": [
+          [
+            2,
+            2,
+            8
+          ],
+          [
+            4,
+            2,
+            8
+          ]
+        ],
+        "block": "stone_button",
+        "bit_order": "inferred: ascending x"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

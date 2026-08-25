@@ -32,3 +32,6 @@ worlds/harvest-all.log
 worlds/*-survey.txt
 .playwright-mcp/
 .DS_Store
+
+# Renders over 300KB are regenerable and enormous (a 100k-component build makes a
+# 28MB SVG). Small ones are committed; regenerate the rest with render.py.

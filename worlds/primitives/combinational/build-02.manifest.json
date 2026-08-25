@@ -61,5 +61,71 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 8,
+    "inputs": 4,
+    "outputs": 4,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 4,
+        "positions": [
+          [
+            5,
+            3,
+            2
+          ],
+          [
+            5,
+            5,
+            2
+          ],
+          [
+            5,
+            7,
+            2
+          ],
+          [
+            5,
+            9,
+            2
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 4,
+        "positions": [
+          [
+            5,
+            3,
+            3
+          ],
+          [
+            5,
+            5,
+            3
+          ],
+          [
+            5,
+            7,
+            3
+          ],
+          [
+            5,
+            9,
+            3
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

@@ -62,5 +62,12 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 5,
+    "inputs": 1,
+    "outputs": 4,
+    "ports": [],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }

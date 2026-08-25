@@ -67,5 +67,131 @@
     ],
     "candidates": [],
     "confidence": "inferred"
+  },
+  "ports": {
+    "io_blocks": 36,
+    "inputs": 10,
+    "outputs": 26,
+    "ports": [
+      {
+        "kind": "input",
+        "axis": "y",
+        "width": 10,
+        "positions": [
+          [
+            113,
+            3,
+            2
+          ],
+          [
+            113,
+            5,
+            2
+          ],
+          [
+            113,
+            7,
+            2
+          ],
+          [
+            113,
+            9,
+            2
+          ],
+          [
+            113,
+            11,
+            2
+          ],
+          [
+            113,
+            13,
+            2
+          ],
+          [
+            113,
+            15,
+            2
+          ],
+          [
+            113,
+            17,
+            2
+          ],
+          [
+            113,
+            19,
+            2
+          ],
+          [
+            113,
+            21,
+            2
+          ]
+        ],
+        "block": "lever",
+        "bit_order": "inferred: ascending y"
+      },
+      {
+        "kind": "output",
+        "axis": "y",
+        "width": 10,
+        "positions": [
+          [
+            112,
+            3,
+            2
+          ],
+          [
+            112,
+            5,
+            2
+          ],
+          [
+            112,
+            7,
+            2
+          ],
+          [
+            112,
+            9,
+            2
+          ],
+          [
+            112,
+            11,
+            2
+          ],
+          [
+            112,
+            13,
+            2
+          ],
+          [
+            112,
+            15,
+            2
+          ],
+          [
+            112,
+            17,
+            2
+          ],
+          [
+            112,
+            19,
+            2
+          ],
+          [
+            112,
+            21,
+            2
+          ]
+        ],
+        "block": "redstone_lamp",
+        "bit_order": "inferred: ascending y"
+      }
+    ],
+    "caveat": "positions and widths are measured; bit order is inferred"
   }
 }
