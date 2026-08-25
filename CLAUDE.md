@@ -41,40 +41,65 @@ cd worlds && unzip '*.zip'      # 115 MB of committed zips -> 925 MB of worlds
 | Skill library | 8 skills, ~2,500 lines, audited against real blocks |
 | Extracted builds | 195, of which 43 named from in-world signs |
 | Simulator | steady state, **97.59%** per-block agreement, **153/175 builds exact** (dust 97.7, repeater 97.8, torch 98.5, comparator 94.4, lamp 96.7) |
-| Tick loop | **built** — delays, priority, scheduling; 14 timing tests |
-| In-game checks | **9 passed**, incl. the CCA adder computing 37+155=192 and two corrected labels |
-| Composition | **M1 + M2 done** — components join, and routes find their way round obstacles |
+| Tick loop | **built and verified against the game** — delays, priority, lamp on/off asymmetry, repeater pulse stretching; 20 timing tests |
+| In-game checks | **10 passed**, incl. the CCA adder computing 37+155=192, two corrected labels, and the tick model measured with `/tick step` |
+| Composition | **M1, M2, M3 done** — components join, routes find their way round obstacles, and bus skew can be measured and padded flat |
+| ALU builds driven | **6 of 18** — they are one ALU built up in stages, ending at `build-09` with all six bitwise ops |
 
 ## Verify it works
 
 ```bash
 cd worlds
-../.venv/bin/python -m sim.tests.test_units      # expect 28/28
-../.venv/bin/python -m sim.tests.test_ticks      # expect 14/14
+../.venv/bin/python -m sim.tests.test_units      # expect 34/34
+../.venv/bin/python -m sim.tests.test_ticks      # expect 20/20
 ../.venv/bin/python -m sim.oracle primitives     # expect 97.59%, takes ~5 min
 ```
 
 ## What to do next
 
-Steady state, time, verification against the game, and composition are all in place.
-`docs/roadmap.md` holds the full picture; the short version is that M1 (join two
-components) and M2 (route around an obstacle) are done and confirmed in game.
+**M4 — spec to build.** Everything under it is done and checked in game:
+`docs/roadmap.md` has the ladder, `docs/timing.md` the numbers, `verify/README.md` the
+ten in-game results.
 
-1. **M3 — timing alignment.** The next real milestone. M2's eight routes were the same
-   length, so their delays matched for free. They will not in general, and a bus whose
-   bits land on different ticks feeds garbage to anything sequential. The tick loop
-   already models delay; this turns that into repeater padding computed per bit.
-2. **Drive the remaining ALU builds.** Six of eighteen done, and they turned out to be
-   one ALU built up in stages, ending at `build-09` with all six bitwise operations.
-   `build-03` (96 levers, needs port-driven handling) and `build-00` are the ones that
-   matter most — both still carry `high` confidence, and `high` has already been wrong.
-3. **Torch burnout**, if a fast clock ever misbehaves — 8 toggles in a 60-tick window
-   burns a torch out for 160 ticks. Only reachable now that time exists.
+M4 means: take a description, choose components, place them, route between them, align
+the timing, verify, emit a `.litematic`. Every one of those steps now exists and has
+been used, except choosing components from a description.
 
-Lower priority: comparators are the weakest category at 94.4%, four builds oscillate
-rather than settling (some are genuine clocks, which have no steady state and are not
-failures), and the worst builds are `displays/blank`, `displays/build-02` and
-`cpu-ep07-branching/build-07`.
+Two things worth doing first, both cheap and both feeding M4:
+
+1. **Drive the remaining 12 ALU builds.** `verify/alu_probe.py` handles the wide ones by
+   splitting levers into operands and controls from behaviour. `build-03` (96 levers) and
+   `build-00` are the ones that matter — both still `high` confidence and never checked,
+   and `high` has already been wrong once. A component whose behaviour is unknown cannot
+   be chosen for a task.
+2. **Try repeater locking as a bus latch.** See `docs/timing.md`. It solves what padding
+   cannot — data-dependent skew from a carry chain — and it is the natural way to feed a
+   register, which is the first thing M4 will want.
+
+Lower priority: comparators are the weakest category at 94.4%; four builds oscillate
+rather than settling (some are genuine clocks, not failures); the worst builds are
+`displays/blank`, `displays/build-02` and `cpu-ep07-branching/build-07`. `docs/roadmap.md`
+has the analysis of what getting to 175/175 would actually take, and why it may be the
+wrong target.
+
+## The tooling, and what each thing is for
+
+| tool | what it does |
+|---|---|
+| `worlds/sim/` | the simulator — `settle()` for steady state, `tick()`/`run_until_stable()` for time |
+| `worlds/sim/oracle.py` | per-block diff against 175 real builds; the regression that must not move |
+| `worlds/signs.py` | recover sign text **and position** from source worlds, and write it back into the `.litematic` |
+| `worlds/containers.py` | recover barrel fill levels the same way |
+| `verify/make_test_schematic.py` | build a small test case: `decay`, `steps`, `comparator`, `timing` |
+| `verify/predict.py` | what the simulator expects a schematic to do |
+| `verify/to_commands.py` | `.litematic` → `/setblock` lines; better than pasting under ~50 blocks |
+| `verify/drive.py` | drive a build through its inputs and name what each output computes |
+| `verify/alu_probe.py` | for wide builds — split levers into operands/controls **by behaviour**, then name the arithmetic per control setting |
+| `pipeline/compose.py` | placement, port conversion, routing, `align()`, and both the collision and structural checks |
+
+**The verification loop that works:** build → simulate → `floating()` → predict in writing
+→ paste → compare. Every one of the ten in-game tests followed it, and three failures got
+through everything except the paste.
 
 ## Read this before generating anything
 
@@ -156,6 +181,9 @@ for any cell. Both are worth copying for whatever category is currently worst.
 | `BUILD-PIPELINE-RESEARCH.md` | design work on generating builds — composition vs synthesis |
 | `docs/plan-simulator.md` | the approved plan the simulator was built from |
 | `docs/timing.md` | **tick delays for every component**, each cross-checked against the decompiled client and measured in game |
+| `docs/roadmap.md` | the route to generating builds — M1–M3 done, M4 next |
+| `verify/README.md` | the ten in-game tests and what each one pinned down |
+| `tasks/lessons.md` | **read before generating anything** — every entry is a real failure |
 
 ## House rules for this project
 
