@@ -181,6 +181,36 @@ sim.run(6)
 check("power returning inside the window leaves the lamp lit",
       sim.lamp_states().get(LAMP_POS), True)
 
+# -- a repeater STRETCHES a pulse shorter than its own delay -----------------
+
+# When a repeater's scheduled tick arrives and it is currently off, it turns on
+# unconditionally - even if the input that scheduled it has already gone - and then
+# schedules its own turn-off one delay later. Re-checking the input instead loses short
+# pulses entirely, which would break every clock and edge detector.
+def pulse_width(delay):
+    cells = {(0, 0, 0): ("purple_wool", {}),
+             (0, 1, 0): ("lever", {"powered": "false", "face": "floor"}),
+             (1, 0, 0): ("purple_wool", {}),
+             (1, 1, 0): ("repeater", {"facing": "west", "delay": str(delay),
+                                      "locked": "false", "powered": "false"}),
+             (2, 0, 0): ("purple_wool", {}),
+             (2, 1, 0): ("redstone_lamp", {"lit": "false"})}
+    sim = Sim(build(cells)).prime()
+    sim.set_lever((0, 1, 0), True)
+    sim.run(1)                       # a single game tick of input
+    sim.set_lever((0, 1, 0), False)
+    on = 0
+    for _ in range(40):
+        sim.tick()
+        if sim.states.get((1, 1, 0)):
+            on += 1
+    return on
+
+
+for setting in (1, 2, 4):
+    check(f"a 1-tick pulse through a delay-{setting} repeater comes out "
+          f"{setting * 2} ticks wide", pulse_width(setting), setting * 2)
+
 print(f"\n{len(PASS)} passed, {len(FAIL)} failed")
 if FAIL:
     print("failed:", ", ".join(FAIL))

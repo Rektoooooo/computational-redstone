@@ -74,6 +74,39 @@ diode ordering deterministic rather than dependent on update order.
 another. Without it, two neighbours changing in the same tick would schedule the same
 repeater twice and it would fire twice.
 
+## A repeater stretches a pulse shorter than its own delay
+
+**source, and confirmed by community documentation.** When a repeater's scheduled tick
+arrives and it is currently off, it turns on **unconditionally** — even if the input that
+scheduled it has already gone away — and then schedules its own turn-off one delay later.
+
+So a **1-tick pulse through a delay-4 repeater comes out 8 game ticks wide**. A repeater
+set to 2–4 also swallows shorter *off*-pulses the same way.
+
+This has a direct consequence for padding a bus: **one 4-tick repeater is not equivalent
+to four 1-tick repeaters.** They delay a steady signal identically, but the single slow
+repeater distorts any pulse narrower than itself. Where pulse width has to survive, pad
+with chained short repeaters rather than by turning one up.
+
+The simulator originally re-checked the input when the tick fired, which is the obvious
+implementation and is wrong — short pulses vanished entirely, since they scheduled a
+turn-on and then the input disappeared before it arrived. Every clock and edge detector
+depends on this behaviour. Fixed and tested.
+
+## Repeater locking, as a way to release a whole bus at once
+
+Community practice, worth recording because it solves the problem padding cannot.
+
+A repeater is **locked** by a powered repeater or comparator facing into its side, and
+while locked it holds its output regardless of its input. So: run one control signal into
+the side of every output repeater, let the data lines settle at their own unequal speeds
+while locked, then unlock — and every line transitions **together**, whatever the skew
+upstream.
+
+That works on **data-dependent** skew too, which no amount of fixed padding can flatten.
+It is the natural answer for sampling something like a ripple-carry adder, and the
+obvious tool when M4 needs to feed a register.
+
 ## Torch burnout — real, and NOT modelled here
 
 Source (`RedstoneTorchBlock`): a torch tracks its recent toggles, and more than

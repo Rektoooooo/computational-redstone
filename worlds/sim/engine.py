@@ -142,6 +142,37 @@ class Sim:
                 self.queue.schedule(pos, self.time + self.LAMP_OFF_DELAY)
         return changed
 
+    def _fire_repeater(self, pos, cell):
+        """
+        A repeater's scheduled tick, with the pulse-stretch rule.
+
+        The subtle part: when the tick arrives and the repeater is currently OFF, it
+        turns ON **unconditionally** - even if the input that scheduled it has already
+        gone away. It then schedules its own turn-off one delay later. That is what
+        makes a repeater STRETCH a pulse shorter than its own delay, and why a 1-tick
+        pulse through a 4-tick repeater comes out 4 ticks wide.
+
+        Re-checking the input here instead, which is the obvious implementation, loses
+        short pulses entirely - they schedule a turn-on, the input vanishes, and the
+        repeater declines to fire. Every clock and edge detector depends on this.
+        """
+        if C.repeater_locked(self.grid, self.field, self.states, pos, cell):
+            return False
+        powered = bool(self.states.get(pos))
+        should_on = C.repeater_input_on(self.grid, self.field, self.states, pos, cell)
+
+        if powered and not should_on:
+            self.states[pos] = False
+            return True
+        if not powered:
+            self.states[pos] = True
+            if not should_on:
+                # input already gone: hold the pulse open for one full delay
+                self.queue.schedule(pos, self.time + C.component_delay(cell),
+                                    C.component_priority(self.grid, pos, cell, True))
+            return True
+        return False
+
     def tick(self):
         """
         Advance one GAME tick. Returns True if anything changed.
@@ -164,6 +195,11 @@ class Sim:
                     if self.lamps.get(pos):
                         self.lamps[pos] = False
                         changed = True
+                continue
+            cell = self.grid.get(pos)
+            if cell.id == REPEATER:
+                if self._fire_repeater(pos, cell):
+                    changed = True
                 continue
             target = C.eval_one(self.grid, self.field, self.states, pos)
             if target is not None and target != self.states.get(pos):

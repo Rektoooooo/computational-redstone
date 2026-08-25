@@ -125,6 +125,11 @@ def repeater_locked(grid, field, states, pos, cell):
     return False
 
 
+def repeater_input_on(grid, field, states, pos, cell):
+    """Whether a repeater's rear currently carries a signal, ignoring any lock."""
+    return input_from(grid, field, states, pos, prop(cell, "facing", "north")) > 0
+
+
 def eval_repeater(grid, field, states, pos, cell):
     """
     Output at steady state. Returns bool.
