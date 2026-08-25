@@ -738,3 +738,81 @@ per line, and version schematics rather than overwriting them.
 
 Disk: the unpacked worlds are 936 MB and the disk was at 97%. They regenerate from the
 committed zips, and both `signs.py` and `containers.py` have already run.
+
+---
+
+# Session 7 — M3, and the clock checked against the game
+
+## Done
+
+**M3.1 - verified the tick model in game.** It had never been compared to the real
+thing; the 14 unit tests only proved it was self-consistent. `verify/timing.litematic`,
+stepped with `/tick freeze` + `/tick step`:
+
+    A0..A7    predicted 8,16,24..64   measured 9,17,25..65
+    B d1..d4  predicted 16,32,48,64   measured 17,33,49,65
+
+Delay setting N is 2N game ticks, delays add linearly, order strictly correct. Every
+lane exactly one tick late - that is where tick-stepping starts counting, since the
+lever is flipped while frozen, and it cancels in any difference.
+
+Doing this BEFORE using the numbers was the user's call and it was right: M3.2 pads
+using these very numbers, so a wrong ruler would have produced a wrong alignment that
+then verified against itself.
+
+**M3.2 - measure bus skew and pad it flat.** `arrival_ticks()`, `settle_profile()` and
+`align()` in `pipeline/compose.py`. Skew 4 -> 0 at no block cost, by turning UP delay
+settings on repeaters already in place. 512 cases still exact: alignment changes WHEN,
+not WHAT. Confirmed in game repeater by repeater - the whole firing sequence matched,
+not just the final lamps.
+
+## Three rules the simulator was missing, all found by measuring
+
+1. **A lamp is asymmetric.** Instant on, **4 game ticks** to go dark, re-checking on
+   arrival so a signal returning inside the window leaves it lit. The oracle is blind to
+   this by construction - the settled state is identical either way - so it survived 175
+   builds and nine in-game tests. Found by the user stepping ticks and noticing a lamp
+   still lit with every repeater behind it dark.
+
+2. **A repeater STRETCHES a pulse shorter than its own delay.** When its scheduled tick
+   arrives while it is off it turns on unconditionally, even if the input has gone, then
+   schedules its own turn-off. The sim re-checked the input at fire time - the obvious
+   implementation, and wrong: short pulses vanished completely. Every clock and edge
+   detector depends on this. Found by cross-checking against community documentation at
+   the user's suggestion.
+
+3. **Two kinds of skew, and only one is paddable.** STRUCTURAL skew is fixed by the
+   wiring and pads flat. DATA-DEPENDENT skew from a carry chain varies with the input -
+   the ripple-carry adder settles in 8 ticks for 162 of 256 pairs and 22 for 8 of them -
+   and no fixed padding flattens it. Wait for the worst case instead.
+
+All three are in `docs/timing.md` with their evidence level.
+
+## Known limitation of align()
+
+It pads by raising delay settings, and **one 4-tick repeater is not equivalent to four
+1-tick repeaters**. They delay a steady signal identically, but a single slow repeater
+distorts any pulse narrower than itself. Fine for the level signals it was tested on;
+wrong where pulse width has to survive. Recorded rather than silently carried.
+
+**Repeater locking is the better tool** and is not implemented yet: lock every output
+repeater from one control line, let the data settle at its own unequal speeds, then
+unlock and all lines transition together. It works on data-dependent skew too, which
+padding cannot touch - the obvious way to feed a register.
+
+## Mistakes worth not repeating
+
+- **Two builds that look alike need a visible difference.** M3's staggered and aligned
+  builds differ by five block properties and nothing else. I said so, then handed both
+  over with no way to tell them apart, and the aligned one got tested twice. The tell is
+  the repeater behind the white lamp: torches far apart when aligned, close when not.
+- **align() saved its output under the input's name**, so Litematica listed the aligned
+  build calling itself the staggered one.
+- **"Stagger the lamps to create skew" does not work.** Dust carries within the tick, so
+  a longer route is not a slower one - only the repeaters it forces are.
+
+## Next
+
+**M4 - spec to build.** Everything under it exists and has been used in anger. See
+`CLAUDE.md` for the two cheap things worth doing first: driving the remaining 12 ALU
+builds, and trying repeater locking as a bus latch.
