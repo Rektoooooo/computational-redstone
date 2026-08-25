@@ -99,10 +99,13 @@ exactly as the guess below supposed. Each adds a single control line to the last
 | `build-15` | + invert A | adds `~A+B`, and `B−A` |
 | `build-13` | + invert B | adds `A+~B`, `A−B`, `~A+~B` |
 | `build-10` | + logic mode | adds bitwise `A XNOR B`, and `A XOR B` with either invert |
+| `build-09` | + a second logic control | **all six** bitwise ops: AND, OR, XOR, NAND, NOR, XNOR |
 
 Every setting was checked over all 256 operand pairs. The progression is the reason
 five near-identical builds of increasing size sit in this world: it is one ALU being
-built up on camera, saved at each step.
+built up on camera, saved at each step — and `build-09` is where it **ends**, because
+by then it does the full arithmetic set plus all six bitwise operations, which is
+everything an ALU of this kind needs.
 
 `build-10`'s fourth control is the interesting one — it switches the adder out of
 arithmetic entirely and into bitwise logic, which is what turns an adder into an ALU.
@@ -123,7 +126,7 @@ the lone lever really is the carry-in. And it validates the **prober**, since al
 of these modes came out of a tool that had already produced three plausible-looking
 wrong answers before it was corrected.
 
-### `build-09`, `build-04` — the same family, further along
+### `build-04` — the same family, furthest along
 **~22×12×27 · 280–638 components · torch-dominant (53–93), few comparators**
 
 All flat (10–12 tall) where the CCA builds are 20+ tall, with long horizontal
@@ -194,14 +197,15 @@ Driven over every combination of A (0–15), B (0–15) and carry-in: **512/512 
 | `build-15` | **4-bit adder/subtractor**, +invert-A | **driven, 4×256** |
 | `build-13` | **the same**, +invert-B | **driven, 8×256** |
 | `build-10` | **4-bit ALU**, +logic mode (XOR/XNOR) | **driven, 16×256** |
-| `build-04/09` | same family, further along | medium — *unverified* |
+| `build-09` | **4-bit ALU**, all six bitwise ops | **driven, 32×256** |
+| `build-04` | same family, furthest along | medium — *unverified* |
 | `build-11/12/14` | 8-bit carry-cancel adders | medium — *unverified* |
 | `build-05/06/07/08` | CCA-based ALUs | medium — *unverified* |
 | `build-01/02` | ALU with operation selector | medium — *unverified* |
 
-**All 18 accounted for. Five driven, thirteen still guesses.**
+**All 18 accounted for. Six driven, twelve still guesses.**
 
-Of the five that have been driven, **two came back outright wrong** and three were
+Of the six that have been driven, **two came back outright wrong** and three were
 the right family but too vague to use:
 
 | build | was read as | actually is |
@@ -211,6 +215,7 @@ the right family but too vague to use:
 | `build-15` | 4-bit RCA ALU (`medium`) | adder/subtractor: +carry-in, +invert-A |
 | `build-13` | 4-bit RCA ALU (`medium`) | the same, +invert-B |
 | `build-10` | 4-bit RCA ALU (`medium`) | the same, +logic mode |
+| `build-09` | 4-bit RCA ALU (`medium`) | the same, +all six bitwise ops |
 
 Both outright failures share a shape: the visual read saw the *parts* correctly and missed how
 they were *joined*. A De Morgan AND and a XOR look alike; four adder stages look like

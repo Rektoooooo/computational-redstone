@@ -119,10 +119,11 @@
     "caveat": "positions and widths are measured; bit order is inferred"
   },
   "identification": {
-    "reading": "4-bit RCA-based ALU, one stage of successive modification",
-    "confidence": "medium",
-    "evidence": "flat (10-12 tall) vs CCA's 20+, torch-dominant, 4 repeating units, sizes climb 280-638",
-    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "reading": "4-bit ALU - the complete one: carry-in, invert-A, invert-B, and two logic-mode controls",
+    "confidence": "driven - all 32 control settings x 256 pairs",
+    "evidence": "five controls. Lever 8 is carry-in, 10 inverts A, 12 inverts B, and 9 and 11 together select the logic modes. Arithmetic: A+B, A+B+1, ~A+B, A+~B, B-A, A-B, ~A+~B, ~A+~B+1. Bitwise: AND, OR, XOR, NAND, NOR, XNOR - all six. That is the full set, so this is the end of the progression rather than another stage.",
+    "basis": "structural probe plus exhaustive arithmetic check; simulator validated in game",
+    "supersedes": "'4-bit RCA-based ALU, one stage of successive' - right family, now exact",
     "see": "IDENTIFICATION.md"
   }
 }
