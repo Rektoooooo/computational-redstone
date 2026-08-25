@@ -70,6 +70,9 @@ Per game tick:
 - [x] behavioural test: the CCA adder — 37+155=192, correct in game, and it settles
       in the 3 redstone ticks its own name claims
 - [x] paste a build into 1.18.2 via Litematica and compare against the real game
+- [x] M2 - route around obstacles, confirmed in game
+- [x] M3.1 - verify the tick model in game
+- [x] M3.2 - measure bus skew and pad it flat, confirmed in game
 - [ ] torch burnout
 
 ## Review
