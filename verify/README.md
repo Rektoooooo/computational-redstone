@@ -2,9 +2,9 @@
 
 ## Results so far
 
-All four **passed in Minecraft 1.18.2**. This is the first time anything in this
-project has been checked against the game rather than a saved snapshot — an item open
-since session 2.
+All five **passed in Minecraft 1.18.2**, and one of them corrected a label the project
+had wrong. This is the first time anything here has been checked against the game
+rather than a saved snapshot — an item open since session 2.
 
 | test | predicted | in game |
 |---|---|---|
@@ -33,12 +33,16 @@ agreement from 88.79% to 97.67% — the largest single correction in the project
 could easily have been backwards. It is not.
 
 
-Everything the simulator knows has been checked against **saved** state — real
-circuits, but frozen ones. The oracle is a snapshot; the game is the authority. Nothing
-from this project had ever been pasted back into Minecraft and run.
+## How this works
 
-These schematics are deliberately tiny, so that a disagreement points at one rule
-rather than at a haystack.
+The oracle checks the simulator against **saved** state — real circuits, but frozen
+ones. That is a strong test and it is not the same as the game. The game is the
+authority, and until these tests existed nothing here had ever been pasted back and
+run.
+
+The constructed schematics are deliberately tiny, so that a disagreement points at one
+rule rather than at a haystack. Extracted builds are driven whole, where the question
+is not a single rule but whether the parts compose.
 
 ```bash
 python3 verify/make_test_schematic.py decay     # build it
