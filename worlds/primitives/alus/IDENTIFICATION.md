@@ -3,10 +3,18 @@
 `ALUs by mattbatwings` contains **18 builds and zero signs**. It is the most valuable
 world for CPU work and the only one with no ground truth at all.
 
-These identifications come from **rendering each build and reading its structure**
-against what LMRC #2 says should be there. That is inference, not fact. Structural
-inference has been wrong before, so each entry carries an explicit confidence and the
-evidence it rests on. **An in-world sign would beat any of this** — none exist here.
+Most identifications here come from **rendering each build and reading its structure**
+against what LMRC #2 says should be there. That is inference, not fact, and two of the
+first three builds to be driven turned out wrong.
+
+**Driving a build beats any amount of looking at it**, and now costs seconds:
+
+```bash
+python3 verify/drive.py worlds/primitives/alus/build-16.litematic
+```
+
+Entries marked **driven** or **measured in game** are results. Everything else carries
+an explicit confidence and the evidence it rests on, and should be read as a lead.
 
 Renders: `build-XX.svg` alongside each manifest. Regenerate with `render.py`.
 
@@ -149,18 +157,29 @@ Driven over every combination of A (0–15), B (0–15) and carry-in: **512/512 
 | `build-17` | **3-input XOR (odd parity)** | **measured in game** |
 | `build-03` | six bitwise gates × 8 bits | high — *unverified* |
 | `build-00` | brute-force ALU | high — *unverified* |
-| `build-04/09/10/13/15` | 4-bit RCA ALU, successive stages | medium |
-| `build-11/12/14` | 8-bit carry-cancel adders | medium |
-| `build-05/06/07/08` | CCA-based ALUs | medium |
-| `build-01/02` | ALU with operation selector | medium |
+| `build-04/09/10/13` | 4-bit RCA ALU, successive stages | medium — *unverified* |
+| `build-11/12/14` | 8-bit carry-cancel adders | medium — *unverified* |
+| `build-05/06/07/08` | CCA-based ALUs | medium — *unverified* |
+| `build-01/02` | ALU with operation selector | medium — *unverified* |
 | `build-16` | **4-bit ripple-carry adder** | **driven, 512/512** |
 | `build-15` | **4-bit adder/subtractor**, carry-in + invert-A | **driven, 4×256/256** |
 
-**All 18 accounted for. One measured, seventeen still guesses.**
+**All 18 accounted for. Three driven, fifteen still guesses.**
 
-`build-17` is the only one that has been driven, and it came back **wrong** — read as a
-single AND gate at confidence `high`, and it is a 3-input XOR. Treat every remaining
-row here as a lead, not a label. In particular:
+Of the three that have been driven, **two came back wrong**:
+
+| build | was read as | actually is |
+|---|---|---|
+| `build-17` | single AND gate (`high`) | 3-input XOR |
+| `build-16` | four-gate demo board (`medium`) | 4-bit ripple-carry adder |
+| `build-15` | 4-bit RCA ALU (`medium`) | 4-bit adder/subtractor — broadly right |
+
+Both failures share a shape: the visual read saw the *parts* correctly and missed how
+they were *joined*. A De Morgan AND and a XOR look alike; four adder stages look like
+four gates until you notice the carry between them. Structure is visible in a render;
+connection often is not.
+
+Treat every undriven row here as a lead, not a label. In particular:
 
 - **`high` did not mean reliable.** The two remaining `high` readings deserve the same
   suspicion as the `medium` ones until something drives them.

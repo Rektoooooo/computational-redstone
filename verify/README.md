@@ -2,7 +2,7 @@
 
 ## Results so far
 
-All five **passed in Minecraft 1.18.2**, and one of them corrected a label the project
+All six **passed in Minecraft 1.18.2**, and two of them corrected labels the project
 had wrong. This is the first time anything here has been checked against the game
 rather than a saved snapshot — an item open since session 2.
 
