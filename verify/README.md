@@ -1,5 +1,24 @@
 # Checking against the real game
 
+## Results so far
+
+Both tests **passed in Minecraft 1.18.2, exactly as predicted**. This is the first time
+anything in this project has been checked against the game rather than a saved
+snapshot — an item open since session 2.
+
+| test | predicted | in game |
+|---|---|---|
+| `decay` | 15, 14, 13, 12, 11, 10, lamp lit | ✅ identical |
+| `steps` | lanes 1–3 lit, lane 4 dark at 0 | ✅ identical |
+
+`steps` is the one that carried weight. Lanes 2 and 4 are the same build with the
+source at opposite ends, and the same glass block let power climb onto it while
+refusing to let it back down. That asymmetry was **derived** by inverting reader-side
+logic rather than read off directly, and it underpins the dust fix that moved
+agreement from 88.79% to 97.67% — the largest single correction in the project. It
+could easily have been backwards. It is not.
+
+
 Everything the simulator knows has been checked against **saved** state — real
 circuits, but frozen ones. The oracle is a snapshot; the game is the authority. Nothing
 from this project had ever been pasted back into Minecraft and run.
@@ -14,6 +33,30 @@ python3 verify/predict.py verify/decay.litematic # what we expect it to do
 
 **Write the prediction down before looking at the game.** A model consulted after the
 fact always seems to agree.
+
+## Test 2 — `steps`
+
+Four lanes, differing in only two things: whether the block the dust steps over is
+**stone** or **glass**, and whether the source is **below** the step or **above** it.
+Each ends in a lamp.
+
+| lane | step | source | reader dust | lamp |
+|---|---|---|---|---|
+| 1 | stone | below | 13 | lit |
+| 2 | glass | below | 13 | lit |
+| 3 | stone | above | 13 | lit |
+| 4 | **glass** | **above** | **0** | **dark** |
+
+The obvious guess is that a step either works or it does not, so glass ought to behave
+the same in lanes 2 and 4. It does not:
+
+- reading a source **one level down** needs the block between to be a **non-conductor**
+- reading a source **one level up** needs it to **be** a conductor
+
+Glass is never a conductor, so power climbs onto a glass step but will not come back
+down off one. Lanes 1–3 are controls; they also prove the paste fired block updates.
+
+**Result: passed exactly.** Confirmed in game.
 
 ## Test 1 — `decay`
 
@@ -45,6 +88,8 @@ What each part of this actually tests:
   with nothing to its north or south straightens itself into a line, which gives the
   last dust an eastward connection. If that rule were wrong the lamp would sit dark
   with power 10 right next to it.
+
+**Result: passed exactly.** Confirmed in game.
 
 ## Getting it into the world
 

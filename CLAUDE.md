@@ -61,9 +61,11 @@ together on a real build rather than on micro-circuits.
    `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The adder is
    the headline — computing 37+91 from nothing but extracted blocks would validate the
    whole model. Use `sim.prime()`, `set_port(...)`, then `run_until_stable()`.
-2. **Compare against real Minecraft.** 1.18.2 is installed with a flat world; Litematica
-   pastes a `.litematic` straight in. Nothing has ever been pasted back and tested, so
-   this closes the oldest open item in the project. The game outranks the oracle.
+2. **Compare against real Minecraft.** Working, and the loop is open — see `verify/`.
+   Two hand-built circuits checked so far, both passing exactly, one of them confirming
+   the asymmetric dust-stepping rule the biggest correction rests on. What has NOT been
+   done is pasting an *extracted* build back and driving it. The game outranks the
+   oracle on any disagreement.
 3. **Torch burnout**, if a fast clock ever misbehaves — 8 toggles in a 60-tick window
    burns a torch out for 160 ticks. Only reachable now that time exists.
 
@@ -118,6 +120,20 @@ for any cell. Both are worth copying for whatever category is currently worst.
   costs ~21 points of agreement.
 - **Never `mv ~/Downloads/*.zip`** — it sweeps up the user's unrelated files. Move world
   zips by explicit name.
+- **The game runs through ModrinthApp, not the vanilla launcher.** Schematics go in
+  `~/Library/Application Support/ModrinthApp/profiles/Redstone/schematics/`. Dropping
+  them in `~/Library/Application Support/minecraft/` looks right and does nothing.
+- **Litematica's paste needs setting up first**, and the defaults are actively
+  unhelpful. `executeOperation` ships **unbound** — that alone makes pasting look
+  broken. Tool mode cycles with **Left Ctrl + scroll** while holding the tool item (a
+  stick), and the paste also needs a placement *selected*, not merely loaded. All of
+  this is readable from the mod jar rather than guessable: the defaults live in
+  `fi/dy/masa/litematica/config/Hotkeys.class`, and `javap -c` on it pairs each name
+  with its default key.
+- **For anything under ~50 blocks, skip Litematica and use `/setblock`.**
+  `verify/to_commands.py` generates the list. Commands fire block updates, which a
+  paste does not always do — and on a redstone test an un-updated paste reads as all
+  zeros and looks exactly like a broken model.
 - **Renders over ~400k cells are skipped**; one large build produced a 28 MB SVG that
   nothing could open.
 

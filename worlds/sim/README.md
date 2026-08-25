@@ -201,6 +201,11 @@ whether a block can start a new dust run. Corrected.
   the game's own and its micro-circuits pass, but nothing has yet driven a whole
   extracted build through time and compared the result. That is the next thing: an AND
   truth table through `alus/build-17`, then 37+91 through the CCA adder.
+- **Only hand-built circuits have been checked in the actual game**, not extracted
+  builds. Two so far, both passing exactly — see [`../../verify/`](../../verify/). One
+  of them confirmed the asymmetric dust-stepping rule directly, which matters because
+  that rule was derived rather than read off and the largest correction here rests on
+  it.
 - **Torch burnout is not modelled** — 8 toggles inside a 60-tick window burns a torch
   out for 160 ticks. Only reachable now that time exists, and only bites fast clocks.
 - **Comparators are the weakest category at 94.44%**, and the schematic records only

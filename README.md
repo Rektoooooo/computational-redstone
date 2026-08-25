@@ -112,8 +112,11 @@ useful; it is not used for labelling.
 - **Bit ordering within ports is inferred**, not known. `portmap.py` measures port
   positions and widths from the blocks, but the `[1][2][4]…[128]` bit signs that give
   the real ordering are not carried into a `.litematic`. Check before wiring.
-- **Nothing has been pasted back into Minecraft and tested.** Block-level fidelity is
-  verified (properties round-trip correctly); in-world behaviour is not.
+- **Only two circuits have been checked in the real game**, not whole builds. Both
+  passed exactly — see [`verify/`](verify/) — and one of them confirmed the asymmetric
+  dust-stepping rule that the largest simulator correction rests on. Block-level
+  fidelity round-trips correctly, but no *extracted* build has been pasted back and
+  driven yet.
 - **The simulator solves steady state at 97.6% per-block agreement** across 175 real
   builds, with 153 of them reproducing exactly, and now has a **tick loop** — delays,
   priority and scheduling — so sequential circuits run in time. The timing rules are

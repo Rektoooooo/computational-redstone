@@ -59,7 +59,60 @@ def decay(length=6):
     )
 
 
-BUILDERS = {"decay": decay}
+GLASS = BlockState("minecraft:glass")
+
+
+def steps():
+    """
+    Four lanes testing whether dust changes level, differing only in two things:
+    whether the block it steps over is SOLID or GLASS, and whether the source is
+    below or above.
+
+    This is the sharpest test available, because the rule is asymmetric and the
+    asymmetry was derived rather than read off. Reading a source one level DOWN needs
+    the block between to be a non-conductor; reading one level UP needs it to BE a
+    conductor. Glass is never a conductor, so power should climb ONTO a glass step but
+    refuse to come back DOWN off one.
+
+    Predicted: lanes 1-3 light their lamp, lane 4 does not. Only the last lane
+    separates the model from the obvious guess that a step either works or does not.
+    """
+    lanes = [("solid", "below"), ("glass", "below"),
+             ("solid", "above"), ("glass", "above")]
+    spacing = 3
+    reg = Region(0, 0, 0, 5, 3, len(lanes) * spacing - (spacing - 1))
+
+    for i, (step_block, source) in enumerate(lanes):
+        z = i * spacing
+        stepper = GLASS if step_block == "glass" else FLOOR
+
+        for x in range(5):
+            reg[x, 0, z] = FLOOR
+        reg[2, 1, z] = stepper          # the block under test
+        reg[3, 1, z] = FLOOR            # support for the upper run
+        reg[2, 2, z] = wire()
+        reg[3, 2, z] = wire()
+
+        if source == "below":
+            # drive the LOW dust and watch power climb onto the step
+            reg[0, 1, z] = REDSTONE_BLOCK
+            reg[1, 1, z] = wire()
+            reg[4, 1, z] = FLOOR
+            reg[4, 2, z] = LAMP         # lit if the climb worked
+        else:
+            # drive the HIGH dust and watch whether power comes back down
+            reg[4, 1, z] = FLOOR
+            reg[4, 2, z] = REDSTONE_BLOCK
+            reg[1, 1, z] = wire()       # the reader - the block that matters
+            reg[0, 1, z] = LAMP         # lit only if the descent worked
+
+    return reg, "steps", (
+        "4 lanes: solid/glass step, source below/above. Lanes 1-3 should light "
+        "their lamp; lane 4 (glass, source above) should stay dark."
+    )
+
+
+BUILDERS = {"decay": decay, "steps": steps}
 
 
 def main():

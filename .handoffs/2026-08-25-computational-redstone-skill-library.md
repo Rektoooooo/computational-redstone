@@ -494,3 +494,67 @@ the wrong reason would have misled the next change. Fixed.
    open item in the project, open since session 2. The game outranks the oracle.
 3. **Torch burnout**, if a fast clock misbehaves: 8 toggles in a 60-tick window burns a
    torch out for 160 ticks. Only reachable now that time exists.
+
+---
+
+# Session 5d — checked against the real game at last
+
+## Done
+
+**Two circuits built in Minecraft 1.18.2 and compared against the simulator. Both
+matched exactly.** This closes the item open since session 2: nothing from this project
+had ever been pasted back and run.
+
+`verify/` holds the tooling — `make_test_schematic.py` builds a case, `predict.py`
+prints what the simulator expects, `to_commands.py` emits `/setblock` lines. The
+prediction is written down before looking at the game, because a model consulted
+afterwards always seems to agree.
+
+**Test 1, `decay`** — redstone block, six dust, lamp. Predicted 15/14/13/12/11/10 and a
+lit lamp. Exact. The lamp is less trivial than it looks: dust does not connect to a
+lamp, since a lamp is not a signal source, and only reaches it because a wire with
+nothing north or south straightens itself into a line.
+
+**Test 2, `steps`** — the one that carried weight. Four lanes differing in only two
+things: the block the dust steps over (stone or glass) and whether the source sits
+below the step or above it.
+
+| lane | step | source | reader | lamp |
+|---|---|---|---|---|
+| 1 | stone | below | 13 | lit |
+| 2 | glass | below | 13 | lit |
+| 3 | stone | above | 13 | lit |
+| 4 | glass | above | **0** | **dark** |
+
+All four exact. Lanes 2 and 4 are the same build with the source at opposite ends, and
+the same glass block let power climb onto it while refusing to let it back down.
+
+That asymmetry was **derived** in 5b by inverting reader-side logic, not read off
+directly, and the dust fix resting on it moved agreement 88.79% -> 97.67% - the largest
+single correction in the project. It could easily have been backwards. It is not.
+
+## Practical findings, all of which cost time
+
+- The game runs through **ModrinthApp**, not the vanilla launcher. Schematics belong in
+  `~/Library/Application Support/ModrinthApp/profiles/Redstone/schematics/`.
+- **Litematica's `executeOperation` hotkey ships UNBOUND**, which makes pasting look
+  broken when nothing is wrong. Tool mode cycles with Left Ctrl + scroll while holding
+  the tool item, and paste needs a placement *selected*, not just loaded.
+- Those defaults are readable rather than guessable: `javap -c` on
+  `fi/dy/masa/litematica/config/Hotkeys.class` in the mod jar pairs each hotkey with
+  its default. Worth remembering as a technique - guessing at keybinds wasted several
+  exchanges before that.
+- **Under ~50 blocks, prefer `/setblock` over pasting.** Commands fire block updates;
+  a paste does not always, and an un-updated redstone paste reads as all zeros and
+  looks exactly like a broken model.
+
+## Next
+
+1. **Behavioural tests on extracted builds** - the real gap. AND truth table through
+   `alus/build-17`, then 37+91 through `addition/3-ticks-8-bit-cca-by-don`. Predict
+   first, then paste the same build in game and compare. The pipeline for doing that
+   now exists and is proven on small cases.
+2. Comparator reading a container through a solid block is the other big fix that has
+   not been checked in game. It needs a barrel with a known fill level, so the schematic
+   has to carry block entity data or the barrel gets filled by hand.
+3. Torch burnout, still unmodelled.
