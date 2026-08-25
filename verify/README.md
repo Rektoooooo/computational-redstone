@@ -2,8 +2,9 @@
 
 ## Results so far
 
-All seven **passed in Minecraft 1.18.2**, and two of them corrected labels the project
-had wrong. This is the first time anything here has been checked against the game
+All eight **passed in Minecraft 1.18.2**. Two corrected labels the project had wrong,
+and the last one is the first build here that **did not previously exist** — two
+components composed into a new device. This is the first time anything here has been checked against the game
 rather than a saved snapshot — an item open since session 2.
 
 | test | predicted | in game |
@@ -15,6 +16,7 @@ rather than a saved snapshot — an item open since session 2.
 | `comparator` | 8, 8, 0 — reads through stone, not through glass | ✅ identical |
 | `alus/build-16` | 4-bit ripple-carry adder, **not** four independent gates | ✅ label corrected |
 | `alus/build-13` | 9 − 4 = 5 by two's complement | ✅ identical |
+| `m1-two-adders` (**composed**) | (37 + 91) + 64 = 192 | ✅ identical |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator

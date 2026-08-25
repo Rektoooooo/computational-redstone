@@ -42,17 +42,27 @@ ports without describing how to *drive* them.
 
 ## Milestones
 
-### M1 — join two components and have it work
+### M1 — join two components and have it work — **DONE**
 
-Take one component's output, drive another component's input with it, verify in the
-simulator, paste it, confirm in game.
+Two 8-bit adders chained into `(A + B) + C`. Verified over 512 bus cases and 517
+arithmetic cases, then pasted and confirmed in game: `(37 + 91) + 64 = 192`.
 
-Proves: port conversion, a bus between two placed components, and that a composed
-build behaves as the sum of its parts. Everything later assumes this.
+`pipeline/compose.py` does the work — placement, port conversion, a coloured bus, and
+both a collision check and a structural check.
 
-### M2 — route around obstacles
+Two things it taught, beyond proving composition works:
 
-M1 can use a hand-chosen straight path. M2 needs a router that finds one: dust runs,
+- **Ports need converting, not connecting.** The tap has to be a repeater, because the
+  block driving an output lamp is only ever *weakly* powered — at levels as low as 1,
+  which dust cannot pick up at all. Measured, not assumed.
+- **The simulator models signal, not physics.** The first version passed all 1029 cases
+  with sixteen repeaters floating in mid-air, and fell apart on paste. A composed build
+  now gets a structural check as well as a behavioural one.
+
+### M2 — route around obstacles — **next**
+
+M1 used a hand-chosen straight path, made straight by offsetting the second component
+so the ports lined up. M2 needs a router that finds one: dust runs,
 level changes, repeaters for distance, avoiding collisions with either component.
 
 ### M3 — timing alignment
