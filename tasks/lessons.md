@@ -2,6 +2,26 @@
 
 Corrections worth not repeating. Newest first.
 
+## A written blockstate must describe every real neighbour
+
+**Correction:** the wire at each end of a route pasted pointing the wrong way — drawn as
+a straight line past the repeater beside it instead of turning into it.
+
+The route code gave each cell connections toward its path neighbours, and the cells at
+the two ends have only one path neighbour each. A wire with a single connection draws as
+a straight line *through*, not as a turn. The repeaters at either end are real
+neighbours, they were simply not part of the path list.
+
+**Why it hid:** the game recomputes wire shape on the next block update, so it corrects
+itself and behaves properly. Only the pasted file looks wrong, which means the
+simulator, the sweeps, and the arithmetic all pass. It took someone looking at it.
+
+**How to apply:** when writing blockstates directly rather than letting the game derive
+them, the state has to describe the world as it will be — including neighbours that the
+generating loop does not happen to iterate over. `lay_route` now takes `enter_from` and
+`exit_to` for exactly this. Shape also decides which blocks a wire powers, so this is
+not purely cosmetic.
+
 ## Version generated schematics, never overwrite them
 
 **Correction:** I rebuilt M1 in place, overwriting the file the user had already pasted.

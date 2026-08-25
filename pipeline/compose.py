@@ -327,7 +327,7 @@ class Composition:
                 q.append(nxt)
         return None
 
-    def lay_route(self, path, y, colour, max_run=14):
+    def lay_route(self, path, y, colour, max_run=14, enter_from=None, exit_to=None):
         """
         Lay dust along `path`, with its floor, and a repeater before the signal dies.
 
@@ -335,15 +335,20 @@ class Composition:
         nothing. A repeater restores it - but only ever on a STRAIGHT stretch: put one
         on a corner and it faces the wrong way and silently breaks the line.
 
-        Each dust cell is given the connection shape its own path implies, so the
-        simulator sees the same wire the game will draw.
+        `enter_from` and `exit_to` are the things at each END of the route - normally
+        the tap and drive repeaters. They matter because a wire's stored shape has to
+        mention them: give the first cell only its forward neighbour and it has a
+        single connection, which draws as a straight line THROUGH rather than a turn
+        into the repeater beside it. The game recomputes shape on update and recovers,
+        but the pasted file looks wrong before anything nudges it, and the shape also
+        decides which blocks the wire powers - so it should be right on disk.
         """
         placed, since_repeater = [], 0
         for i, (x, z) in enumerate(path):
             if self.is_decoration((x, y, z)):
                 self.clear((x, y, z), "route passes through a sign")
-            prev = path[i - 1] if i > 0 else None
-            nxt = path[i + 1] if i + 1 < len(path) else None
+            prev = path[i - 1] if i > 0 else enter_from
+            nxt = path[i + 1] if i + 1 < len(path) else exit_to
             straight = (prev and nxt and
                         (prev[0] == x == nxt[0] or prev[1] == z == nxt[1]))
             since_repeater += 1
@@ -486,7 +491,8 @@ def compose_m2(out=None):
             print(f"  {i:3} {y:3}  NO ROUTE FOUND")
             c.collisions.append((tap, "no route to the front"))
             continue
-        cells = c.lay_route(path, y, colour)
+        cells = c.lay_route(path, y, colour,
+                            enter_from=(tap[0], tap[2]), exit_to=(drive[0], drive[2]))
         routed += cells
         c.drive_input(drive, "east", colour)
         c.put(lamp, BlockState("minecraft:redstone_lamp", lit="false"), "front lamp",
