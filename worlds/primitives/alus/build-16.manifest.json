@@ -232,10 +232,11 @@
     "caveat": "positions and widths are measured; bit order is inferred"
   },
   "identification": {
-    "reading": "four-gate demonstration board",
-    "confidence": "medium",
-    "evidence": "4 parallel identical units, ports in2 x4, pure torch logic",
-    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "reading": "4-bit ripple-carry adder",
+    "confidence": "driven - 512/512 cases",
+    "evidence": "driven over every combination of A (0-15), B (0-15) and carry-in: all 512 produce (A + B + Cin) mod 16. Nine levers are four A/B bit pairs plus a carry-in; nine of fourteen lamps are input indicators and the four real outputs are the sum bits.",
+    "basis": "exhaustive simulation; simulator validated in game across 5 tests",
+    "supersedes": "'four-gate demonstration board', confidence medium. The four parallel structures are real - they are the bit-stages - but they are NOT independent. Each output depends on its own lever pair and every higher one, which is a carry chain, and the carry is exactly what a visual read cannot see.",
     "see": "IDENTIFICATION.md"
   }
 }

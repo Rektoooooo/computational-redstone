@@ -91,5 +91,45 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "4,3,2": [
+      "NOT Output"
+    ],
+    "2,3,2": [
+      "Output"
+    ],
+    "4,3,8": [
+      "Reset"
+    ],
+    "2,3,8": [
+      "Set"
+    ]
+  },
+  "signs_raw": {
+    "4,3,2": [
+      "",
+      "NOT Output",
+      "",
+      ""
+    ],
+    "2,3,2": [
+      "",
+      "Output",
+      "",
+      ""
+    ],
+    "4,3,8": [
+      "",
+      "Reset",
+      "",
+      ""
+    ],
+    "2,3,8": [
+      "",
+      "Set",
+      "",
+      ""
+    ]
   }
 }

@@ -63,7 +63,24 @@ output. The simulator predicted every observed row correctly.
 
 ## Medium confidence
 
-### `build-09`, `build-10`, `build-13`, `build-15`, `build-04` — the RCA-based ALU, in stages
+### `build-15` — a 4-bit adder/subtractor — **driven, all four modes**
+**Ten levers: four A/B bit pairs, plus two controls.**
+
+Lever 8 is the **carry-in**; lever 9 **inverts A**. Every one of the four modes checked
+over all 256 input pairs:
+
+| carry-in | invert A | computes |
+|---|---|---|
+| 0 | 0 | `A + B` |
+| 1 | 0 | `A + B + 1` |
+| 0 | 1 | `~A + B` |
+| 1 | 1 | `~A + B + 1` = **`B - A`** |
+
+That last row is two's complement subtraction, which is what makes this an ALU rather
+than an adder: invert one operand and set the carry. The "4-bit RCA-based ALU" reading
+below was broadly right; this is the precise version.
+
+### `build-09`, `build-10`, `build-13`, `build-04` — the RCA-based ALU, in stages
 **~22×12×27 · 280–638 components · torch-dominant (53–93), few comparators**
 
 All flat (10–12 tall) where the CCA builds are 20+ tall, with long horizontal
@@ -100,12 +117,21 @@ Alone among the 8-bit builds, these carry an **extra wide port** (`in11` and `in
 beyond the two 8-bit data inputs. That is the shape of an operation selector or control
 ROM output feeding the ALU's control lines.
 
-### `build-16` — a four-gate demonstration board
+### `build-16` — a 4-bit ripple-carry adder — **driven, all 512 cases**
 **23×10×19 · 180 components · 0 comparators, 0 repeaters, 48 torches**
 
-Four parallel identical structures, each with a lever pair and lamp; port map reads
-`in2 in2 in2 in2`. Pure torch logic, so from the OR/NOR/NOT family rather than anything
-comparator-based.
+Nine levers: four A/B bit pairs and a carry-in. Nine of the fourteen lamps are input
+indicators; the four real outputs are the sum bits.
+
+Driven over every combination of A (0–15), B (0–15) and carry-in: **512/512 produce
+`(A + B + Cin) mod 16`.**
+
+> **This entry previously read "a four-gate demonstration board".** The four "parallel
+> identical structures" are real — they are the four bit-stages — but they are not
+> independent, and that is the whole difference. Each output depends on its own lever
+> pair *and every higher-numbered one*, which is a carry chain. A visual read cannot
+> see that, because the carry is the one wire that makes four gates into an adder.
+> Driving it takes seconds and settles it outright.
 
 ---
 
@@ -120,7 +146,8 @@ comparator-based.
 | `build-11/12/14` | 8-bit carry-cancel adders | medium |
 | `build-05/06/07/08` | CCA-based ALUs | medium |
 | `build-01/02` | ALU with operation selector | medium |
-| `build-16` | four-gate demo board | medium |
+| `build-16` | **4-bit ripple-carry adder** | **driven, 512/512** |
+| `build-15` | **4-bit adder/subtractor**, carry-in + invert-A | **driven, 4×256/256** |
 
 **All 18 accounted for. One measured, seventeen still guesses.**
 

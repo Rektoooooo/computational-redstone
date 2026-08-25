@@ -3149,5 +3149,27 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,4,20": [
+      "Plot Pixel"
+    ],
+    "2,6,17": [
+      "Clear"
+    ]
+  },
+  "signs_raw": {
+    "2,4,20": [
+      "",
+      "Plot Pixel",
+      "",
+      ""
+    ],
+    "2,6,17": [
+      "",
+      "Clear",
+      "",
+      ""
+    ]
   }
 }

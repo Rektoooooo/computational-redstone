@@ -2929,5 +2929,18 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,2,17": [
+      "Play Animation"
+    ]
+  },
+  "signs_raw": {
+    "2,2,17": [
+      "",
+      "Play Animation",
+      "",
+      ""
+    ]
   }
 }

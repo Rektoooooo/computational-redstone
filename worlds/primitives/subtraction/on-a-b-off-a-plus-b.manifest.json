@@ -375,5 +375,37 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "3,12,3": [
+      "A"
+    ],
+    "3,12,5": [
+      "B"
+    ],
+    "3,5,11": [
+      "OFF = A + B",
+      "ON = A - B"
+    ]
+  },
+  "signs_raw": {
+    "3,12,3": [
+      "",
+      "A",
+      "",
+      ""
+    ],
+    "3,12,5": [
+      "",
+      "B",
+      "",
+      ""
+    ],
+    "3,5,11": [
+      "",
+      "OFF = A + B",
+      "ON = A - B",
+      ""
+    ]
   }
 }

@@ -100,5 +100,18 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "0,3,6": [
+      "Shift Left"
+    ]
+  },
+  "signs_raw": {
+    "0,3,6": [
+      "",
+      "Shift Left",
+      "",
+      ""
+    ]
   }
 }

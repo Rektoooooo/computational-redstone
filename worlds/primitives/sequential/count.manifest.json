@@ -241,5 +241,27 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,4,5": [
+      "Count"
+    ],
+    "2,2,5": [
+      "Load"
+    ]
+  },
+  "signs_raw": {
+    "2,4,5": [
+      "",
+      "Count",
+      "",
+      ""
+    ],
+    "2,2,5": [
+      "",
+      "Load",
+      "",
+      ""
+    ]
   }
 }

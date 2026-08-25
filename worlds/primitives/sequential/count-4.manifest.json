@@ -102,5 +102,18 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,2,3": [
+      "Count"
+    ]
+  },
+  "signs_raw": {
+    "2,2,3": [
+      "",
+      "Count",
+      "",
+      ""
+    ]
   }
 }

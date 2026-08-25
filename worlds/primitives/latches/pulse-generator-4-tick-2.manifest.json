@@ -72,5 +72,59 @@
     "outputs": 5,
     "ports": [],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "5,3,3": [
+      "4-Tick",
+      "Pulse Generator"
+    ],
+    "5,3,13": [
+      "2-Tick",
+      "Pulse Generator"
+    ],
+    "5,3,8": [
+      "3-Tick",
+      "Pulse Generator"
+    ],
+    "16,4,10": [
+      "2-Tick",
+      "Pulse Generator"
+    ],
+    "16,4,5": [
+      "3-Tick",
+      "Pulse Generator"
+    ]
+  },
+  "signs_raw": {
+    "5,3,3": [
+      "",
+      "4-Tick",
+      "Pulse Generator",
+      ""
+    ],
+    "5,3,13": [
+      "",
+      "2-Tick",
+      "Pulse Generator",
+      ""
+    ],
+    "5,3,8": [
+      "",
+      "3-Tick",
+      "Pulse Generator",
+      ""
+    ],
+    "16,4,10": [
+      "",
+      "2-Tick",
+      "Pulse Generator",
+      ""
+    ],
+    "16,4,5": [
+      "",
+      "3-Tick",
+      "Pulse Generator",
+      ""
+    ]
   }
 }

@@ -550,5 +550,45 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "4,9,7": [
+      "Load"
+    ],
+    "6,9,19": [
+      "Read"
+    ],
+    "4,9,19": [
+      "Load"
+    ],
+    "3,3,49": [
+      "Count"
+    ]
+  },
+  "signs_raw": {
+    "4,9,7": [
+      "",
+      "Load",
+      "",
+      ""
+    ],
+    "6,9,19": [
+      "",
+      "Read",
+      "",
+      ""
+    ],
+    "4,9,19": [
+      "",
+      "Load",
+      "",
+      ""
+    ],
+    "3,3,49": [
+      "",
+      "Count",
+      "",
+      ""
+    ]
   }
 }

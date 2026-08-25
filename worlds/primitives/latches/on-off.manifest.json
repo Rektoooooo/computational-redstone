@@ -67,5 +67,45 @@
     "outputs": 0,
     "ports": [],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "7,3,2": [
+      "On/Off"
+    ],
+    "7,3,12": [
+      "On/Off"
+    ],
+    "7,3,7": [
+      "On/Off"
+    ],
+    "7,3,18": [
+      "On/Off"
+    ]
+  },
+  "signs_raw": {
+    "7,3,2": [
+      "",
+      "On/Off",
+      "",
+      ""
+    ],
+    "7,3,12": [
+      "",
+      "On/Off",
+      "",
+      ""
+    ],
+    "7,3,7": [
+      "",
+      "On/Off",
+      "",
+      ""
+    ],
+    "7,3,18": [
+      "",
+      "On/Off",
+      "",
+      ""
+    ]
   }
 }

@@ -61,5 +61,18 @@
     "outputs": 0,
     "ports": [],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,5,3": [
+      "Shift"
+    ]
+  },
+  "signs_raw": {
+    "2,5,3": [
+      "",
+      "Shift",
+      "",
+      ""
+    ]
   }
 }

@@ -249,5 +249,36 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "3,3,9": [
+      "Shift Down"
+    ],
+    "3,3,3": [
+      "Shift Up"
+    ],
+    "3,3,6": [
+      "Load"
+    ]
+  },
+  "signs_raw": {
+    "3,3,9": [
+      "",
+      "Shift Down",
+      "",
+      ""
+    ],
+    "3,3,3": [
+      "",
+      "Shift Up",
+      "",
+      ""
+    ],
+    "3,3,6": [
+      "",
+      "Load",
+      "",
+      ""
+    ]
   }
 }

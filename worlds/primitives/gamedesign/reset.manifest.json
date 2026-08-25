@@ -4223,5 +4223,36 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "5,34,2": [
+      "Reset"
+    ],
+    "7,34,2": [
+      "X"
+    ],
+    "7,32,2": [
+      "O"
+    ]
+  },
+  "signs_raw": {
+    "5,34,2": [
+      "",
+      "Reset",
+      "",
+      ""
+    ],
+    "7,34,2": [
+      "",
+      "X",
+      "",
+      ""
+    ],
+    "7,32,2": [
+      "",
+      "O",
+      "",
+      ""
+    ]
   }
 }

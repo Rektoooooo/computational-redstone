@@ -115,5 +115,63 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "10,3,7": [
+      "Enable"
+    ],
+    "8,3,7": [
+      "Data"
+    ],
+    "3,3,9": [
+      "Data"
+    ],
+    "4,4,7": [
+      "Enable"
+    ],
+    "4,3,2": [
+      "NOT Output"
+    ],
+    "2,3,2": [
+      "Output"
+    ]
+  },
+  "signs_raw": {
+    "10,3,7": [
+      "",
+      "Enable",
+      "",
+      ""
+    ],
+    "8,3,7": [
+      "",
+      "Data",
+      "",
+      ""
+    ],
+    "3,3,9": [
+      "",
+      "Data",
+      "",
+      ""
+    ],
+    "4,4,7": [
+      "",
+      "Enable",
+      "",
+      ""
+    ],
+    "4,3,2": [
+      "",
+      "NOT Output",
+      "",
+      ""
+    ],
+    "2,3,2": [
+      "",
+      "Output",
+      "",
+      ""
+    ]
   }
 }

@@ -2968,5 +2968,36 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "18,6,22": [
+      "Sad"
+    ],
+    "16,6,22": [
+      "Smiley"
+    ],
+    "20,6,22": [
+      "Surprised"
+    ]
+  },
+  "signs_raw": {
+    "18,6,22": [
+      "",
+      "Sad",
+      "",
+      ""
+    ],
+    "16,6,22": [
+      "",
+      "Smiley",
+      "",
+      ""
+    ],
+    "20,6,22": [
+      "",
+      "Surprised",
+      "",
+      ""
+    ]
   }
 }

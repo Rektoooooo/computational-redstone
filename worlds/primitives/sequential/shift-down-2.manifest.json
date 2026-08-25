@@ -123,5 +123,18 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,2,6": [
+      "Shift Down"
+    ]
+  },
+  "signs_raw": {
+    "2,2,6": [
+      "",
+      "Shift Down",
+      "",
+      ""
+    ]
   }
 }

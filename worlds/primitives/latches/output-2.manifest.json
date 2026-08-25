@@ -75,5 +75,27 @@
     "outputs": 1,
     "ports": [],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "2,3,2": [
+      "Output"
+    ],
+    "2,3,5": [
+      "Data"
+    ]
+  },
+  "signs_raw": {
+    "2,3,2": [
+      "",
+      "Output",
+      "",
+      ""
+    ],
+    "2,3,5": [
+      "",
+      "Data",
+      "",
+      ""
+    ]
   }
 }

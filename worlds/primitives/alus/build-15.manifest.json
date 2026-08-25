@@ -80,10 +80,11 @@
     "caveat": "positions and widths are measured; bit order is inferred"
   },
   "identification": {
-    "reading": "4-bit RCA-based ALU, one stage of successive modification",
-    "confidence": "medium",
-    "evidence": "flat (10-12 tall) vs CCA's 20+, torch-dominant, 4 repeating units, sizes climb 280-638",
-    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "reading": "4-bit adder/subtractor - carry-in and invert-A",
+    "confidence": "driven - 4 modes x 256 cases",
+    "evidence": "lever 8 is carry-in, lever 9 inverts A. All four modes checked over all 256 input pairs: A+B, A+B+1, ~A+B, and ~A+B+1 which is B-A. That last is two's complement subtraction, which is what makes it an ALU rather than an adder.",
+    "basis": "exhaustive simulation; simulator validated in game across 5 tests",
+    "supersedes": "'4-bit RCA-based ALU, one stage of successive' - broadly right, now precise",
     "see": "IDENTIFICATION.md"
   }
 }

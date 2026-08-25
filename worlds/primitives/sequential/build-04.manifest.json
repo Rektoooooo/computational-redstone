@@ -119,5 +119,27 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "signs": {
+    "1,12,5": [
+      "Shift Right"
+    ],
+    "1,12,3": [
+      "Shift Left"
+    ]
+  },
+  "signs_raw": {
+    "1,12,5": [
+      "",
+      "Shift Right",
+      "",
+      ""
+    ],
+    "1,12,3": [
+      "",
+      "Shift Left",
+      "",
+      ""
+    ]
   }
 }
