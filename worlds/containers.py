@@ -29,41 +29,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from extract import iter_chunks
 
-# Items that do not stack to 64. Anything unlisted is assumed to be 64.
-STACK_16 = {"ender_pearl", "sign", "honey_bottle", "snowball", "egg", "bucket_of_"}
-STACK_1 = {"minecart", "boat", "bucket", "lava_bucket", "water_bucket", "saddle",
-           "bed", "banner", "cake", "sword", "pickaxe", "axe", "shovel", "hoe",
-           "helmet", "chestplate", "leggings", "boots", "bow", "shield", "potion"}
-
-SLOTS = {"barrel": 27, "chest": 27, "trapped_chest": 27, "hopper": 5,
-         "dropper": 9, "dispenser": 9, "furnace": 3, "brewing_stand": 5,
-         "shulker_box": 27}
-
-
-def max_stack(item_id):
-    name = item_id.replace("minecraft:", "")
-    if any(k in name for k in STACK_1):
-        return 1
-    if any(k in name for k in STACK_16):
-        return 16
-    return 64
-
-
-def container_strength(items, slots):
-    """The comparator output a container with these items produces."""
-    if not items:
-        return 0
-    total = 0.0
-    for it in items:
-        try:
-            count = int(str(it.get("Count", 1)))
-            iid = str(it.get("id", "minecraft:stone"))
-        except Exception:
-            continue
-        total += count / max_stack(iid)
-    if total <= 0:
-        return 0
-    return min(15, int(1 + (total / slots) * 14))
+# The strength formula and the stack sizes live in the simulator, so that the recovery
+# script and the thing consuming its output cannot drift apart.
+from sim.grid import CONTAINER_SLOTS as SLOTS, container_strength, max_stack
 
 
 def world_containers(world_dir):

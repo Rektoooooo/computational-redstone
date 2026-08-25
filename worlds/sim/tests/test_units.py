@@ -284,6 +284,33 @@ check("dust drops a diagonal step when nothing is in the way",
 check("dust does NOT drop a diagonal step through a SOLID block",
       reads_from_below("purple_wool"), 0)
 
+# 13. container comparator strength, and the NBT-flavour trap underneath it.
+#     Two readers produce these items: anvil-parser renders a byte as "64", nbtlib as
+#     "64b". Reading the count via int(str(...)) works for one and silently skips every
+#     item of the other, reading a full barrel as empty.
+from sim.grid import container_strength
+
+
+class Byteish(int):
+    """Stands in for an nbtlib byte: an int subclass that stringifies with a suffix."""
+    def __str__(self):
+        return f"{int(self)}b"
+
+
+def barrel(stacks, count_type=int):
+    return [{"Slot": i, "id": "minecraft:redstone", "Count": count_type(64)}
+            for i in range(stacks)]
+
+
+check("an empty container reads 0", container_strength([], 27), 0)
+check("one stack in a barrel reads 1", container_strength(barrel(1), 27), 1)
+check("14 stacks in a barrel reads 8", container_strength(barrel(14), 27), 8)
+check("a full barrel reads 15", container_strength(barrel(27), 27), 15)
+check("counts stringifying as '64b' still count",
+      container_strength(barrel(14, Byteish), 27), 8)
+check("a hopper fills faster - 5 slots, not 27",
+      container_strength(barrel(5), 5), 15)
+
 print(f"\n{len(PASS)} passed, {len(FAIL)} failed")
 if FAIL:
     print("failed:", ", ".join(FAIL))

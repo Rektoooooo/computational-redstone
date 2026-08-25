@@ -13,6 +13,7 @@ points at one rule rather than at a haystack.
 Dust is written with `power=0` on purpose. If the values were baked in, the game would
 simply show us what we put there; starting cold makes the numbers a real prediction.
 """
+import json
 import os
 import sys
 
@@ -112,7 +113,86 @@ def steps():
     )
 
 
-BUILDERS = {"decay": decay, "steps": steps}
+def _sign(reg, pos, lines):
+    """A standing sign carrying real text, so the lane labels read in game."""
+    from litemapy.schematic import TileEntity
+    from nbtlib.tag import Compound, String, Int, Byte
+    x, y, z = pos
+    reg[x, y, z] = BlockState("minecraft:oak_sign", rotation="4", waterlogged="false")
+    data = {"id": String("minecraft:sign"), "x": Int(x), "y": Int(y), "z": Int(z),
+            "Color": String("black"), "GlowingText": Byte(0)}
+    for i in range(4):
+        text = lines[i] if i < len(lines) else ""
+        data[f"Text{i+1}"] = String(json.dumps({"text": text}))
+    reg.tile_entities.append(TileEntity(Compound(data)))
+
+
+def _barrel(reg, pos, stacks):
+    """A barrel holding `stacks` full stacks - 14 of them read as strength 8."""
+    from litemapy.schematic import TileEntity
+    from nbtlib.tag import Compound, String, Int, Byte, List
+    x, y, z = pos
+    reg[x, y, z] = BlockState("minecraft:barrel", facing="north", open="false")
+    items = List[Compound]([
+        Compound({"Slot": Byte(i), "id": String("minecraft:redstone"), "Count": Byte(64)})
+        for i in range(stacks)
+    ])
+    reg.tile_entities.append(TileEntity(Compound({
+        "id": String("minecraft:barrel"), "x": Int(x), "y": Int(y), "z": Int(z),
+        "Items": items,
+    })))
+
+
+def comparator():
+    """
+    Does a comparator read a container THROUGH a solid block?
+
+    It does, and that was worth ten points of comparator agreement (83.5 -> 93.4) when
+    it went in. The rule: if the block directly behind is a full conductor and the
+    reading so far is under 15, the comparator looks ONE STEP FURTHER for a container
+    and takes that instead. Keeping a signal-strength barrel a block back, out of the
+    wiring, is a normal thing to build.
+
+    Three lanes, identical but for the block between barrel and comparator:
+
+        1  nothing        - barrel straight into the comparator      -> 8
+        2  stone          - reads through it                         -> 8
+        3  glass          - glass is not a conductor, so nothing     -> 0
+
+    Lane 3 is what separates the real rule from "a comparator can see two blocks
+    back". Every barrel holds 14 stacks, which reads as strength 8.
+    """
+    lanes = [("1 DIRECT", None, "expect 8"),
+             ("2 THRU STONE", FLOOR, "expect 8"),
+             ("3 THRU GLASS", GLASS, "expect 0")]
+    reg = Region(0, 0, 0, 8, 2, 7)
+
+    for i, (name, between, note) in enumerate(lanes):
+        z = i * 3
+        for x in range(8):
+            reg[x, 0, z] = FLOOR
+        _sign(reg, (0, 1, z), [name, note])
+
+        if between is None:
+            _barrel(reg, (2, 1, z), 14)          # straight into the comparator
+        else:
+            _barrel(reg, (1, 1, z), 14)
+            reg[2, 1, z] = between               # the block under test
+
+        # facing points at the INPUT, so facing=west reads west and outputs east
+        reg[3, 1, z] = BlockState("minecraft:comparator", facing="west",
+                                  mode="compare", powered="false")
+        for x in (4, 5, 6):
+            reg[x, 1, z] = wire()
+        reg[7, 1, z] = LAMP
+
+    return reg, "comparator", (
+        "3 lanes: barrel into a comparator directly, through stone, through glass. "
+        "Expect 8, 8, 0 - the glass lane is the one that matters."
+    )
+
+
+BUILDERS = {"decay": decay, "steps": steps, "comparator": comparator}
 
 
 def main():

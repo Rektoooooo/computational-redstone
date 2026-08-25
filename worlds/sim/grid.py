@@ -8,6 +8,7 @@ whole region into a dict so the solver is not paying litemapy lookup costs per a
 Block set is small and known: a survey of the extracted library found 48 distinct types
 across 195 builds, so classification is by explicit rule rather than guesswork.
 """
+import re
 from collections import namedtuple
 
 Cell = namedtuple("Cell", "id props")
@@ -46,6 +47,74 @@ CONDUCTIVE_SUFFIX = ("_wool", "_concrete", "_terracotta", "_planks", "_log")
 TRANSPARENT_SUBSTR = ("glass", "slab", "stairs", "trapdoor", "sign", "banner",
                       "glowstone", "ice", "fence", "pane", "carpet", "rail",
                       "hopper", "ladder", "torch", "button", "pressure_plate")
+
+
+# -- containers -------------------------------------------------------------
+
+# How full a container looks to a comparator depends on slot count, so the count has
+# to be per block type rather than assumed.
+CONTAINER_SLOTS = {"barrel": 27, "chest": 27, "trapped_chest": 27, "hopper": 5,
+                   "dropper": 9, "dispenser": 9, "furnace": 3, "brewing_stand": 5,
+                   "shulker_box": 27}
+
+# Items that do not stack to 64. Anything unlisted is assumed to.
+_STACK_16 = ("ender_pearl", "sign", "honey_bottle", "snowball", "egg", "bucket_of_")
+_STACK_1 = ("minecart", "boat", "bucket", "saddle", "bed", "banner", "cake", "sword",
+            "pickaxe", "axe", "shovel", "hoe", "helmet", "chestplate", "leggings",
+            "boots", "bow", "shield", "potion")
+
+
+def max_stack(item_id):
+    name = str(item_id).replace("minecraft:", "")
+    if any(k in name for k in _STACK_1):
+        return 1
+    if any(k in name for k in _STACK_16):
+        return 16
+    return 64
+
+
+def _as_int(value, default=1):
+    """
+    An NBT number as a plain int, whichever library produced it.
+
+    The two readers here disagree about `str()`: anvil-parser renders a byte as "64",
+    nbtlib renders it as "64b". Both are int subclasses though, so int() first and only
+    fall back to scraping digits out of the text. Going straight to int(str(...))
+    silently skipped every item of an nbtlib-loaded container and read it as empty.
+    """
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        pass
+    digits = re.sub(r"[^0-9-]", "", str(value))
+    try:
+        return int(digits)
+    except ValueError:
+        return default
+
+
+def container_strength(items, slots):
+    """
+    The comparator output a container holding these items produces.
+
+        strength = floor(1 + (sum(count / maxstack) / slots) * 14)
+
+    Empty reads 0 and full reads 15. Kept here rather than in `containers.py` so the
+    simulator and the recovery script cannot drift apart - both ask the same question.
+    """
+    if not items:
+        return 0
+    total = 0.0
+    for it in items:
+        try:
+            count = _as_int(it.get("Count", 1))
+            iid = str(it.get("id", "minecraft:stone"))
+        except (AttributeError, TypeError):
+            continue
+        total += count / max_stack(iid)
+    if total <= 0:
+        return 0
+    return min(15, int(1 + (total / slots) * 14))
 
 
 def is_conductive(bid):
@@ -103,10 +172,25 @@ class Grid:
 
     @classmethod
     def from_file(cls, path):
+        """
+        Load a schematic, and work out what every container in it reads as.
+
+        Two sources, because there are two kinds of file. A schematic written by hand
+        carries its containers as block entities, so the levels can be read straight
+        out of it and the file stands alone. The 195 harvested builds do NOT - the
+        harvest dropped block entities - so their levels were recovered separately by
+        `containers.py` and live in the manifest.
+
+        The manifest is applied second and wins. It was read from the source world,
+        which is the authority for an extracted build, and letting it override keeps
+        the behaviour of the whole library exactly as it was.
+        """
         import json, os
         from litemapy import Schematic
         region = list(Schematic.load(path).regions.values())[0]
         g = cls(region)
+        g._load_container_entities(region)
+
         mp = path.replace(".litematic", ".manifest.json")
         if os.path.exists(mp):
             try:
@@ -117,6 +201,27 @@ class Grid:
             except Exception:
                 pass
         return g
+
+    def _load_container_entities(self, region):
+        """Comparator strength for any container carrying its own block entity."""
+        try:
+            entities = region.tile_entities
+        except Exception:
+            return
+        for te in entities:
+            try:
+                data = te.to_nbt()
+                pos = tuple(int(data[k]) for k in ("x", "y", "z"))
+            except Exception:
+                continue
+            if not self.is_container(pos):
+                continue
+            items = data.get("Items")
+            if items is None:
+                continue
+            level = container_strength(items, CONTAINER_SLOTS.get(self.get(pos).id, 27))
+            if level:
+                self.containers[pos] = level
 
     def is_container(self, pos):
         return self.get(pos).id in self.CONTAINERS
