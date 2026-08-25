@@ -88,18 +88,35 @@ That last row is two's complement subtraction, which is what makes this an ALU r
 than an adder: invert one operand and set the carry. The "4-bit RCA-based ALU" reading
 below was broadly right; this is the precise version.
 
-### `build-09`, `build-10`, `build-13`, `build-04` — the RCA-based ALU, in stages
+### The RCA family, driven — one control added at a time
+
+Four of these have now been driven, and they are **successive stages of one device**,
+exactly as the guess below supposed. Each adds a single control line to the last:
+
+| build | controls | what it can do |
+|---|---|---|
+| `build-16` | carry-in | `A+B`, `A+B+1` |
+| `build-15` | + invert A | adds `~A+B`, and `B−A` |
+| `build-13` | + invert B | adds `A+~B`, `A−B`, `~A+~B` |
+| `build-10` | + logic mode | adds bitwise `A XNOR B`, and `A XOR B` with either invert |
+
+Every setting was checked over all 256 operand pairs. The progression is the reason
+five near-identical builds of increasing size sit in this world: it is one ALU being
+built up on camera, saved at each step.
+
+`build-10`'s fourth control is the interesting one — it switches the adder out of
+arithmetic entirely and into bitwise logic, which is what turns an adder into an ALU.
+
+### `build-09`, `build-04` — the same family, further along
 **~22×12×27 · 280–638 components · torch-dominant (53–93), few comparators**
 
 All flat (10–12 tall) where the CCA builds are 20+ tall, with long horizontal
 distribution rails and four repeating units — a **4-bit ripple-carry** layout.
 
 Component counts climb steadily: 280 → 334 → 359 → 380 → 638. LMRC #2 builds a 4-bit
-RCA and then adds control signals one at a time (invert B and carry-in for subtraction,
-then invert A, then flood carry, then xor→or). These look like **successive stages of
-that same device**, which would explain five near-identical builds of increasing size.
-
-*Weaker point:* the mapping of which build is which stage is not established.
+RCA and then adds control signals one at a time, and driving four of them confirmed
+exactly that — see the table above. These two are the remaining stages; `build-04` is
+the largest at 638 components, so it is presumably the furthest along.
 
 ### `build-11`, `build-12`, `build-14` — 8-bit carry-cancel adders
 **~8×23×21 · 307–357 components · 41 comparators each**
@@ -157,24 +174,29 @@ Driven over every combination of A (0–15), B (0–15) and carry-in: **512/512 
 | `build-17` | **3-input XOR (odd parity)** | **measured in game** |
 | `build-03` | six bitwise gates × 8 bits | high — *unverified* |
 | `build-00` | brute-force ALU | high — *unverified* |
-| `build-04/09/10/13` | 4-bit RCA ALU, successive stages | medium — *unverified* |
+| `build-16` | **4-bit ripple-carry adder** | **driven, 512/512** |
+| `build-15` | **4-bit adder/subtractor**, +invert-A | **driven, 4×256** |
+| `build-13` | **the same**, +invert-B | **driven, 8×256** |
+| `build-10` | **4-bit ALU**, +logic mode (XOR/XNOR) | **driven, 16×256** |
+| `build-04/09` | same family, further along | medium — *unverified* |
 | `build-11/12/14` | 8-bit carry-cancel adders | medium — *unverified* |
 | `build-05/06/07/08` | CCA-based ALUs | medium — *unverified* |
 | `build-01/02` | ALU with operation selector | medium — *unverified* |
-| `build-16` | **4-bit ripple-carry adder** | **driven, 512/512** |
-| `build-15` | **4-bit adder/subtractor**, carry-in + invert-A | **driven, 4×256/256** |
 
-**All 18 accounted for. Three driven, fifteen still guesses.**
+**All 18 accounted for. Five driven, thirteen still guesses.**
 
-Of the three that have been driven, **two came back wrong**:
+Of the five that have been driven, **two came back outright wrong** and three were
+the right family but too vague to use:
 
 | build | was read as | actually is |
 |---|---|---|
 | `build-17` | single AND gate (`high`) | 3-input XOR |
 | `build-16` | four-gate demo board (`medium`) | 4-bit ripple-carry adder |
-| `build-15` | 4-bit RCA ALU (`medium`) | 4-bit adder/subtractor — broadly right |
+| `build-15` | 4-bit RCA ALU (`medium`) | adder/subtractor: +carry-in, +invert-A |
+| `build-13` | 4-bit RCA ALU (`medium`) | the same, +invert-B |
+| `build-10` | 4-bit RCA ALU (`medium`) | the same, +logic mode |
 
-Both failures share a shape: the visual read saw the *parts* correctly and missed how
+Both outright failures share a shape: the visual read saw the *parts* correctly and missed how
 they were *joined*. A De Morgan AND and a XOR look alike; four adder stages look like
 four gates until you notice the carry between them. Structure is visible in a render;
 connection often is not.

@@ -80,10 +80,11 @@
     "caveat": "positions and widths are measured; bit order is inferred"
   },
   "identification": {
-    "reading": "4-bit RCA-based ALU, one stage of successive modification",
-    "confidence": "medium",
-    "evidence": "flat (10-12 tall) vs CCA's 20+, torch-dominant, 4 repeating units, sizes climb 280-638",
-    "basis": "visual structure + LMRC #2; NOT from an in-world sign - this world has none",
+    "reading": "4-bit ALU - carry-in, invert-A, invert-B, and a logic mode",
+    "confidence": "driven - all 16 control settings x 256 pairs",
+    "evidence": "lever 8 is carry-in, 10 inverts A, 11 inverts B, and 9 switches the adder into bitwise logic: alone it gives A XNOR B, and with either invert it gives A XOR B. Arithmetic modes match build-13's.",
+    "basis": "structural probe plus exhaustive arithmetic check; simulator validated in game",
+    "supersedes": "'4-bit RCA-based ALU, one stage of successive' - right family, now exact",
     "see": "IDENTIFICATION.md"
   }
 }
