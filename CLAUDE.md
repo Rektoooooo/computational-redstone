@@ -48,34 +48,60 @@ cd worlds
 | Transcripts | 32, verified clean |
 | Skill library | 8 skills, ~2,500 lines, audited against real blocks |
 | Extracted builds | 195, of which 43 named from in-world signs |
-| Simulator | steady state, **88.09%** per-block agreement, 68/173 builds exact |
+| Simulator | steady state, **92.23%** per-block agreement (dust 89.9, repeater 96.9, torch 98.0, comparator 93.4, lamp 95.1) |
 | Tick loop | **not built** |
 
 ## What to do next
 
 In order. The handoff has fuller detail.
 
-1. **Lamps sit at 65% agreement library-wide** — the biggest single gap, concentrated
-   in the display worlds. A pointing-direction fix lifted them to 92% on arithmetic
-   builds but moved nothing overall, so the cause is something else and unfound.
+1. **Dust sits at 89.91% and is now the biggest gap** — 15,252 of the 18,047 wrong
+   blocks, because dust is two thirds of the library. Errors run 4:1 **over**-powered,
+   so look for a spurious connection, not a missing source. The commonest neighbour of
+   a wrong dust is stained glass, i.e. the glass towers. Prime suspect is `dust_links`
+   in `sim/power.py`, which follows a connection one level DOWN for any side that is
+   not `none`; vanilla only steps down when the block in between does not occlude.
+   Unconfirmed — check it before changing it.
 2. **Then the tick loop** — delays, scheduling, sequential behaviour. Steady state is
-   the foundation and is proven.
+   the foundation and is proven. Repeater delay is `delay * 2` game ticks and a
+   comparator is always 2; both schedule at a priority that depends on whether they
+   are turning off, which is what makes diode ordering deterministic.
 3. **Then the behavioural tests**: drive `alus/build-17` through an AND truth table,
    and `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The
    adder is the headline — computing 37+91 from nothing but extracted blocks would
    validate the whole model.
 4. **Compare against real Minecraft.** The game outranks the oracle, which is only a
-   saved snapshot.
+   saved snapshot. This is now possible on this machine — see below.
+
+## Checking a rule against the game
+
+Minecraft is installed on this machine (26.2 and a 26.3 snapshot, no saves yet), but
+this project targets **1.18.2**, so do not verify against the installed version.
+
+For reading the rules rather than playing them, there is a decompiled 1.18.2 reference
+at `../.mc-reference`, **deliberately outside this repository** — Mojang's code is not
+ours to redistribute, so none of it is committed and none of it should be. Only rules
+expressed in our own words belong in here.
+
+To rebuild it: take the 1.18.2 entry from Mojang's public version manifest, download
+`client.jar` and `client_mappings`, convert the ProGuard mappings to TSRG
+(`pg2tsrg.py` is there), remap with SpecialSource and decompile with Vineflower.
+
+It has already settled three rules that had been argued rather than checked, and it
+matters more for the tick loop, where scheduling and priority decide the answer.
 
 ## Debugging technique that works
 
-All three simulator bugs were found this way, and staring at single coordinates found
+All six simulator bugs were found this way, and staring at single coordinates found
 none of them:
 
 - categorise mismatches as **under-** vs **over-powered** — that separates a missing
   source from a spurious one
 - **correlate mismatches against adjacent block types** to identify the culprit component
 - **print a 2D slice** showing `saved/computed` per cell to see the structure
+
+`sim/lampdiag.py` does the first two for lamps and `sim/probe_lamp.py` does the third
+for any cell. Both are worth copying for whatever category is currently worst.
 
 ## Things that will otherwise waste your time
 

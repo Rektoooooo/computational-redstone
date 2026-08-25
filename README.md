@@ -114,9 +114,10 @@ useful; it is not used for labelling.
   the real ordering are not carried into a `.litematic`. Check before wiring.
 - **Nothing has been pasted back into Minecraft and tested.** Block-level fidelity is
   verified (properties round-trip correctly); in-world behaviour is not.
-- **The simulator solves steady state at 88% per-block agreement** across 173 real
-  builds, with 68 reproducing exactly. It has no tick loop yet, so sequential timing
-  is unmodelled. See [`worlds/sim/`](worlds/sim/).
+- **The simulator solves steady state at 92% per-block agreement** across 175 real
+  builds. It has no tick loop yet, so sequential timing is unmodelled. Dust is the
+  largest remaining gap at 90%, and the errors run 4:1 over-powered, which points at a
+  connection the solver makes and the game does not. See [`worlds/sim/`](worlds/sim/).
 
 See [BUILD-PIPELINE-RESEARCH.md](BUILD-PIPELINE-RESEARCH.md) for the design work behind
 generating builds programmatically — including why **composition beats synthesis** here,

@@ -278,3 +278,93 @@ When agreement drops, do NOT stare at one coordinate. Instead:
   - correlate mismatches against adjacent block types to find the culprit component
   - print a 2D slice showing `saved/computed` per cell to see the structure
 Each of the three bugs was found this way within a couple of iterations.
+
+---
+
+# Session 5 — steady state to 92%, and a reference for the rules
+
+## Why
+
+The roadmap's first item was lamps at 65% library-wide. It turned out not to be a lamp
+bug at all.
+
+## Done
+
+**Lamps 69.7% → 95.0%, overall 88.7% → 92.2%.** Three fixes, all validated against the
+oracle and locked in with 10 new unit tests (23/23 pass).
+
+**1. Nothing fed a diode or a lamp from a point source.** `input_from` handled dust,
+redstone blocks and diodes, then fell through to `return 0` — so a repeater sitting
+directly against a torch read as unpowered, and 1799 diodes in the library sit against
+one. On a lamp screen that leaves the driver torch lit and every lamp on: `displays`
+agreed on 28% of its lamps, and `build-14` lit all 256. `eval_lamp` had the same hole
+for levers, which are mounted straight onto lamps 1311 times. Added `source_signal()`
+— torch / lever / button / pressure plate, respecting the rule that a torch never
+powers its own support — below the `sides_only` gate so comparator sides are unaffected.
+Lamps **69.7 → 95.0**, torches **92.6 → 98.0**, repeaters **92.1 → 95.9**.
+
+**2. A lever strongly powers only the block it is mounted on**, not all six neighbours.
+The old behaviour let a lever start a dust run from a block it merely touched.
+
+**3. A comparator reads a container THROUGH a solid block.** If the block behind is a
+full conductor and the reading is under 15, it looks one further for a container and
+takes that instead. Keeping a signal-strength barrel one block back is a normal build,
+and those comparators were reading whatever the intervening block carried.
+Comparators **83.5 → 93.4**.
+
+## Method note — the diagnosis, not the fix, was the work
+
+The documented technique found it in about three steps, and none of them involved
+looking at a lamp:
+
+1. split lamp mismatches by direction — **2321 over-lit against 280 under-lit**, so a
+   spurious source, not a missing one
+2. correlate against neighbouring block types — 97% of the over-lighting sat in two
+   worlds, both screens
+3. print a slice — and the wrongness was two blocks upstream, at a repeater reading a
+   torch, not at the lamp at all
+
+Shipped as `sim/lampdiag.py` (steps 1–2) and `sim/probe_lamp.py` (step 3). Worth
+re-pointing at whatever category is currently worst.
+
+## A reference for the rules
+
+Bugs 2 and 3 were found by reading what the game actually does. Pulled the 1.18.2
+client and its official mappings, converted ProGuard → TSRG, remapped with
+SpecialSource and decompiled the ten redstone classes with Vineflower.
+
+It lives at **`../.mc-reference`, outside the repo on purpose** — Mojang's code is not
+ours to redistribute. Nothing from it is committed and nothing should be; only rules in
+our own words. `pg2tsrg.py` is there if it needs rebuilding.
+
+It confirmed the solver's core architecture is right, which was worth knowing: the
+strong/weak split models the game's actual mechanism, where dust switches off all wire
+signalling while computing its own strength. That is exactly why a weakly powered block
+cannot start a new dust run but *can* light a lamp.
+
+It also corrected a reason, not just a result: comparator side inputs are **not**
+restricted to diodes, as a comment claimed. A side reads any signal source but takes
+its DIRECT signal — and a torch emits direct signal only upward, a lever only into its
+support, so neither reaches a comparator sideways. Same outcome, different rule; the
+wrong reason would have misled the next change.
+
+## Next — start here
+
+1. **Dust, at 89.91%, is now the gap** — 15,252 of the 18,047 wrong blocks, because
+   dust is two thirds of the library. Errors run **4:1 over-powered** (12,158 / 3,094),
+   so hunt a spurious connection. The commonest neighbour of a wrong dust is stained
+   glass by a wide margin — the glass towers. Prime suspect: `dust_links` follows a
+   connection one level DOWN for any side that is not `none`, while vanilla only steps
+   down when the block in between does not occlude. **Unconfirmed — verify first.**
+   Worst worlds: `subtraction` 66%, `multiplier` 73%, `callstack` 78%.
+2. Then the tick loop. Repeater delay is `delay * 2` game ticks, comparator always 2,
+   and both schedule at a priority that depends on whether they are turning off — that
+   is what makes diode ordering deterministic. Read it in the reference before building.
+3. Then the behavioural tests (AND truth table, then 37+91 through the adder).
+4. Then real Minecraft. **It is installed on this machine now** — but as 26.2 and a
+   26.3 snapshot, and this project targets 1.18.2, so add 1.18.2 before comparing.
+
+## Blockers
+
+- Nothing has still been pasted back into Minecraft and tested.
+- 20 of 195 builds skipped as too large for the oracle.
