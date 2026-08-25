@@ -613,3 +613,54 @@ frame as the output.
 2. Drive the other ALU builds now that it is cheap - `build-03` and `build-00` first,
    since they carry `high` confidence and have never been checked.
 3. Torch burnout, still unmodelled.
+
+---
+
+# Session 5f — the adder works in the real game
+
+## Done
+
+**`addition/3-ticks-8-bit-cca-by-don` computed 37 + 155 = 192 correctly in Minecraft,
+and the simulator predicted it.** A real mattbatwings circuit, read out of a world
+file, pasted back, and doing correct 8-bit arithmetic. That is the whole chain
+validated end to end.
+
+**Bit ordering is no longer inferred.** Added `worlds/signs.py`, which recovers sign
+text AND POSITION from the source worlds. The harvest had kept the strings and thrown
+the coordinates away, and the coordinates are the valuable half: mattbatwings labels a
+port's bits with signs reading 1, 2, 4 ... 128, so without their positions `portmap.py`
+could measure where the levers were but not which one was the low bit. 95 signs
+recovered. For the adder they settle it outright - inputs and outputs both run bottom
+up. The old inference happened to be right, but it is now measured.
+
+Also identified the 17th lever, outside both input ports, as the **carry-in**: it adds
+exactly 1 to every sum, which is what two's-complement subtraction needs.
+
+## The two results worth keeping
+
+**The timing matched the author's own labels.** Sums settle in 6 game ticks and
+carry-out in 8 - 3 and 4 redstone ticks - against a build named "3 ticks 8-bit CCA by
+Don" whose carry-out sign reads "COUT (4 ticks)". Those numbers were never given to the
+model. A steady-state solver cannot produce that; only a tick loop can.
+
+**The inputs were not the ones predicted, which made it a better test.** The prediction
+was written for 37 + 91. One lever landed a row off, so the real inputs were 37 + 155.
+The machine gave the right answer for what it actually had and the simulator matched,
+which is worth more than reproducing a pre-computed expectation - nothing could have
+been tuned to fit. A bit-ordering error would have lit some other pair of lamps.
+
+## Note on reading results
+
+Screenshots of a 22-block-tall tower at an angle were NOT readable enough to call the
+lamp states, and saying so was better than guessing from ambiguous crops. The user read
+the levers and lamps off directly and reported them in one line. For tall builds, ask
+for the reading rather than trying to recover it from an isometric screenshot.
+
+## Next
+
+1. **Drive the remaining ALU builds.** 17 of 18 readings are still guesses and `high`
+   confidence has already been wrong once. `build-03` and `build-00` first.
+2. Unzip the remaining worlds and re-run `signs.py` - only LRR Addition was unpacked, so
+   most builds still have no recovered sign positions and therefore no measured bit
+   order.
+3. Torch burnout, still unmodelled.

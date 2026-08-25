@@ -67,8 +67,9 @@ Per game tick:
 
 - [x] behavioural test: `alus/build-17` through its truth table - it is a 3-input XOR,
       not the AND gate its label claimed. Confirmed in game.
-- [ ] behavioural test: 37+91 through `addition/3-ticks-8-bit-cca-by-don`
-- [ ] paste a build into 1.18.2 via Litematica and compare against the real game
+- [x] behavioural test: the CCA adder — 37+155=192, correct in game, and it settles
+      in the 3 redstone ticks its own name claims
+- [x] paste a build into 1.18.2 via Litematica and compare against the real game
 - [ ] torch burnout
 
 ## Review

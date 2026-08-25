@@ -57,11 +57,12 @@ cd worlds
 Steady state and time are both in place. What is missing is proof that they work
 together on a real build rather than on micro-circuits.
 
-1. **The behavioural tests.** Drive `alus/build-17` through its truth table (a 3-input
-   XOR, measured in game - it is NOT the AND gate its label claimed), then
-   `addition/3-ticks-8-bit-cca-by-don` with real numbers via its port map. The adder is
-   the headline — computing 37+91 from nothing but extracted blocks would validate the
-   whole model. Use `sim.prime()`, `set_port(...)`, then `run_until_stable()`.
+1. **Drive more extracted builds.** The chain is proven end to end — `build-17` came
+   back a 3-input XOR (its label said AND) and the CCA adder computed 37+155=192
+   correctly in game, settling in the 3 redstone ticks its own name claims. The other
+   17 ALU readings are still guesses; `build-03` and `build-00` first, since they carry
+   `high` confidence and `high` has already been wrong once. Use `sim.prime()`,
+   `set_port(...)`, then `run_until_stable()`.
 2. **Compare against real Minecraft.** Working, and the loop is open — see `verify/`.
    Two hand-built circuits checked so far, both passing exactly, one of them confirming
    the asymmetric dust-stepping rule the biggest correction rests on. What has NOT been

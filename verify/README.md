@@ -2,14 +2,27 @@
 
 ## Results so far
 
-Both tests **passed in Minecraft 1.18.2, exactly as predicted**. This is the first time
-anything in this project has been checked against the game rather than a saved
-snapshot — an item open since session 2.
+All four **passed in Minecraft 1.18.2**. This is the first time anything in this
+project has been checked against the game rather than a saved snapshot — an item open
+since session 2.
 
 | test | predicted | in game |
 |---|---|---|
 | `decay` | 15, 14, 13, 12, 11, 10, lamp lit | ✅ identical |
 | `steps` | lanes 1–3 lit, lane 4 dark at 0 | ✅ identical |
+| `alus/build-17` | 3-input XOR, **not** the AND its label claimed | ✅ label corrected |
+| `addition/3-ticks-8-bit-cca-by-don` | 37 + 155 = 192 | ✅ identical |
+
+**The adder is the one that matters.** A real mattbatwings circuit, extracted from a
+world file, pasted back, and doing correct 8-bit arithmetic — with the simulator
+agreeing on both the value and the timing.
+
+It was also an accidentally *better* test than the one designed. The prediction was
+written for 37 + 91; the inputs actually set were 37 + 155, one lever off. The machine
+produced the right answer for the inputs it was given and the simulator matched them,
+which is far stronger than reproducing a pre-computed expectation — there was no way to
+tune anything to fit. A bit-ordering error would have shown up as a *permuted* answer,
+some other pair of lamps; the correct pair lit instead.
 
 `steps` is the one that carried weight. Lanes 2 and 4 are the same build with the
 source at opposite ends, and the same glass block let power climb onto it while
@@ -33,6 +46,38 @@ python3 verify/predict.py verify/decay.litematic # what we expect it to do
 
 **Write the prediction down before looking at the game.** A model consulted after the
 fact always seems to agree.
+
+## Test 4 — `addition/3-ticks-8-bit-cca-by-don`
+
+An extracted build rather than a constructed one: 517 blocks, 17 levers, 25 lamps.
+
+Two 8-bit input ports of levers, a 9-lamp output port, and a lone wall lever outside
+both ports which turns out to be the **carry-in** — it adds exactly 1 to every sum,
+which is what two's-complement subtraction needs.
+
+Bit order is **measured, not inferred**: `signs.py` recovers the author's own
+`1 2 4 … 128` signs with their coordinates, and they run bottom-up on both the input
+and output ports.
+
+**Result: 37 + 155 = 192, correct in game**, lamps 7 and 8 lit, carry-out off.
+
+Two things make this the strongest test in the project:
+
+- **The timing matched the author's own labels.** Sums settle in 6 game ticks and
+  carry-out in 8 — 3 and 4 redstone ticks, against a build named *"3 ticks 8-bit CCA by
+  Don"* whose carry-out sign reads *"COUT (4 ticks)"*. Those numbers were never given to
+  the model. A steady-state solver cannot fake that; only a tick loop can produce it.
+- **The inputs were not the ones predicted.** The prediction was written for 37 + 91;
+  one lever landed a row off, making it 37 + 155. The machine gave the right answer for
+  the inputs it actually had and the simulator matched them, which is worth more than
+  reproducing a pre-computed expectation — nothing could have been tuned to fit. A
+  bit-ordering error would have lit some *other* pair of lamps.
+
+## Test 3 — `alus/build-17`
+
+Driven through its truth table. It is a **3-input XOR (odd parity)**, not the *"single
+AND gate"* its manifest claimed at confidence `high`. Both inputs on gives output off,
+which an AND gate cannot do. See `worlds/primitives/alus/IDENTIFICATION.md`.
 
 ## Test 2 — `steps`
 
@@ -93,22 +138,32 @@ What each part of this actually tests:
 
 ## Getting it into the world
 
-Schematics live in `.minecraft/schematics/`. On this Mac:
+The game runs through **ModrinthApp**, not the vanilla launcher, so schematics belong
+in the instance:
 
 ```bash
-cp verify/decay.litematic ~/Library/Application\ Support/minecraft/schematics/
+cp verify/decay.litematic \
+   ~/Library/Application\ Support/ModrinthApp/profiles/Redstone/schematics/
 ```
 
 Then, in a creative flat world:
 
-1. `M` opens the Litematica menu (default key)
-2. **Load Schematics** → pick `decay` → **Load Schematic**, which creates a placement
-3. **Schematic Placements** → move it where you want it
-4. Paste it into the world — this needs creative mode. The paste operation lives under
-   the Litematica tool/operation modes; the exact key depends on your config
+1. `M` → **Load Schematics** → pick it → **Load Schematic**, creating a placement
+2. `M` → **Schematic Placements** → select the placement, so the HUD names it rather
+   than showing `<none>`; the paste acts on the *selected* placement
+3. Hold the tool item (a stick) and **Left Ctrl + scroll** to reach the
+   **Paste Schematic in World** mode
+4. Press the **Execute Operation** key
 
-If the paste fights you, **just build it by hand** — it is sixteen blocks and takes
-about a minute. The point is the redstone behaviour, not the file format.
+**`executeOperation` ships unbound**, which makes pasting look broken when nothing is
+wrong. Bind it under `M` → **Configuration Menu** → **Hotkeys**. Those defaults are
+readable rather than guessable: `javap -c` on
+`fi/dy/masa/litematica/config/Hotkeys.class` inside the mod jar pairs every hotkey
+with its default.
+
+**Under ~50 blocks, skip all of this and use `to_commands.py`.** `/setblock` fires
+block updates; a paste does not always, and an un-updated redstone paste reads as all
+zeros and looks exactly like a broken model.
 
 ## Reading the answer
 
