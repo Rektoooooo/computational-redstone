@@ -41,7 +41,9 @@ cd worlds && unzip '*.zip'      # 115 MB of committed zips -> 925 MB of worlds
 | Skill library | 8 skills, ~2,500 lines, audited against real blocks |
 | Extracted builds | 195, of which 43 named from in-world signs |
 | Simulator | steady state, **97.59%** per-block agreement, **153/175 builds exact** (dust 97.7, repeater 97.8, torch 98.5, comparator 94.4, lamp 96.7) |
-| Tick loop | **built** — delays, priority, scheduling; 14 timing tests. Not yet driven through a whole real build |
+| Tick loop | **built** — delays, priority, scheduling; 14 timing tests |
+| In-game checks | **9 passed**, incl. the CCA adder computing 37+155=192 and two corrected labels |
+| Composition | **M1 + M2 done** — components join, and routes find their way round obstacles |
 
 ## Verify it works
 
@@ -54,30 +56,33 @@ cd worlds
 
 ## What to do next
 
-Steady state and time are both in place. What is missing is proof that they work
-together on a real build rather than on micro-circuits.
+Steady state, time, verification against the game, and composition are all in place.
+`docs/roadmap.md` holds the full picture; the short version is that M1 (join two
+components) and M2 (route around an obstacle) are done and confirmed in game.
 
-1. **Drive more extracted builds.** The chain is proven end to end — `build-17` came
-   back a 3-input XOR (its label said AND) and the CCA adder computed 37+155=192
-   correctly in game, settling in the 3 redstone ticks its own name claims. The other
-   17 ALU readings are still guesses; `build-03` and `build-00` first, since they carry
-   `high` confidence and `high` has already been wrong once. Use `sim.prime()`,
-   `set_port(...)`, then `run_until_stable()`.
-2. **Compare against real Minecraft.** Working, and the loop is open — see `verify/`.
-   Two hand-built circuits checked so far, both passing exactly, one of them confirming
-   the asymmetric dust-stepping rule the biggest correction rests on. What has NOT been
-   done is pasting an *extracted* build back and driving it. The game outranks the
-   oracle on any disagreement.
+1. **M3 — timing alignment.** The next real milestone. M2's eight routes were the same
+   length, so their delays matched for free. They will not in general, and a bus whose
+   bits land on different ticks feeds garbage to anything sequential. The tick loop
+   already models delay; this turns that into repeater padding computed per bit.
+2. **Drive the remaining ALU builds.** Six of eighteen done, and they turned out to be
+   one ALU built up in stages, ending at `build-09` with all six bitwise operations.
+   `build-03` (96 levers, needs port-driven handling) and `build-00` are the ones that
+   matter most — both still carry `high` confidence, and `high` has already been wrong.
 3. **Torch burnout**, if a fast clock ever misbehaves — 8 toggles in a 60-tick window
    burns a torch out for 160 ticks. Only reachable now that time exists.
 
-Lower priority: comparators are the weakest category at 94.4%, and the worst builds are
-`displays/blank`, `displays/build-02` and `cpu-ep07-branching/build-07`.
+Lower priority: comparators are the weakest category at 94.4%, four builds oscillate
+rather than settling (some are genuine clocks, which have no steady state and are not
+failures), and the worst builds are `displays/blank`, `displays/build-02` and
+`cpu-ep07-branching/build-07`.
 
-Lower priority, if the residue starts mattering: comparators are the weakest category
-at 94.4%, four builds oscillate instead of settling (some are probably genuine clocks,
-which have no steady state and are not failures), and the worst builds are
-`displays/blank`, `displays/build-02` and `cpu-ep07-branching/build-07`.
+## Read this before generating anything
+
+`tasks/lessons.md`. Four of the five entries came from things that passed every
+simulator check and still failed — floating repeaters, a repeater facing the wrong way,
+wire shape wrong on disk. **The simulator models signal, not physics, and not
+appearance.** Anything generated needs a structural check as well as a behavioural one,
+and then a human to look at it.
 
 ## Checking a rule against the game
 

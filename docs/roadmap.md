@@ -59,14 +59,15 @@ Two things it taught, beyond proving composition works:
   with sixteen repeaters floating in mid-air, and fell apart on paste. A composed build
   now gets a structural check as well as a behavioural one.
 
-### M2 — route around obstacles — **DONE (pending in-game check)**
+### M2 — route around obstacles — **DONE**
 
 The adder was inside-out for whoever used it: inputs on the west face, sum lamps on the
 east, so you set the numbers and then walked around 517 blocks to read the answer. All
 eight bits are now routed round to the front, giving
 `(Input A) (Input B) (Output)` side by side.
 
-517 cases, 0 wrong. `route_plane()` and `lay_route()` in `pipeline/compose.py`.
+517 cases, 0 wrong, and confirmed in game. `route_plane()` and `lay_route()` in
+`pipeline/compose.py`.
 
 What made it tractable: **each bit routes inside its own horizontal plane**, so the
 search is two-dimensional. The bits sit 2 apart in `y`, and a support block over a live
@@ -81,7 +82,7 @@ repeater takes its input from one specific side, so the arrival direction is not
 something a router may choose freely. Fixed by routing to the cell east of the repeater
 rather than to the repeater itself — making the approach a fact rather than a hope.
 
-### M3 — timing alignment
+### M3 — timing alignment — **next**
 
 Signals have to arrive together. A bus whose bits land on different ticks produces
 garbage in anything sequential. The tick loop already models delay; this milestone

@@ -664,3 +664,77 @@ for the reading rather than trying to recover it from an isometric screenshot.
    most builds still have no recovered sign positions and therefore no measured bit
    order.
 3. Torch burnout, still unmodelled.
+
+---
+
+# Session 6 — the ALU family, and composition (M1 + M2)
+
+## Done
+
+**Six of eighteen ALU builds driven, and they are one device built up in stages.**
+`verify/drive.py` enumerates small builds; `verify/alu_probe.py` handles the rest by
+splitting levers into operands and controls from BEHAVIOUR and then naming the
+arithmetic per control setting, since build-03 has 96 levers and 2^96 is not an option.
+
+    build-16   carry-in          A+B, A+B+1
+    build-15   + invert A        adds ~A+B, B-A
+    build-13   + invert B        adds A+~B, A-B, ~A+~B
+    build-10   + logic mode      adds bitwise XNOR, and XOR with either invert
+    build-09   + one more        all six bitwise ops - the end of the progression
+
+Two labels were outright wrong: `build-17` read as a single AND gate is a 3-input XOR,
+and `build-16` read as "four independent gates" is a ripple-carry adder. Both failures
+had the same shape - the visual read got the PARTS right and missed how they were
+JOINED. A De Morgan AND and a XOR look alike; four adder stages look like four gates
+until you notice the carry.
+
+**All 20 worlds unpacked and signs recovered**: 355 signs across 52 manifests, 323
+embedded into the .litematic files so pasted signs read again. The ALU world has zero
+signs, exactly as session 3 recorded, which is why those builds had to be driven.
+
+**M1 - two components joined.** `pipeline/compose.py`. Two adders chained into
+(A+B)+C, verified over 512 bus + 517 arithmetic cases, confirmed in game.
+
+**M2 - the output routed round to the front.** The adder was inside-out: inputs west,
+sum lamps east, so you set the numbers and walked around 517 blocks to read the answer.
+Now `(Input A) (Input B) (Output)` sit on one face. 517 cases, confirmed in game.
+
+## The thing that made M2 tractable
+
+Each bit routes inside its OWN horizontal plane, so the search is two-dimensional. Bits
+sit 2 apart in y, and a support block over a live wire does not leak into the line above
+- simulated before relying on it. In any one plane the adder occupies ~26 cells inside
+x 4-9, z 2-7, leaving the whole x=12 column and z=8-10 rows free.
+
+## Three failures the simulator could not see
+
+Worth more than the milestones. All three passed every sweep:
+
+1. **16 repeaters floating in mid-air.** M1 shipped with them, passed 1029 cases, and
+   fell apart on paste. The swap looked like-for-like - an output lamp and a WALL lever
+   both need no floor, but a repeater does. Now `Composition.floating()`.
+2. **A drive repeater facing the wrong way.** Its facing was hardcoded east on the
+   assumption the wire would arrive from the east; the router came from the north. The
+   signal travelled the whole route and died at the last block. Fixed by routing to the
+   cell east of the repeater, making the approach a fact rather than a hope.
+3. **Wire shape wrong on disk.** End cells were given connections only toward their
+   PATH neighbours, so they drew as straight lines past the repeaters beside them. The
+   game recomputes shape on update and it behaves correctly, so nothing failed - it just
+   looked wrong to someone standing there.
+
+The pattern: **the simulator models signal, not physics and not appearance.** Generated
+builds need a structural check and a human eye as well as a behavioural sweep. All in
+`tasks/lessons.md`, along with the user's conventions - build in wool with one colour
+per line, and version schematics rather than overwriting them.
+
+## Next
+
+1. **M3, timing alignment.** M2's routes were all the same length so delays matched for
+   free; they will not in general, and a skewed bus feeds garbage to anything
+   sequential.
+2. **The remaining 12 ALU builds** - `build-03` and `build-00` first, both still `high`
+   confidence and never checked.
+3. Torch burnout, still unmodelled.
+
+Disk: the unpacked worlds are 936 MB and the disk was at 97%. They regenerate from the
+committed zips, and both `signs.py` and `containers.py` have already run.
