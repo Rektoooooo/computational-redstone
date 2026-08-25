@@ -119,9 +119,10 @@ is sparse.
 
 ## Renders
 
-Every build under ~400k cells has a `.svg` beside it — one top-down grid per layer.
-Redstone dust is drawn as a **wire**, not a tile: a centre node with one arm per
-connection, and **amber arms with a chevron where the wire climbs to the layer above**.
+Every build has a `.png` beside it — one top-down grid per layer, composited from the
+**real Minecraft block textures** (mattbatwings' MattPack). Redstone dust is drawn the
+way the game draws it: a centre dot plus a half-line per connection, with **amber dust
+where the wire climbs to the layer above**.
 
 That last part matters more than it sounds. Dust carries 13 distinct connection shapes
 and an earlier version drew all of them as the same red square, which meant vertical
@@ -130,7 +131,7 @@ drawn, 99 of the builds show their vertical wire runs and a circuit can actually
 followed.
 
 ```bash
-../.venv/bin/python ../render.py --dir primitives/alus
+../.venv/bin/python ../render_png.py --dir primitives/alus
 ```
 
 ## Still to do

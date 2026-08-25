@@ -1,3 +1,5 @@
+<img src="docs/logo.png" width="96" align="right" alt="">
+
 # Computational Redstone
 
 Tooling and an agent skill library for **computational redstone** — building digital
@@ -61,7 +63,8 @@ cd worlds && unzip '*.zip'          # restore the worlds from the committed arch
 | `worlds/harvest.py <world> <out>` | bulk-extract every build, auto-named from signs |
 | `worlds/profile.py` | add measured structural features to every manifest |
 | `worlds/portmap.py` | derive I/O port maps — levers/buttons are inputs, lamps/trapdoors outputs |
-| `worlds/render.py` | render a build as layer-by-layer SVG diagrams |
+| `worlds/render_png.py` | render a build as layer-by-layer plates using **real Minecraft textures** |
+| `worlds/render.py` | the earlier SVG renderer (vector, but slow to display at scale) |
 | `worlds/fetch.sh [core\|rest]` | open the source world downloads in your browser |
 | `pipeline/poc_litematic.py` | assembly → `.litematic`, with round-trip verification |
 
@@ -128,6 +131,9 @@ q2ck, YellowBunny.
 
 This repository analyses and indexes published work. It is not a substitute for the
 series — go and watch it.
+
+Block textures in the rendered plates are from mattbatwings'
+[MattPack](https://modrinth.com/resourcepack/mattpack) resource pack.
 
 Tooling built on [anvil-parser2](https://github.com/0xTiger/anvil-parser2),
 [litemapy](https://github.com/SmylerMC/litemapy),
