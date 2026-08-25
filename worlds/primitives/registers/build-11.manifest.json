@@ -222,5 +222,15 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "containers": {
+    "6,4,2": 2,
+    "6,12,2": 2,
+    "6,10,2": 2,
+    "6,8,2": 2,
+    "6,6,2": 2,
+    "6,18,2": 2,
+    "6,16,2": 2,
+    "6,14,2": 2
   }
 }

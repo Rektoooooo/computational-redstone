@@ -96,5 +96,8 @@
       }
     ],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "containers": {
+    "6,4,2": 15
   }
 }

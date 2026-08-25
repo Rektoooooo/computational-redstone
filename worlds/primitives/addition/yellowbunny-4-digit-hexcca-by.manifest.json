@@ -76,5 +76,11 @@
     "outputs": 5,
     "ports": [],
     "caveat": "positions and widths are measured; bit order is inferred"
+  },
+  "containers": {
+    "11,15,4": 1,
+    "11,7,4": 1,
+    "11,11,4": 1,
+    "11,3,4": 1
   }
 }

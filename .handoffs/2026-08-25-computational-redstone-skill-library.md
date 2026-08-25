@@ -194,3 +194,87 @@ per-chunk threshold. If a world looks sparse, lower the threshold first.
 1. Identify `alus/` builds in-game (highest value, 18 builds)
 2. Record I/O port maps — use the `[1][2][4]...[128]` bit signs for ordering
 3. Phase 1 of the pipeline (full assembler) — independent of all the above
+
+---
+
+# Session 4 — the redstone simulator
+
+## Why
+
+The project had knowledge, data and rendering but **no feedback loop** — no way to
+determine whether a circuit works, and no way to check my own reading of one. That had
+already produced two wrong calls. Everything downstream (verifying primitives,
+composing them, generating builds) was blocked on it.
+
+## What was built
+
+`worlds/sim/` — a simulator for the computational subset (dust, repeater, comparator,
+torch, lever, redstone block, lamp). Pistons, observers, 0-tick and quasi-connectivity
+are deliberately out of scope.
+
+**Design:** a three-pass steady-state SOLVE, not an event-driven tick simulation.
+Exploits the fact that strong power comes only from components and weak only from dust,
+so dust power and block power are not mutually recursive. Dust connection shape is read
+from the saved blockstate rather than reimplementing Minecraft's connection logic.
+
+**The oracle** is the key asset: extracted `.litematic` files preserve LIVE circuit
+state (dust power levels, powered/lit flags), so every build is a snapshot of a real
+settled circuit — ~170,000 blocks of free ground truth. Test framed as a fixed-point
+check (seed from saved, settle, verify it stays) rather than reproduce-from-scratch,
+because bistable circuits have more than one valid resting state.
+
+## Results
+
+```
+python -m sim.tests.test_units     ->  13/13 pass
+python -m sim.oracle primitives    ->  88.09% over 173 builds, 68 at exactly 100%
+
+  dust 89.67% | repeater 89.95% | torch 88.88% | comparator 82.33% | lamp 65.42%
+```
+
+## Three bugs the oracle caught
+
+1. **`facing` on a diode points at the INPUT, not the output.** Minecraft's DiodeBlock
+   reads from `pos.relative(facing)`. Having it backwards reversed every repeater and
+   comparator in the library. 72.7% -> 94.1% on the sample.
+   **The unit tests did not catch this** - the fixtures encoded the same wrong
+   assumption as the code, so they agreed with each other. Only real data disagreed.
+2. **Extraction dropped container contents.** `region.tile_entities` was empty, so every
+   signal-strength barrel read as empty; 3737 comparators read a barrel and 87% were
+   wrong. Fixed by `worlds/containers.py`, which recovers levels from the source worlds
+   into the manifests. Comparators 39.6% -> 82.3%.
+3. **Dust only activates a mechanism it points at.** Fixed; helped arithmetic builds
+   but NOT library-wide (see below).
+
+## Skill library correction
+
+`redstone-fundamentals` claimed a weakly powered block leaves an attached torch lit.
+That is **Bedrock** behaviour. In Java a torch is off whenever its support carries any
+power, weak or strong; weak vs strong only decides whether a block can start new dust.
+Corrected in the SKILL.md with a note explaining how it was found.
+
+## Next session — start here
+
+1. **Lamps are 65% library-wide** and that is the biggest single gap. The
+   pointing-direction fix lifted them to 92% on arithmetic builds but did nothing
+   overall, so the display worlds fail for a different, unfound reason. Diagnose with
+   the same technique that worked before: correlate mismatches against adjacent block
+   types, then print a slice.
+2. **Then the tick loop** — delays, scheduling, sequential behaviour. Steady state is
+   the foundation and is now proven.
+3. **Then the behavioural tests** from the plan: drive `alus/build-17` through an AND
+   truth table, and drive `addition/3-ticks-8-bit-cca-by-don` with real numbers using
+   the port maps. The adder test is the headline: if it computes 37+91 correctly from
+   nothing but extracted blocks, the model is validated.
+4. **Compare against real Minecraft.** The user is home now. Any divergence in-game
+   outranks the oracle, since the oracle is a saved snapshot and the game is the
+   authority.
+
+## Useful debugging technique discovered
+
+When agreement drops, do NOT stare at one coordinate. Instead:
+  - categorise mismatches (under-powered vs over-powered) to tell missing-source from
+    spurious-source
+  - correlate mismatches against adjacent block types to find the culprit component
+  - print a 2D slice showing `saved/computed` per cell to see the structure
+Each of the three bugs was found this way within a couple of iterations.

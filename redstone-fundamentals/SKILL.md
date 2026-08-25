@@ -56,13 +56,21 @@ The single biggest source of "my circuit looks right but doesn't work".
 | | Powers adjacent dust | Powers repeater/comparator | Activates lamp/door | Turns a torch off |
 |---|---|---|---|---|
 | **Hard** (repeater, lever, button, torch powering block above) | yes | yes | yes | yes |
-| **Soft** (dust on top of, or pointing into, a block) | **no** | yes | yes | **no** |
+| **Soft** (dust on top of, or pointing into, a block) | **no** | yes | yes | yes |
 
-Both kinds pass signals through walls into repeaters and comparators. The only
-difference is that soft power will not re-power dust and will not flip a torch.
+**In Java there is exactly one difference: soft power cannot re-power dust.** It still
+activates mechanisms, still feeds repeaters and comparators, and **does turn off a torch
+attached to the block.** A torch is off whenever its support block carries any power at
+all, weak or strong.
 
-**Classic symptom:** dust runs into a block with a torch on it and the torch stays
-lit. Dust only gives soft power. Feed the block with a repeater or lever instead.
+> **Correction.** An earlier version of this page claimed soft power leaves a torch lit.
+> That is **Bedrock** behaviour, where a solid block absorbs weak power. This library
+> targets Java, where it is wrong. The error was caught by building a simulator and
+> checking it against real saved circuits — see `worlds/sim/`.
+
+The rule that *does* bite in Java: dust runs onto a block, and a second piece of dust on
+the far side stays dark, because soft power will not start a new dust run. Feed the
+block with a repeater or lever if you need it to drive dust.
 
 ## The four components
 

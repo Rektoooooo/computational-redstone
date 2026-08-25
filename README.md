@@ -63,6 +63,8 @@ cd worlds && unzip '*.zip'          # restore the worlds from the committed arch
 | `worlds/harvest.py <world> <out>` | bulk-extract every build, auto-named from signs |
 | `worlds/profile.py` | add measured structural features to every manifest |
 | `worlds/portmap.py` | derive I/O port maps — levers/buttons are inputs, lamps/trapdoors outputs |
+| `worlds/sim/` | **redstone simulator** — solves circuits without Minecraft; `python -m sim.oracle primitives` |
+| `worlds/containers.py` | recover container fill levels from source worlds into manifests |
 | `worlds/render_png.py` | render a build as layer-by-layer plates using **real Minecraft textures** |
 | `worlds/render.py` | the earlier SVG renderer (vector, but slow to display at scale) |
 | `worlds/fetch.sh [core\|rest]` | open the source world downloads in your browser |
@@ -109,6 +111,9 @@ useful; it is not used for labelling.
   the real ordering are not carried into a `.litematic`. Check before wiring.
 - **Nothing has been pasted back into Minecraft and tested.** Block-level fidelity is
   verified (properties round-trip correctly); in-world behaviour is not.
+- **The simulator solves steady state at 88% per-block agreement** across 173 real
+  builds, with 68 reproducing exactly. It has no tick loop yet, so sequential timing
+  is unmodelled. See [`worlds/sim/`](worlds/sim/).
 
 See [BUILD-PIPELINE-RESEARCH.md](BUILD-PIPELINE-RESEARCH.md) for the design work behind
 generating builds programmatically — including why **composition beats synthesis** here,
