@@ -142,6 +142,45 @@ check("and it toggles every 2 game ticks",
       trace, [True, False, False, True, True, False,
               False, True, True, False, False, True])
 
+# -- a lamp is not symmetric ------------------------------------------------
+
+# It lights the instant it is powered and waits 4 game ticks before going dark, which
+# is deliberate anti-flicker behaviour. Both halves were measured in game with tick
+# stepping; the steady state is identical either way, so nothing but timing reveals it.
+lamp_cells = {(0, 1, 0): ("redstone_lamp", {"lit": "false"}),
+              (1, 1, 0): ("lever", {"powered": "false", "face": "wall",
+                                    "facing": "west"}),
+              (1, 0, 0): ("purple_wool", {})}
+LAMP_POS = (0, 1, 0)
+
+sim = Sim(build(lamp_cells)).prime()
+sim.set_lever((1, 1, 0), True)
+# No tick needed: flipping the lever reaches the lamp at once. Confirmed in game -
+# with the world frozen, the dust lit the moment the lever moved, before any step.
+check("a lamp lights immediately, with no tick at all",
+      sim.lamp_states().get(LAMP_POS), True)
+
+sim.set_lever((1, 1, 0), False)
+start = sim.time
+off_after = None
+for _ in range(20):
+    sim.tick()
+    if not sim.lamp_states().get(LAMP_POS):
+        off_after = sim.time - start
+        break
+check("a lamp waits 4 game ticks before going dark", off_after, 4)
+
+# and if the power comes back inside that window, it never goes dark at all
+sim = Sim(build(lamp_cells)).prime()
+sim.set_lever((1, 1, 0), True)
+sim.run(2)
+sim.set_lever((1, 1, 0), False)
+sim.tick()
+sim.set_lever((1, 1, 0), True)      # back on well inside the 4-tick wait
+sim.run(6)
+check("power returning inside the window leaves the lamp lit",
+      sim.lamp_states().get(LAMP_POS), True)
+
 print(f"\n{len(PASS)} passed, {len(FAIL)} failed")
 if FAIL:
     print("failed:", ", ".join(FAIL))

@@ -27,6 +27,9 @@ class Sim:
         self.iterations = 0
         self.queue = TickQueue()
         self.time = 0          # game ticks; one redstone tick is two of these
+        # Lamp state, tracked only once the tick loop is running. Kept apart from
+        # `states` so that `settle()` and the oracle behave exactly as they always have.
+        self.lamps = {}
 
     @classmethod
     def from_file(cls, path):
@@ -115,6 +118,30 @@ class Sim:
                                     C.component_priority(self.grid, pos, cell,
                                                          bool(self.states.get(pos))))
 
+    LAMP_OFF_DELAY = 4      # game ticks; turning ON has no delay at all
+
+    def _update_lamps(self):
+        """
+        Apply the lamp's own asymmetric timing.
+
+        A lamp lights the instant it is powered, but when its power goes away it waits
+        4 game ticks and only then goes dark - re-checking on arrival, so a signal that
+        returns inside that window leaves it lit. That is deliberate anti-flicker
+        behaviour in the game, and measuring it in-game is the only way it shows up:
+        the steady state is identical either way.
+        """
+        changed = False
+        for pos in self.grid.of_type(LAMP):
+            target = C.eval_lamp(self.grid, self.field, self.states, pos,
+                                 self.grid.get(pos))
+            now = self.lamps.get(pos, False)
+            if target and not now:
+                self.lamps[pos] = True          # on is immediate
+                changed = True
+            elif not target and now and not self.queue.is_pending(pos):
+                self.queue.schedule(pos, self.time + self.LAMP_OFF_DELAY)
+        return changed
+
     def tick(self):
         """
         Advance one GAME tick. Returns True if anything changed.
@@ -129,6 +156,15 @@ class Sim:
 
         for pos in self.queue.drain_due(self.time):
             self.field = solve(self.grid, self.states)
+            if self.grid.get(pos).id == LAMP:
+                # Only go dark if it is STILL unpowered - the signal may have come
+                # back inside the 4-tick window, which is the whole point of the wait.
+                if not C.eval_lamp(self.grid, self.field, self.states, pos,
+                                   self.grid.get(pos)):
+                    if self.lamps.get(pos):
+                        self.lamps[pos] = False
+                        changed = True
+                continue
             target = C.eval_one(self.grid, self.field, self.states, pos)
             if target is not None and target != self.states.get(pos):
                 self.states[pos] = target
@@ -136,6 +172,8 @@ class Sim:
 
         self.field = solve(self.grid, self.states)
         self._reschedule()
+        if self._update_lamps():
+            changed = True
         return changed
 
     def run(self, game_ticks):
@@ -164,6 +202,21 @@ class Sim:
         """Solve once and queue whatever is already out of date, without advancing."""
         self.field = solve(self.grid, self.states)
         self._reschedule()
+        # Seed lamps at whatever they are right now, so the first tick measures a
+        # change from the real starting point rather than from "everything off".
+        #
+        # ONCE only. `set_lever` re-primes so an input change propagates immediately,
+        # and re-seeding here would overwrite a lamp that is mid-way through its
+        # 4-tick wait - which silently turned the delay back off.
+        if not self.lamps:
+            self.lamps = {p: C.eval_lamp(self.grid, self.field, self.states, p,
+                                         self.grid.get(p))
+                          for p in self.grid.of_type(LAMP)}
+        else:
+            # An input change reaches lamps at once - it lights them immediately, or
+            # starts their 4-tick wait from HERE. Leaving it until the first tick put
+            # everything one tick late.
+            self._update_lamps()
         return self
 
     # -- outputs -------------------------------------------------------------
@@ -172,6 +225,16 @@ class Sim:
         return self.field.dust.get(pos, 0) if self.field else 0
 
     def lamp_states(self):
+        """
+        What every lamp is showing.
+
+        Once the tick loop is running these come from tracked state, because a lamp
+        that has just lost power is still LIT for another 4 game ticks. Under
+        `settle()` there is no time, so the instantaneous answer is the right one -
+        and it is what the oracle has always compared against.
+        """
+        if self.lamps:
+            return dict(self.lamps)
         if self.field is None:
             self.settle()
         return {p: C.eval_lamp(self.grid, self.field, self.states, p, self.grid.get(p))

@@ -2,6 +2,20 @@
 
 Corrections worth not repeating. Newest first.
 
+## Steady state hides timing behaviour entirely
+
+**Found by the user**, stepping the game one tick at a time: a redstone lamp lights
+immediately but takes **4 game ticks** to go dark.
+
+The oracle compares settled states, so it is blind to this by construction — the final
+picture is the same whether the lamp waits or not. 175 builds and nine in-game tests
+never touched it. It appeared the moment someone measured *when* instead of *what*.
+
+**How to apply:** where a component's behaviour depends on time, a steady-state check
+cannot verify it and its passing means nothing. Ask what the component does on the way
+to its answer, not just at the end. Anything with an asymmetry between rising and
+falling edges is a candidate.
+
 ## A written blockstate must describe every real neighbour
 
 **Correction:** the wire at each end of a route pasted pointing the wrong way — drawn as

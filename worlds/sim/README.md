@@ -188,6 +188,24 @@ asymmetric: a diagonal step legal one way need not be legal back. Dust **88.8% �
 97.7%**, and overall **92.2% → 97.6%** — dust is two thirds of every build, so it
 carries everything else with it.
 
+## An eighth bug — found by measuring, not by the oracle
+
+**A lamp is not symmetric in time.** It lights the instant it is powered, but when power
+goes away it waits **4 game ticks** before going dark, re-checking on arrival so a signal
+returning inside that window leaves it lit. Deliberate anti-flicker behaviour.
+
+The oracle could never have caught this: the steady state is identical either way. It
+took stepping the real game a tick at a time — all eight repeaters in a chain dark, the
+lamp still lit, four ticks later it goes out. Modelled now, with the on/off asymmetry
+and the re-check.
+
+Two smaller mistakes surfaced while implementing it, both from `prime()`:
+
+- it re-seeded lamp state on every call, and `set_lever` re-primes — so flipping an input
+  wiped any lamp mid-way through its wait and the delay silently vanished
+- then, seeding once, the wait started on the first tick rather than at the moment power
+  was lost, putting everything one tick late
+
 ## A correction to the skill library
 
 Building this surfaced an error in `redstone-fundamentals`: it claimed a weakly powered

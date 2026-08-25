@@ -19,7 +19,7 @@ rather than a saved snapshot — an item open since session 2.
 | `alus/build-13` | 9 − 4 = 5 by two's complement | ✅ identical |
 | `m1-two-adders` (**composed**) | (37 + 91) + 64 = 192 | ✅ identical |
 | `m2-front-output` (**routed**) | 37 + 91 = 128 with the output moved to the front | ✅ identical |
-| `timing` | 8, 16, 24 … 64 ticks | ✅ spacing exact, **+1 offset** |
+| `timing` | 8, 16, 24 … 64 ticks | ✅ exact — and **found a missing rule** |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator
