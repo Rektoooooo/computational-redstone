@@ -82,13 +82,26 @@ repeater takes its input from one specific side, so the arrival direction is not
 something a router may choose freely. Fixed by routing to the cell east of the repeater
 rather than to the repeater itself — making the approach a fact rather than a hope.
 
-### M3 — timing alignment — **next**
+### M3 — timing alignment — **DONE**
 
-Signals have to arrive together. A bus whose bits land on different ticks produces
-garbage in anything sequential. The tick loop already models delay; this milestone
-turns that into repeater padding computed per bit.
+Split in two, because the ruler had to be checked before it was used.
 
-### M4 — spec to build
+**M3.1 — verify the clock.** The tick model had never been compared to the game. Measured
+with `/tick freeze` and `/tick step`: repeater delays, chained delays and the
+setting-to-ticks mapping all exact. It also found a rule the simulator was missing
+entirely — a lamp lights instantly but waits **4 game ticks** to go dark, which a
+steady-state check cannot see by construction.
+
+**M3.2 — align a skewed bus.** `arrival_ticks()`, `settle_profile()` and `align()` in
+`pipeline/compose.py`. A staggered readout with 0/1/2 repeaters per route skewed by
+4 ticks; alignment flattened it to 0 at no block cost, by turning up delay settings on
+repeaters already in place. Correctness unchanged — 512 cases still exact.
+
+The distinction that came out of it is in `docs/timing.md`: **structural** skew is fixed
+and paddable, **data-dependent** skew from a carry chain is not, and the only answer
+there is to wait for the worst case.
+
+### M4 — spec to build — **next**
 
 Choose components for a described task, lay them out, wire them, verify. Only sensible
 once M1–M3 are real.

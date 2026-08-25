@@ -84,6 +84,41 @@ Only reachable once time exists, and only bites fast clocks. `worlds/sim/` does 
 model it — the one place it would show up is a torch clock running faster than the
 burnout threshold, which would run forever in simulation and stall in the game.
 
+## Two kinds of skew, and only one is paddable
+
+When bits of a bus arrive on different ticks, the cause matters, because the fixes are
+different. Both were measured on real builds.
+
+**Structural** — fixed, caused by the wiring. One route carries more repeaters than
+another, and each repeater is 2 game ticks. Measured on a staggered readout: routes with
+0, 1 and 2 repeaters arrived at 10, 12 and 14 ticks, and the 4-tick spread was
+**identical for every input**.
+
+Fix: pad the fast lines by turning **up delay settings on repeaters already there**. A
+setting runs 1 to 4, so each existing repeater buys up to 6 game ticks at no block cost.
+`align()` in `pipeline/compose.py`.
+
+**Data-dependent** — varies with the input, caused by carry chains. Measured on the
+4-bit ripple-carry adder across all 256 input pairs:
+
+| settle time | cases |
+|---|---|
+| 8 ticks | 162 |
+| 14 ticks | 60 |
+| 18 ticks | 24 |
+| **22 ticks** | 8 |
+
+Fix: there isn't one. No fixed padding flattens a delay that depends on the data. The
+only correct answer is to **wait for the worst case** before sampling — 22 ticks here,
+even though nearly two thirds of inputs are done in 8. That is the ordinary digital
+design rule that a clock period must clear the worst-case propagation delay.
+
+`settle_profile()` sweeps inputs and reports that worst case.
+
+**Length alone does nothing.** Dust carries within the tick, so a longer route is not a
+slower one — only the repeaters it forces are. A plan built on "stagger the lamps to
+create skew" fails for exactly this reason until the routes cross a repeater threshold.
+
 ## What the simulator models
 
 | | modelled |

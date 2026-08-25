@@ -524,6 +524,199 @@ def compose_m2(out=None):
     return out
 
 
+def compose_m3(stagger=3, out=None):
+    """
+    The front-output adder again, but with the readout fanned out diagonally.
+
+    M2's eight routes were all the same shape, so their delays matched for free. Here
+    bit `i`'s lamp sits `stagger` blocks further along than bit `i-1`, so the routes are
+    genuinely different lengths - and once a route passes 14 cells it needs another
+    repeater, which is 2 more game ticks. That is STRUCTURAL skew: fixed by the wiring,
+    the same for every input, and therefore paddable.
+
+    Note that length alone does nothing. Dust carries within the tick, so a longer route
+    is not a slower one - only the repeaters it forces are.
+    """
+    out = out or next_version("pipeline/m3-staggered")
+    depth = 11 + stagger * 7
+    c = Composition(13, 22, depth)
+    print(f"front-output adder, readout staggered {stagger} blocks per bit")
+    c.place(ADDER, (0, 0, 0), "adder")
+    blocked = c.keepout()
+
+    print("\n  bit   y   lamp z   route cells  repeaters on route")
+    for i in range(8):
+        y = 2 + 2 * i
+        colour = BUS_COLOURS[i]
+        z = 10 + stagger * i
+        tap = (10, y, 3)
+        drive = (3, y, z)
+        arrival = (drive[0] + 1, drive[2])
+
+        c.tap_output(tap, "west", colour)
+        path = c.route_plane(y, (tap[0], tap[2]), arrival, blocked)
+        if path is None:
+            print(f"  {i:3} {y:3}   NO ROUTE")
+            c.collisions.append((tap, "no route"))
+            continue
+        cells = c.lay_route(path, y, colour,
+                            enter_from=(tap[0], tap[2]), exit_to=(drive[0], drive[2]))
+        c.drive_input(drive, "east", colour)
+        c.put((2, y, z), BlockState("minecraft:redstone_lamp", lit="false"),
+              "front lamp", allow_replace=True)
+        c.support((2, y, z), colour)
+        reps = sum(1 for p in cells
+                   if c.region[p[0], p[1], p[2]].id.endswith("repeater"))
+        print(f"  {i:3} {y:3} {z:6} {len(cells):11} {reps:16}")
+
+    print(f"\n  {len(c.collisions)} collisions" if c.collisions else "  no collisions")
+    loose = c.floating()
+    print(f"  {len(loose)} unsupported" if loose else "  nothing unsupported")
+    c.save(out, "m3-staggered", "adder with a diagonal readout - structural skew")
+    print(f"  wrote {out}")
+    return out
+
+
+def align(path, ports, outputs, out=None, probe=(255, 0)):
+    """
+    Pad the fast lines until every bit arrives on the same tick.
+
+    Only STRUCTURAL skew can be treated this way - the fixed kind, caused by one route
+    carrying more repeaters than another. Data-dependent skew from a carry chain varies
+    with the input and no fixed padding can flatten it; `settle_profile` is the tool for
+    that, and the answer there is to wait for the worst case.
+
+    Padding costs no blocks. A repeater's delay setting runs 1 to 4, which is 2 to 8
+    game ticks, so turning up repeaters that are already on the line buys up to 6 ticks
+    each. Only a skew bigger than the line can absorb would need new hardware.
+
+    Each bit lives in its own y-plane, so "the repeaters belonging to bit i" is simply
+    every repeater at that height - no bookkeeping needed.
+    """
+    from litemapy import Schematic
+
+    out = out or next_version("pipeline/m3-aligned")
+    arrivals = arrival_ticks(path, ports, (0, 0), probe, outputs)
+    if len(arrivals) < len(outputs):
+        print("  not every bit moved on the probe input - cannot measure them all")
+        return None
+    target = max(arrivals.values())
+
+    schem = Schematic.load(path)
+    region = list(schem.regions.values())[0]
+    print(f"\n  aligning to the slowest line, {target} game ticks\n")
+    print(f"  {'bit':>3} {'was':>4} {'needs':>6}  repeaters raised")
+
+    for i, p in enumerate(outputs):
+        need = target - arrivals[p]
+        y = p[1]
+        raised = []
+        if need:
+            for x in range(region.width):
+                for z in range(region.length):
+                    if need <= 0:
+                        break
+                    bs = region[x, y, z]
+                    if not bs.id.endswith("repeater"):
+                        continue
+                    delay = int(bs["delay"])
+                    room = (4 - delay) * 2          # each step up is 2 game ticks
+                    if room <= 0:
+                        continue
+                    add = min(need, room)
+                    region[x, y, z] = BlockState(
+                        "minecraft:repeater", facing=bs["facing"],
+                        delay=str(delay + add // 2), locked=bs["locked"],
+                        powered=bs["powered"])
+                    raised.append(f"({x},{z}) {delay}->{delay + add // 2}")
+                    need -= add
+        note = ", ".join(raised) if raised else ("-" if not need else "COULD NOT PAD")
+        print(f"  {i:3} {arrivals[p]:4} {target - arrivals[p]:6}  {note}")
+
+    schem.save(out)
+    print(f"\n  wrote {out}")
+    return out
+
+
+def settle_profile(path, ports, outputs, values, max_ticks=200):
+    """
+    How long this build takes to settle, across many inputs.
+
+    There are two different things called "skew" and they need different answers:
+
+      STRUCTURAL   fixed, caused by the wiring - one route carrying more repeaters
+                   than another. Constant across inputs, so it can be PADDED flat.
+      DATA-DEPENDENT  varies with the input, caused by carry chains. A ripple-carry
+                   adder settles in 8 ticks for most inputs and 22 when the carry has
+                   to climb every stage. No fixed padding fixes that; the only correct
+                   answer is to WAIT for the worst case before sampling.
+
+    Returns (worst, histogram). The worst case is the number that matters - it is what
+    a downstream register's clock period has to clear.
+    """
+    hist = {}
+    worst, worst_at = 0, None
+    for a, b in values:
+        arr = arrival_ticks(path, ports, (0, 0), (a, b), outputs, max_ticks=max_ticks)
+        t = max(arr.values()) if arr else 0
+        hist[t] = hist.get(t, 0) + 1
+        if t > worst:
+            worst, worst_at = t, (a, b)
+    return worst, worst_at, hist
+
+
+def arrival_ticks(path, ports, before, after, outputs, max_ticks=400):
+    """
+    How many game ticks after an input change each output settles.
+
+    Records the **last** change, not the first. A bit can flicker on its way to an
+    answer - a carry arriving late can flip it back - and the first change would report
+    a bit as arrived while it is still moving. Skew computed from that would be wrong
+    in the one case it matters most.
+
+    `before` and `after` are (A, B) pairs: settle on the first, switch to the second,
+    then count. Outputs that never change simply do not appear, which is correct - a bit
+    that stays put has no arrival time.
+    """
+    from sim.engine import Sim
+
+    grid = Grid.from_file(path)
+    sim = Sim(grid)
+    for port, value in zip(ports, before):
+        sim.set_port(port, value)
+    sim.prime()
+    sim.run_until_stable(max_ticks=max_ticks)
+
+    base = sim.time
+    for port, value in zip(ports, after):
+        sim.set_port(port, value)
+
+    last, prev = {}, sim.lamp_states()
+    for _ in range(max_ticks):
+        sim.tick()
+        cur = sim.lamp_states()
+        for p in outputs:
+            if cur.get(p) != prev.get(p):
+                last[p] = sim.time - base
+        prev = cur
+        if not len(sim.queue):
+            break
+    return last
+
+
+def report_skew(label, arrivals, outputs):
+    """Print per-bit arrival and the spread between fastest and slowest."""
+    ticks = [arrivals.get(p) for p in outputs]
+    known = [t for t in ticks if t is not None]
+    spread = (max(known) - min(known)) if known else 0
+    print(f"\n  {label}")
+    print("     bit   " + "  ".join(f"{i:>3}" for i in range(len(outputs))))
+    print("     tick  " + "  ".join(f"{t if t is not None else '-':>3}" for t in ticks))
+    print(f"     skew: {spread} game ticks"
+          f"{'  (aligned)' if spread == 0 else '  <-- bits do not arrive together'}")
+    return spread
+
+
 def verify_m2(path):
     """
     Sweep the front-output adder.
