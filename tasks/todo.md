@@ -113,3 +113,50 @@ subset, different rule — and the wrong reason would have misled the next chang
 
 Not done: torch burnout, and nothing has been driven through a whole real build yet.
 Both are recorded above.
+
+---
+
+# M4 — the decimal adder
+
+Two numbers 1–9 on eighteen levers, the sum shown as a decimal number 0–18.
+
+## Done
+
+- [x] **The arithmetic**, in signal strength rather than binary. `pipeline/digit_adder.py`,
+      **100/100 over every input pair**. Seven comparators:
+      `nx = 15-x`, `u = nx-y`, `S = 15-u` (= min(15, x+y)), `ny = 15-y`,
+      `q = ny-5` (= 10-y), `r = x-q` (= max(0, x+y-10)), `Sg = S-carry`.
+      The carry is a tap nine dust blocks along a line fed by S, and `ones` is
+      `max(Sg, r)` on one shared cell — which needs no second gate, because when there
+      is no carry `r` is already zero.
+- [x] **The input**, with no gates at all: nine levers along a dust line, so distance
+      IS the value. Two levers at once gives the higher of the two rather than nonsense.
+- [x] **`pipeline/analog.py`** — the primitives and the checks that keep them honest.
+      `interference()` catches the failure this whole exercise is about: a stray dust
+      cell beside a comparator changes the answer while looking perfectly fine.
+
+## Components identified, all verified against the simulator
+
+| build | what it is | checked |
+|---|---|---|
+| `displays/build-16` | 4 BCD levers → **5×9 seven-segment digit** | correct 0–9, **blank above 9** |
+| `combinational/build-04` | **signal strength → 4-bit binary** | exact for all 16 |
+| `combinational/build-15` | red coder: strength *k* lights lamp *k* | exact for all 16 |
+
+`build-16` blanking above 9 is what gives leading-zero suppression for nothing: the
+tens digit is a second copy fed `1` when the sum ≥ 10 and `10` when it isn't. Confirmed
+by driving a copy with repeaters in place of its levers.
+
+## Left to do
+
+- [ ] Attach `build-04` to the `ones` line — replace its input barrel with dust and
+      feed the merge cell straight into it.
+- [ ] Move its four output bits from a column in **y** to a row in **z**, which is what
+      `build-16` wants. Needs a small `stair()`; everything crossing it is boolean.
+- [ ] Two `build-16` copies, levers replaced by drive repeaters (proven at M1).
+- [ ] Sweep all 100 pairs against the glyph table, `floating()`, then paste.
+
+**The lesson so far, and it cost most of a session:** two lines in one plane cannot
+cross, and a search that finds the SHORTEST route finds one straight across the middle
+that walls off everything not yet laid. Every line in the core is now spelled out leg
+by leg, and the layout is planar by construction.
