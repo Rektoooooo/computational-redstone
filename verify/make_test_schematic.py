@@ -192,7 +192,93 @@ def comparator():
     )
 
 
-BUILDERS = {"decay": decay, "steps": steps, "comparator": comparator}
+TIMING_COLOURS = ["white", "light_blue", "cyan", "lime", "yellow", "orange",
+                  "red", "magenta", "purple", "blue", "green", "pink"]
+
+
+def _delay_line(reg, z, repeaters, delay, colour, label):
+    """
+    One lane: spine -> a chain of repeaters -> a lamp, on its own coloured floor.
+
+    Every repeater faces WEST, so each reads the one behind it and passes east. The
+    lamp lights `repeaters * delay * 2` game ticks after the lever, which is the number
+    under test.
+
+    The label goes at x=0, beside the spine. Lanes sit on even z and the levers on odd
+    z, so neither can land on the other.
+    """
+    for x in range(11):
+        reg[x, 0, z] = wool(colour)
+    reg[1, 1, z] = wire(north="side", south="side", east="side", west="side")
+    for k in range(repeaters):
+        reg[2 + k, 1, z] = BlockState("minecraft:repeater", facing="west",
+                                      delay=str(delay), locked="false", powered="false")
+    reg[2 + repeaters, 1, z] = LAMP
+    _sign(reg, (0, 1, z), label)
+
+
+def wool(colour):
+    return BlockState(f"minecraft:{colour}_wool")
+
+
+def wire(**sides):
+    s = {"north": "none", "south": "none", "east": "none", "west": "none"}
+    s.update(sides)
+    return BlockState("minecraft:redstone_wire", power="0", **s)
+
+
+def timing():
+    """
+    Does the simulator's clock match the game's?
+
+    Nothing here has ever been checked. The tick loop has unit tests, but they only
+    prove it is self-consistent - they would pass just as happily if the whole model
+    were off by a factor of two. And M3.2 pads a skewed bus using these very numbers,
+    so a wrong ruler would produce a wrong alignment that then verifies against itself.
+
+    Two independent questions, each with its own lever:
+
+      A  does delay ADD UP?  line i has i+1 repeaters, all at delay 4
+                             -> 8, 16, 24 ... 64 game ticks
+      B  does the SETTING mean what we think?  eight repeaters each, at delay 1-4
+                             -> 16, 32, 48, 64 game ticks
+
+    B matters most, because raising delay settings is how M3.2 will pad.
+
+    20 game ticks is one second, so A spans 3.2 seconds and both cascade visibly. A
+    model wrong by a factor of two gives the wrong ORDER, the wrong SPACING, or a total
+    of 1.6 s or 6.4 s - none of which can be missed by eye.
+    """
+    reg = Region(0, 0, 0, 11, 2, 28)
+
+    # Part A - eight lanes, growing repeater counts, all at delay 4
+    for z in range(16):
+        reg[0, 0, z] = wool("light_gray")     # neutral floor: the lanes carry the colour
+        reg[1, 0, z] = wool("light_gray")
+        reg[1, 1, z] = wire(north="side", south="side", east="side", west="side")
+    reg[0, 1, 9] = BlockState("minecraft:lever", face="floor", facing="north",
+                              powered="false")      # odd z, so it misses every label
+    for i in range(8):
+        _delay_line(reg, i * 2, i + 1, 4, TIMING_COLOURS[i], [f"A{i}", f"{(i+1)*8} ticks"])
+
+    # Part B - four lanes, same eight repeaters each, different delay settings
+    for z in range(20, 28):
+        reg[0, 0, z] = wool("light_gray")
+        reg[1, 0, z] = wool("light_gray")
+        reg[1, 1, z] = wire(north="side", south="side", east="side", west="side")
+    reg[0, 1, 21] = BlockState("minecraft:lever", face="floor", facing="north",
+                               powered="false")     # odd z, same reason
+    for j, d in enumerate((1, 2, 3, 4)):
+        _delay_line(reg, 20 + j * 2, 8, d, TIMING_COLOURS[8 + j],
+                    [f"B delay {d}", f"{8*d*2} ticks"])
+
+    return reg, "timing", (
+        "A: 1-8 repeaters at delay 4 -> 8..64 ticks. "
+        "B: 8 repeaters at delay 1-4 -> 16,32,48,64 ticks. Two levers.")
+
+
+BUILDERS = {"decay": decay, "steps": steps, "comparator": comparator,
+            "timing": timing}
 
 
 def main():

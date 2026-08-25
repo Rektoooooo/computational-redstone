@@ -19,6 +19,7 @@ rather than a saved snapshot — an item open since session 2.
 | `alus/build-13` | 9 − 4 = 5 by two's complement | ✅ identical |
 | `m1-two-adders` (**composed**) | (37 + 91) + 64 = 192 | ✅ identical |
 | `m2-front-output` (**routed**) | 37 + 91 = 128 with the output moved to the front | ✅ identical |
+| `timing` | a 3.2-second cascade at 8, 16, 24 … 64 ticks | ⏳ awaiting the game |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator
@@ -57,6 +58,51 @@ python3 verify/predict.py verify/decay.litematic # what we expect it to do
 
 **Write the prediction down before looking at the game.** A model consulted after the
 fact always seems to agree.
+
+## Test 6 — `timing` — the clock itself
+
+Everything else here checks what a circuit settles TO. This checks **when**, which has
+never been measured against the game at all.
+
+The tick loop has 14 unit tests, but they only prove it is self-consistent — they would
+pass just as happily if the whole model were off by a factor of two. The one piece of
+indirect evidence is the CCA adder settling in 3 redstone ticks against a build named
+*"3 ticks 8-bit CCA"*, whose numbers never went into the model. Good, but inferred from
+a label rather than measured.
+
+This matters now because M3.2 pads a skewed bus using these numbers. A wrong ruler would
+produce a wrong alignment that then verifies against itself.
+
+Two levers, two independent questions. 20 game ticks is one second.
+
+**Part A — does delay add up?** Lane `i` has `i+1` repeaters, all at delay 4.
+
+| lane | repeaters | predicted |
+|---|---|---|
+| A0 | 1 | 8 ticks (0.4 s) |
+| A1 | 2 | 16 |
+| A2 | 3 | 24 |
+| A3 | 4 | 32 |
+| A4 | 5 | 40 |
+| A5 | 6 | 48 |
+| A6 | 7 | 56 |
+| A7 | 8 | **64 ticks (3.2 s)** |
+
+**Part B — does the delay SETTING mean what we think?** Eight repeaters each, at
+settings 1–4. This is the one M3.2 depends on.
+
+| lane | setting | predicted |
+|---|---|---|
+| B d1 | 1 | 16 ticks (0.8 s) |
+| B d2 | 2 | 32 (1.6 s) |
+| B d3 | 3 | 48 (2.4 s) |
+| B d4 | 4 | **64 (3.2 s)** |
+
+Three things are falsifiable by eye: the **order** the lamps light, the **even spacing**
+between them, and the **total** — 3.2 seconds, not 1.6 or 6.4. A model wrong by a factor
+of two cannot hide.
+
+Each lane carries a sign with its own predicted tick count.
 
 ## Test 5 — `comparator`
 
