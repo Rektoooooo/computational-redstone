@@ -633,8 +633,17 @@ def align(path, ports, outputs, out=None, probe=(255, 0)):
         note = ", ".join(raised) if raised else ("-" if not need else "COULD NOT PAD")
         print(f"  {i:3} {arrivals[p]:4} {target - arrivals[p]:6}  {note}")
 
-    schem.save(out)
-    print(f"\n  wrote {out}")
+    # Save through a FRESH schematic so the embedded name describes this file. Saving
+    # the loaded one keeps the original's metadata, and Litematica shows that name in
+    # its browser - so an aligned build sits in the list calling itself the unaligned
+    # one, which is worse than unhelpful when the two differ by five block properties
+    # and nothing visible in a screenshot.
+    name = os.path.splitext(os.path.basename(out))[0]
+    region.as_schematic(
+        name=name, author="computational-redstone",
+        description=f"delays padded so all bits arrive together at {target} game ticks"
+    ).save(out)
+    print(f"\n  wrote {out}  (embedded name: {name})")
     return out
 
 
