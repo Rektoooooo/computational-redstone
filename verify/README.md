@@ -12,6 +12,7 @@ since session 2.
 | `steps` | lanes 1–3 lit, lane 4 dark at 0 | ✅ identical |
 | `alus/build-17` | 3-input XOR, **not** the AND its label claimed | ✅ label corrected |
 | `addition/3-ticks-8-bit-cca-by-don` | 37 + 155 = 192 | ✅ identical |
+| `comparator` | 8, 8, 0 — reads through stone, not through glass | ✅ identical |
 
 **The adder is the one that matters.** A real mattbatwings circuit, extracted from a
 world file, pasted back, and doing correct 8-bit arithmetic — with the simulator
@@ -46,6 +47,33 @@ python3 verify/predict.py verify/decay.litematic # what we expect it to do
 
 **Write the prediction down before looking at the game.** A model consulted after the
 fact always seems to agree.
+
+## Test 5 — `comparator`
+
+Three lanes feeding a comparator from a barrel of 14 stacks (strength 8), identical
+but for the block between barrel and comparator.
+
+| lane | between | dust after the comparator | lamp |
+|---|---|---|---|
+| 1 | nothing | **8, 7, 6** | lit |
+| 2 | stone | **8, 7, 6** | lit |
+| 3 | **glass** | **0, 0, 0** | **dark** |
+
+**Result: passed exactly.** Confirmed in game.
+
+Lanes 1 and 2 only show that a comparator can reach a barrel through a block. Lane 3
+shows *why*: it looks one step further **only when the block between is a genuine
+conductor**, and glass never is. Without lane 3 the rule would be indistinguishable
+from "a comparator sees two blocks back".
+
+This was the largest fix still resting on a reading of the game's source rather than on
+evidence — it moved comparators from 83.5% to 93.4%.
+
+The barrels and the lane signs both carry real block entity data, which is what the
+sign work made possible. The F3 panel while pointing at a comparator showed
+`Schematic: powered: false` against `Client: powered: true` — the schematic stores the
+cold state it was written with, and the live block turned on from the barrel, so
+nothing was pre-baked.
 
 ## Test 4 — `addition/3-ticks-8-bit-cca-by-don`
 
