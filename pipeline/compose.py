@@ -238,7 +238,24 @@ class Composition:
         return path
 
 
-def compose_m1(out="pipeline/m1-two-adders.litematic"):
+def next_version(base):
+    """
+    The next unused `base-vN.litematic`.
+
+    Every run writes a NEW file rather than replacing the last one. Overwriting loses
+    the thing you most want when a build misbehaves in game: the previous version, to
+    compare against and to fall back to. It cost us v1 of this build, which was pasted,
+    broke, and then vanished under its own fix.
+    """
+    import glob
+    import re
+    existing = glob.glob(f"{base}-v*.litematic")
+    versions = [int(m.group(1)) for f in existing
+                if (m := re.search(r"-v(\d+)\.litematic$", f))]
+    return f"{base}-v{max(versions, default=0) + 1}.litematic"
+
+
+def compose_m1(out=None):
     """
     Two 8-bit adders chained: (A + B) + C.
 
@@ -246,6 +263,7 @@ def compose_m1(out="pipeline/m1-two-adders.litematic"):
     of adder #1's sum. That is what makes every bus line straight, and it is the whole
     reason this is M1 rather than M2.
     """
+    out = out or next_version("pipeline/m1-two-adders")
     a1 = (0, 1, 1)          # lifted so adder #2 can sit one lower without going negative
     a2 = (20, 0, 0)
     c = Composition(33, 23, 11)
@@ -290,7 +308,7 @@ def compose_m1(out="pipeline/m1-two-adders.litematic"):
     return out, a1, a2
 
 
-def verify_m1(path="pipeline/m1-two-adders.litematic"):
+def verify_m1(path):
     """
     Sweep the composed build in the simulator.
 
@@ -359,6 +377,6 @@ def verify_m1(path="pipeline/m1-two-adders.litematic"):
 
 
 if __name__ == "__main__":
-    compose_m1()
+    written, _, _ = compose_m1()
     if "--verify" in sys.argv:
-        verify_m1()
+        verify_m1(written)

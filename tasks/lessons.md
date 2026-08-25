@@ -2,6 +2,19 @@
 
 Corrections worth not repeating. Newest first.
 
+## Version generated schematics, never overwrite them
+
+**Correction:** I rebuilt M1 in place, overwriting the file the user had already pasted.
+
+When a build misbehaves in game, the previous version is exactly what you want — to
+diff against, to fall back to, and to keep the record of what was actually tested
+straight. Overwriting destroys all three, and it destroyed the broken v1 of M1 before
+anyone could look at what had gone wrong.
+
+**How to apply:** `next_version()` in `pipeline/compose.py` picks the next unused
+`-vN` and every run writes a new file. Keep the numbering aligned with what the user
+has actually pasted, so "the one that broke" and "v1" mean the same thing to both of us.
+
 ## The simulator models SIGNAL, not PHYSICS
 
 **Correction:** M1 shipped with 16 repeaters floating in mid-air. It passed 1029
