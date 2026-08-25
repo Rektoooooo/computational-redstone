@@ -2,6 +2,26 @@
 
 Corrections worth not repeating. Newest first.
 
+## The simulator models SIGNAL, not PHYSICS
+
+**Correction:** M1 shipped with 16 repeaters floating in mid-air. It passed 1029
+simulator cases, then fell apart the moment it was pasted.
+
+The simulator has no concept of block support. A repeater hanging over nothing solves
+perfectly and simply cannot exist in the game. **Passing the sweep does not mean the
+build is placeable.**
+
+**How it happened, which is the part worth remembering:** the swap looked like a
+like-for-like replacement. An output *lamp* and a *wall* lever both need no floor —
+a wall lever hangs off the side of a block — but a repeater does. Replacing one with
+the other silently introduced a requirement that neither original had.
+
+**How to apply:** a composed build needs a **structural** check as well as a
+behavioural one. `Composition.floating()` in `pipeline/compose.py` does this: it scans
+for anything needing a floor that has not got one. Run it before every save, and treat
+a swap as introducing whatever requirements the NEW block has, not inheriting the old
+one's.
+
 ## Build with wool, and colour-code every line
 
 **Correction:** I used `stone` as the structural block for generated schematics.

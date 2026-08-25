@@ -148,24 +148,64 @@ class Composition:
 
     # -- port conversion --------------------------------------------------
 
-    def tap_output(self, lamp_pos, facing):
+    def tap_output(self, lamp_pos, facing, colour):
         """
         Replace an output lamp with a repeater reading the block that drove it.
 
         `facing` names the direction of the DRIVER, since a repeater's facing points at
         its input. The signal then leaves from the opposite side.
+
+        A lamp needs no floor and a repeater does, so the swap has to bring a support
+        block with it or the repeater pops off the moment the build is pasted.
         """
         self.put(lamp_pos, repeater(facing), "tap repeater", allow_replace=True)
+        self.support(lamp_pos, colour)
         return lamp_pos
 
-    def drive_input(self, lever_pos, facing):
+    def drive_input(self, lever_pos, facing, colour):
         """
         Replace an input lever with a repeater aimed at the block the lever fed.
 
-        `facing` names where the incoming signal arrives from.
+        `facing` names where the incoming signal arrives from. These levers are WALL
+        levers, hung off the side of a block, so like the lamp above they leave nothing
+        underneath for the repeater to stand on.
         """
         self.put(lever_pos, repeater(facing), "drive repeater", allow_replace=True)
+        self.support(lever_pos, colour)
         return lever_pos
+
+    def support(self, pos, colour):
+        """Put a floor under `pos` if there is not one already."""
+        below = (pos[0], pos[1] - 1, pos[2])
+        if below not in self.occupied:
+            self.put(below, wool(colour), "support")
+
+    # -- structural check -------------------------------------------------
+
+    NEEDS_FLOOR = ("repeater", "comparator", "redstone_wire", "redstone_torch")
+
+    def floating(self):
+        """
+        Everything that would fall or pop off the instant this is pasted.
+
+        The simulator will not catch any of it. It models SIGNAL, not physics - a
+        repeater hanging in mid-air solves perfectly and simply cannot exist. So a
+        composed build has to be checked structurally as well as behaviourally, and
+        this is that check.
+        """
+        out = []
+        for x, y, z in sorted(self.occupied):
+            bs = self.region[x, y, z]
+            bid = bs.id.replace("minecraft:", "")
+            needs = bid in self.NEEDS_FLOOR
+            if bid == "lever" or "button" in bid:
+                try:
+                    needs = bs["face"] == "floor"      # wall and ceiling ones are fine
+                except Exception:
+                    needs = False
+            if needs and (x, y - 1, z) not in self.occupied:
+                out.append(((x, y, z), bid))
+        return out
 
     # -- routing ----------------------------------------------------------
 
@@ -219,8 +259,8 @@ def compose_m1(out="pipeline/m1-two-adders.litematic"):
         z = 4
         src = (a1[0] + 10, y, z)          # adder #1 sum lamp for this bit
         dst = (a2[0] + 2, y, z)           # adder #2 A lever for this bit
-        c.tap_output(src, "west")         # driver block lies to the west
-        c.drive_input(dst, "west")        # bus arrives from the west
+        c.tap_output(src, "west", BUS_COLOURS[i])    # driver block lies to the west
+        c.drive_input(dst, "west", BUS_COLOURS[i])   # bus arrives from the west
         n = c.bus(src[0] + 1, dst[0] - 1, y, z, BUS_COLOURS[i])
         print(f"  {i:3}  {str(src):16}  {n:2} × {BUS_COLOURS[i]:11}  {dst}")
 
@@ -234,6 +274,16 @@ def compose_m1(out="pipeline/m1-two-adders.litematic"):
             print(f"     {pos}  {why}")
     else:
         print("  no collisions")
+
+    # Structural check. The simulator cannot do this for us - it models signal, not
+    # physics, so anything unsupported solves perfectly and then falls apart on paste.
+    loose = c.floating()
+    if loose:
+        print(f"\n  {len(loose)} BLOCKS WITH NO FLOOR - these break the moment it is pasted:")
+        for pos, bid in loose[:12]:
+            print(f"     {pos}  {bid}")
+    else:
+        print("  nothing unsupported")
 
     c.save(out, "m1-two-adders", "(A+B)+C - two 8-bit CCA adders chained")
     print(f"\n  wrote {out}")
