@@ -18,6 +18,9 @@ Three things live here:
 Scope is *computational* redstone, not survival: pistons, hoppers and
 quasi-connectivity are deliberately out. Java Edition, 1.18.2 conventions.
 
+> **New here, or starting a fresh session? Read [CLAUDE.md](CLAUDE.md)** — setup,
+> current state, what to do next, and the traps worth avoiding.
+
 > **[JOURNEY.md](JOURNEY.md) is the step-by-step story** — including the bugs, the wrong
 > turns, and the three documentation errors that only surfaced once we had real blocks
 > to check against. Start there if you want the narrative rather than the reference.
