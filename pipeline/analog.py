@@ -203,6 +203,68 @@ class Build:
         zs = [p[2] for p in self.cells]
         return (min(xs), min(ys), min(zs)), (max(xs), max(ys), max(zs))
 
+    def rest(self):
+        """
+        Write every component's RESTING state into its block properties.
+
+        A schematic stores each block's state, and Minecraft only re-evaluates a
+        component when something pokes it. Paste a build whose stored states are wrong
+        and whatever nothing happens to touch stays wrong - it will sit there showing a
+        number that was true in some other world.
+
+        The simulator cannot see this, by construction: `settle()` recomputes from
+        scratch and always arrives at the right answer whatever it started from. So a
+        build can pass every sweep and still be wrong the moment it is pasted, which is
+        exactly what happened - `build-04` was extracted with a barrel holding 15, and
+        went into the file with all four of its output bits stuck on.
+
+        Only valid for combinational builds. Anything with a latch has more than one
+        resting state and the choice belongs to the caller.
+        """
+        from sim.engine import Sim
+        s = Sim(self.grid())
+        s.settle()
+        for pos, (bid, props) in self.cells.items():
+            if bid == "redstone_wire":
+                props["power"] = str(s.dust_power(pos))
+            elif bid in ("repeater", "comparator"):
+                props["powered"] = "true" if s.states.get(pos) else "false"
+            elif bid in ("redstone_torch", "redstone_wall_torch"):
+                props["lit"] = "true" if s.states.get(pos, True) else "false"
+            elif bid == "redstone_lamp":
+                props["lit"] = "true" if s.lamp_states().get(pos) else "false"
+        return s.converged
+
+    def stale(self):
+        """
+        Components whose stored state is not the one they will settle into.
+
+        The check that would have caught the pasted build showing 7 with nothing
+        switched on. Run it after `rest()`; anything it still reports is a block that
+        will sit in the world lying about itself until something happens to touch it.
+        """
+        from sim.engine import Sim
+        s = Sim(self.grid())
+        s.settle()
+        out = []
+        for pos, (bid, props) in self.cells.items():
+            if bid == "redstone_wire":
+                have, want = props.get("power", "0"), str(s.dust_power(pos))
+            elif bid in ("repeater", "comparator"):
+                have = props.get("powered", "false")
+                want = "true" if s.states.get(pos) else "false"
+            elif bid in ("redstone_torch", "redstone_wall_torch"):
+                have = props.get("lit", "true")
+                want = "true" if s.states.get(pos, True) else "false"
+            elif bid == "redstone_lamp":
+                have = props.get("lit", "false")
+                want = "true" if s.lamp_states().get(pos) else "false"
+            else:
+                continue
+            if have != want:
+                out.append((pos, bid, have, want))
+        return out
+
     def save(self, path, name, description, colours=None):
         """
         Write the build out as a `.litematic`, so it can be looked at in the game.

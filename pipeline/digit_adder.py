@@ -552,6 +552,14 @@ def emit(out=None):
     signs[pos] = lines
 
     out = out or next_version("pipeline/m4-decimal-adder")
+    # Put every block into the state it will settle into, and then check that it did.
+    # Without this the file records whatever state each part happened to be saved in -
+    # and Minecraft only re-evaluates a component when something pokes it, so the parts
+    # nothing touches stay wrong. The simulator cannot catch it: settle() recomputes
+    # from scratch and always finds the right answer.
+    assert b.rest(), "the build does not settle; refusing to write a resting state"
+    stale = b.stale()
+    assert not stale, f"{len(stale)} blocks would paste wrong, e.g. {stale[:3]}"
     inside = {q for q, note in b.notes.items()
               if note.endswith("digit") or note == "strength to binary"}
     stray = [i for i in b.interference() if not (i[0] in inside and i[2] in inside)]

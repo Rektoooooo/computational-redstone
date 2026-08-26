@@ -2,6 +2,36 @@
 
 Corrections worth not repeating. Newest first.
 
+## A schematic records a STATE, and the game will not fix it for you
+
+**Found in game.** The build passed 100/100 in the simulator, pasted, and showed **7**
+with every lever off. The arithmetic was fine; three of the four bits feeding the
+display were simply stuck on.
+
+`combinational/build-04` was extracted from a world where its input barrel held 15, so
+every torch and repeater inside it went into the file in the "input is 15" state. On
+paste, Minecraft re-evaluates a component only when something **pokes** it - and nothing
+poked most of that circuit, so it sat there answering a question from another world.
+Enough of it updated to drop the top bit; the other three stayed on. 4 + 2 + 1 = 7.
+
+**Why the simulator is blind to it, and this is the important part:** `settle()`
+recomputes from scratch and iterates to a fixed point, so it arrives at the right answer
+*whatever state it started from*. A build can therefore pass every sweep and still be
+wrong the instant it is pasted. The sweep and the paste were testing different things
+and nobody noticed, because for a combinational circuit the fixed point is unique - the
+simulator is right, and the world is simply not obliged to agree.
+
+**552 blocks** in this build would have pasted in the wrong state.
+
+**How to apply:** before saving, settle the build with nothing switched on and write
+that state into every block - `power` on dust, `powered` on diodes, `lit` on torches and
+lamps. `Build.rest()` does it and `Build.stale()` checks it, and both now run on every
+emit. This applies with double force to anything lifted out of an extracted world, which
+carries whatever state its author left it in.
+
+Only valid for combinational builds: anything with a latch has more than one resting
+state, and which one it should hold is a decision, not a computation.
+
 ## Two lines in one plane cannot cross, and a router will not tell you that
 
 **Cost most of a session.** The signal-strength adder is seven comparators. Placing them
