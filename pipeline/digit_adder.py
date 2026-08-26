@@ -289,5 +289,74 @@ def sweep(limit=None):
     return fails == 0
 
 
+# One wool colour per line, so the build can be traced from above. Painted on the FLOOR
+# under each cell, which leaves the redstone itself readable.
+COLOURS = {
+    "x lever": "light_blue", "y lever": "lime",
+    "x in": "light_blue", "x2 in": "cyan",
+    "y in": "lime", "y2 in": "green",
+    "nx": "orange", "u ": "orange", "u =": "orange", "S ": "orange", "S =": "orange",
+    "ny": "magenta", "q ": "magenta", "q =": "magenta", "r ": "magenta", "r =": "magenta",
+    "decay line": "white", "carry": "red", "constant": "yellow",
+    "ones": "purple", "Sg": "purple",
+}
+
+
+def label(b, pos, lines, colour="white"):
+    """A standing sign on its own block, clear of the circuit. Text goes in after."""
+    b.block((pos[0], pos[1] - 1, pos[2]), f"{colour}_wool", "label post")
+    b.put(pos, "oak_sign", {"rotation": "8"}, "label")
+    return pos, lines
+
+
+def emit(out=None):
+    """
+    Write the current state of the build out for a look in game.
+
+    Signs and one colour per line, because this one is being looked at rather than
+    tested: the point of handing it over now is to SEE where it stops.
+    """
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "worlds"))
+    from compose import next_version
+    from signs import embed
+
+    b, levers, nodes = build()
+    signs = {}
+    for digit, colour in (("x", "light_blue"), ("y", "lime")):
+        for v, lv in levers[digit].items():
+            pos, lines = label(b, (lv[0], lv[1] + 2, lv[2]), [str(v)], colour)
+            signs[pos] = lines
+        first = levers[digit][1]
+        pos, lines = label(b, (first[0] - 2, first[1] + 2, first[2]),
+                           [digit.upper(), "flip ONE", "lever", "1 to 9"], colour)
+        signs[pos] = lines
+    ones = nodes["ones"]
+    pos, lines = label(b, (ones[0], ones[1] + 3, ones[2]),
+                       ["ANSWER", "ones digit", "0-9 as", "signal strength"], "purple")
+    signs[pos] = lines
+    pos, lines = label(b, (ones[0] + 2, ones[1] + 3, ones[2]),
+                       ["DISPLAY", "goes here", "-- not wired", "yet --"], "red")
+    signs[pos] = lines
+
+    out = out or next_version("pipeline/m4-core")
+    print(f"cells {len(b.cells)}   extent {b.extent()}   "
+          f"interference {len(b.interference())}")
+    ox, oy, oz = b.save(out, "M4 core - signal-strength adder",
+                        "x + y for two decimal digits, in signal strength. Seven "
+                        "comparators. The answer comes out as a strength 0-9 at the "
+                        "merge; the display is not attached yet.", colours=COLOURS)
+    shifted = {(x - ox, y - oy, z - oz): v for (x, y, z), v in signs.items()}
+    written = embed(out, shifted)
+    assert written == len(signs), f"only {written} of {len(signs)} signs took"
+    print("signs written:", written)
+    print("wrote", out)
+    return out
+
+
 if __name__ == "__main__":
-    sys.exit(0 if sweep() else 1)
+    if "--emit" in sys.argv:
+        emit()
+    else:
+        sys.exit(0 if sweep() else 1)

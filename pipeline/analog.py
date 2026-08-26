@@ -203,6 +203,34 @@ class Build:
         zs = [p[2] for p in self.cells]
         return (min(xs), min(ys), min(zs)), (max(xs), max(ys), max(zs))
 
+    def save(self, path, name, description, colours=None):
+        """
+        Write the build out as a `.litematic`, so it can be looked at in the game.
+
+        `colours` maps the start of a cell's note to a wool colour, and it paints the
+        FLOOR beneath each cell rather than the cell itself - so every line in the build
+        is a different colour seen from above, and a wrong route is visible at a glance
+        instead of having to be counted out in F3. That convention came from the user
+        and has already paid for itself twice.
+        """
+        from litemapy import Region, BlockState
+
+        (x0, y0, z0), (x1, y1, z1) = self.extent()
+        region = Region(0, 0, 0, x1 - x0 + 1, y1 - y0 + 1, z1 - z0 + 1)
+        for pos, (bid, props) in self.cells.items():
+            if colours and bid.endswith("_wool"):
+                above = self.notes.get((pos[0], pos[1] + 1, pos[2]), "")
+                hit = next((c for p, c in colours.items() if above.startswith(p)), None)
+                if hit:
+                    bid = f"{hit}_wool"
+            region[pos[0] - x0, pos[1] - y0, pos[2] - z0] = BlockState(
+                f"minecraft:{bid}", **{k: str(v) for k, v in props.items()})
+        region.as_schematic(name=name, author="computational-redstone",
+                            description=description).save(path)
+        # the file is indexed from its own corner, so anything that wants to point at a
+        # cell afterwards - sign text, for one - has to be shifted by the same amount
+        return (x0, y0, z0)
+
 
 # -- the primitives ---------------------------------------------------------
 
