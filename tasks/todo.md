@@ -116,47 +116,58 @@ Both are recorded above.
 
 ---
 
-# M4 — the decimal adder
+# M4 — the decimal adder — **BUILT, WORKING, IN GAME**
 
-Two numbers 1–9 on eighteen levers, the sum shown as a decimal number 0–18.
+Two numbers 1–9 on eighteen levers, the sum shown as a decimal number 0–18 on two
+seven-segment digits. `pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v2.litematic`.
+
+```bash
+./.venv/bin/python pipeline/digit_adder.py           # sweep all 100 pairs
+./.venv/bin/python pipeline/digit_adder.py --emit    # write the next -vN
+./.venv/bin/python pipeline/analog.py                # the primitives' self-test
+```
 
 ## Done
 
-- [x] **The arithmetic**, in signal strength rather than binary. `pipeline/digit_adder.py`,
-      **100/100 over every input pair**. Seven comparators:
-      `nx = 15-x`, `u = nx-y`, `S = 15-u` (= min(15, x+y)), `ny = 15-y`,
-      `q = ny-5` (= 10-y), `r = x-q` (= max(0, x+y-10)), `Sg = S-carry`.
-      The carry is a tap nine dust blocks along a line fed by S, and `ones` is
-      `max(Sg, r)` on one shared cell — which needs no second gate, because when there
-      is no carry `r` is already zero.
-- [x] **The input**, with no gates at all: nine levers along a dust line, so distance
-      IS the value. Two levers at once gives the higher of the two rather than nonsense.
-- [x] **`pipeline/analog.py`** — the primitives and the checks that keep them honest.
-      `interference()` catches the failure this whole exercise is about: a stray dust
-      cell beside a comparator changes the answer while looking perfectly fine.
+- [x] **The arithmetic**, in signal strength — seven comparators, 100/100.
+- [x] **The input**, with no gates at all: distance along a dust line IS the value.
+- [x] **The hex wire**, `out = in + (15 - repeaters)`, from the wiring world download and
+      verified against `build-41`. Two ticks whatever the distance, and a short run is a
+      free adder — which is how the answer pays for its climb out of the plane.
+- [x] **`build-04`** converts the answer to binary; from there it is four booleans.
+- [x] **Two `build-16` digits**, levers replaced by drive repeaters. Blank above nine, so
+      the leading zero suppresses itself.
+- [x] **100/100 straight off the `.litematic`**, checked against the real glyphs rather
+      than the right bits. Nothing floating. Signs on every lever.
+- [x] **`redstone-wiring` skill** — 49 builds harvested from the world download and
+      driven, so every number in it is measured.
+- [x] **Fixed: pasted showing 7 with nothing switched on.** `build-04` carried the state
+      it was extracted in, and Minecraft only re-evaluates what something pokes. 552
+      blocks would have pasted wrong. `Build.rest()` / `Build.stale()` now run on emit.
 
-## Components identified, all verified against the simulator
+## Improving it next
 
-| build | what it is | checked |
-|---|---|---|
-| `displays/build-16` | 4 BCD levers → **5×9 seven-segment digit** | correct 0–9, **blank above 9** |
-| `combinational/build-04` | **signal strength → 4-bit binary** | exact for all 16 |
-| `combinational/build-15` | red coder: strength *k* lights lamp *k* | exact for all 16 |
+- [ ] **Speed — the biggest win and the least risky.** 7 to 10.5 seconds to settle,
+      because the core still relays values by comparator at **two ticks per hop** and
+      there are a lot of hops. `hex_wire()` does the same job in **two ticks total** and
+      is already written and verified. Replace the `relay()` chains in `core()` with it,
+      one at a time, re-running the sweep after each.
+- [ ] **Chase the zero-tick crossover.** `primitives/wiring/build-14` fails in our
+      simulator: four of sixteen lamps light regardless of input. It uses no repeaters,
+      so it is pure diagonal dust behaviour — and a rule we have wrong there is a rule we
+      have wrong everywhere. Either `dust_links()` is wrong for some case, or the harvest
+      clipped part of the build.
+- [ ] **Drive the remaining 12 ALU builds.** `verify/alu_probe.py`. `build-03` (96
+      levers) and `build-00` matter most — both still `high` confidence and never
+      checked, and `high` has been wrong twice.
+- [ ] **Repeater locking as a bus latch.** Still unbuilt. Solves data-dependent skew,
+      which padding cannot touch, and is the natural way to feed a register.
+- [ ] **Layout is written out by hand.** Every line in `core()` and `show()` is spelled
+      out leg by leg. The searching routers (`relay_route`, `wire_route`) exist and work
+      but made things worse — a shortest path is the one most likely to cut the board in
+      half. A router that understands crossing order would be the real fix.
 
-`build-16` blanking above 9 is what gives leading-zero suppression for nothing: the
-tens digit is a second copy fed `1` when the sum ≥ 10 and `10` when it isn't. Confirmed
-by driving a copy with repeaters in place of its levers.
-
-## Left to do
-
-- [ ] Attach `build-04` to the `ones` line — replace its input barrel with dust and
-      feed the merge cell straight into it.
-- [ ] Move its four output bits from a column in **y** to a row in **z**, which is what
-      `build-16` wants. Needs a small `stair()`; everything crossing it is boolean.
-- [ ] Two `build-16` copies, levers replaced by drive repeaters (proven at M1).
-- [ ] Sweep all 100 pairs against the glyph table, `floating()`, then paste.
-
-**The lesson so far, and it cost most of a session:** two lines in one plane cannot
-cross, and a search that finds the SHORTEST route finds one straight across the middle
-that walls off everything not yet laid. Every line in the core is now spelled out leg
-by leg, and the layout is planar by construction.
+**The rule that governs the whole layout:** two lines in one plane cannot cross, so the
+crossing order has to be decided before the coordinates. Each input line turns off its
+lane at its own column, and a column crosses every lane south of its own — so the
+northernmost line turns last.

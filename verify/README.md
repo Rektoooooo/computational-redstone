@@ -278,6 +278,25 @@ blockstate, including `power`. That is the number to compare.
 **If every dust reads 0**, the paste placed blocks without triggering a redstone
 update. Break the redstone block and put it back — that forces one.
 
+## In game: the M4 decimal adder
+
+**The eleventh check, and the one that found the sharpest bug so far.** The finished
+adder passed 100/100 in the simulator, was pasted, and showed **7** with every lever off.
+
+The screenshots settled it in one look: with a texture pack that prints signal strength
+on the dust, the yellow (bit 4), light blue (bit 2) and white (bit 1) lines were glowing
+and orange (bit 8) was dark. 4 + 2 + 1 = 7. The arithmetic was never involved.
+
+`combinational/build-04` had been extracted from a world where its input barrel held 15,
+so every torch inside it went into the file in the "input is 15" state — and **Minecraft
+re-evaluates a component only when something pokes it**. Nothing poked most of that
+circuit, so it answered a question from another world.
+
+**This is the failure mode to remember about our whole method:** `settle()` recomputes
+from scratch, so it reaches the right answer whatever state it starts from. The sweep and
+the paste were testing different things. 552 blocks in that build would have pasted
+wrong; `Build.rest()` and `Build.stale()` now run on every emit.
+
 ## What a disagreement means
 
 The game wins. Any divergence is a bug in the simulator, and a divergence here would

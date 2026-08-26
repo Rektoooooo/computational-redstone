@@ -8,7 +8,8 @@ state.
 Tooling and a knowledge library for **computational redstone** — digital logic and CPUs
 built inside Minecraft. Three parts:
 
-1. **8 agent skills** (`redstone-*/`) covering components through CPU architecture
+1. **9 agent skills** (`redstone-*/`) covering components through CPU architecture,
+   wiring included
 2. **A toolchain** (`worlds/`) that reads Minecraft world files directly, with no
    Minecraft installed, and extracts redstone builds as reusable `.litematic` components
 3. **A simulator** (`worlds/sim/`) that solves those circuits and checks them against
@@ -38,12 +39,13 @@ cd worlds && unzip '*.zip'      # 115 MB of committed zips -> 925 MB of worlds
 | | |
 |---|---|
 | Transcripts | 32, verified clean |
-| Skill library | 8 skills, ~2,500 lines, audited against real blocks |
+| Skill library | 9 skills, ~2,700 lines, audited against real blocks |
 | Extracted builds | 195, of which 43 named from in-world signs |
 | Simulator | steady state, **97.59%** per-block agreement, **153/175 builds exact** (dust 97.7, repeater 97.8, torch 98.5, comparator 94.4, lamp 96.7) |
 | Tick loop | **built and verified against the game** — delays, priority, lamp on/off asymmetry, repeater pulse stretching; 20 timing tests |
 | In-game checks | **10 passed**, incl. the CCA adder computing 37+155=192, two corrected labels, and the tick model measured with `/tick step` |
-| Composition | **M1, M2, M3 done** — components join, routes find their way round obstacles, and bus skew can be measured and padded flat |
+| Composition | **M1–M4 done.** M4 is a working **decimal adder**: two digits in on levers, the sum on a seven-segment screen |
+| Skill library | plus **`redstone-wiring`**, written from a world download rather than a video — 49 builds harvested and driven |
 | ALU builds driven | **6 of 18** — they are one ALU built up in stages, ending at `build-09` with all six bitwise ops |
 
 ## Verify it works
@@ -55,26 +57,36 @@ cd worlds
 ../.venv/bin/python -m sim.oracle primitives     # expect 97.59%, takes ~5 min
 ```
 
-## What to do next
+## What we are working on: improving M4
 
-**M4 — spec to build.** Everything under it is done and checked in game:
-`docs/roadmap.md` has the ladder, `docs/timing.md` the numbers, `verify/README.md` the
-ten in-game results.
+**M4 is built and works.** `pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v2.litematic`.
+Two numbers 1–9 on eighteen levers, the sum shown as a decimal number 0–18 on two
+seven-segment digits. 100/100 over every input pair, checked straight off the file
+against the real glyphs, nothing floating, and pasted and tested in game.
 
-M4 means: take a description, choose components, place them, route between them, align
-the timing, verify, emit a `.litematic`. Every one of those steps now exists and has
-been used, except choosing components from a description.
+```bash
+./.venv/bin/python pipeline/digit_adder.py           # sweep all 100 pairs
+./.venv/bin/python pipeline/digit_adder.py --emit    # write the next -vN .litematic
+./.venv/bin/python pipeline/analog.py                # the primitives' own self-test
+```
 
-Two things worth doing first, both cheap and both feeding M4:
+The arithmetic is **signal strength, not binary** — seven comparators, because
+`15 - ((15 - x) - y)` is `min(15, x + y)` and dust cannot add any other way. The
+converter and both digits are lifted whole out of the library.
 
-1. **Drive the remaining 12 ALU builds.** `verify/alu_probe.py` handles the wide ones by
-   splitting levers into operands and controls from behaviour. `build-03` (96 levers) and
-   `build-00` are the ones that matter — both still `high` confidence and never checked,
-   and `high` has already been wrong once. A component whose behaviour is unknown cannot
-   be chosen for a task.
-2. **Try repeater locking as a bus latch.** See `docs/timing.md`. It solves what padding
-   cannot — data-dependent skew from a carry chain — and it is the natural way to feed a
-   register, which is the first thing M4 will want.
+**What to improve, in order:**
+
+1. **Speed.** 7 to 10.5 seconds to settle. The core still moves values by comparator
+   relay at two ticks per hop; `hex_wire()` does the same job in two ticks total and
+   already exists. This is the biggest single win and the least risky.
+2. **The zero-tick crossover.** `primitives/wiring/build-14` fails in our simulator —
+   four of sixteen lamps light regardless of input. It is pure diagonal dust behaviour,
+   so a rule we have wrong there is a rule we have wrong everywhere.
+3. **Drive the remaining 12 ALU builds.** `verify/alu_probe.py` splits wide builds into
+   operands and controls by behaviour. A component whose behaviour is unknown cannot be
+   chosen for a task, and `high` confidence has already been wrong twice.
+4. **Repeater locking as a bus latch.** See `docs/timing.md`. It solves what padding
+   cannot — data-dependent skew — and is the natural way to feed a register.
 
 Lower priority: comparators are the weakest category at 94.4%; four builds oscillate
 rather than settling (some are genuine clocks, not failures); the worst builds are
@@ -96,6 +108,8 @@ wrong target.
 | `verify/drive.py` | drive a build through its inputs and name what each output computes |
 | `verify/alu_probe.py` | for wide builds — split levers into operands/controls **by behaviour**, then name the arithmetic per control setting |
 | `pipeline/compose.py` | placement, port conversion, routing, `align()`, and both the collision and structural checks |
+| `pipeline/analog.py` | signal-strength arithmetic and every wiring primitive, each with its own self-test |
+| `pipeline/digit_adder.py` | M4 itself — the decimal adder, and the sweep that checks it |
 
 **The verification loop that works:** build → simulate → `floating()` → predict in writing
 → paste → compare. Every one of the ten in-game tests followed it, and three failures got
@@ -103,11 +117,18 @@ through everything except the paste.
 
 ## Read this before generating anything
 
-`tasks/lessons.md`. Four of the five entries came from things that passed every
-simulator check and still failed — floating repeaters, a repeater facing the wrong way,
-wire shape wrong on disk. **The simulator models signal, not physics, and not
-appearance.** Anything generated needs a structural check as well as a behavioural one,
-and then a human to look at it.
+`tasks/lessons.md`. Most entries came from things that passed every simulator check and
+still failed — floating repeaters, a repeater facing the wrong way, wire shape wrong on
+disk, and a build that pasted showing 7 with every lever off.
+
+**The simulator models signal. Not physics, not appearance, and not the state a block is
+saved in.** That last one is the newest and the sharpest: `settle()` recomputes from
+scratch and reaches the same answer whatever it starts from, so a build can pass every
+sweep and still be wrong the instant it is pasted. `Build.rest()` and `Build.stale()`
+now run on every emit.
+
+Anything generated needs a structural check and a state check as well as a behavioural
+one, and then a human to look at it.
 
 ## Checking a rule against the game
 

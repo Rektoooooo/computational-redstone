@@ -180,6 +180,25 @@ Spacing exact in every case. The constant **+1** is where tick-stepping begins c
 repeater lands on the first stepped tick rather than instantly. It cancels in any
 difference, which is what alignment cares about.
 
+## What a finished machine costs — M4 measured
+
+`pipeline/m4-decimal-adder-v2.litematic`, from flipping a lever to the digits settling:
+
+| input | game ticks | seconds |
+|---|---|---|
+| 5 + 5 | 136 | 6.8 |
+| 4 + 3 | 158 | 7.9 |
+| 2 + 9 | 204 | 10.2 |
+| 9 + 9 | 210 | 10.5 |
+
+Nearly all of that is the **comparator relays** in the arithmetic core, which cost
+**two ticks per hop** and are used dozens of times. The `hex_wire` circuit does the same
+job — carrying a signal strength any distance — in **two ticks total**, so replacing
+those relays is the obvious win and the primitive already exists.
+
+The lesson generalises: when moving signal strength, count hops, not blocks. Distance is
+free and hops are not.
+
 ## Sources
 
 - [Redstone Repeater](https://minecraft.wiki/w/Redstone_Repeater)

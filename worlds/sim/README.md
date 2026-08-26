@@ -213,6 +213,34 @@ block leaves an attached torch lit. That is **Bedrock** behaviour. In Java, a to
 off whenever its support carries any power, weak or strong — weak vs strong only decides
 whether a block can start a new dust run. Corrected.
 
+## The blindness that cost a paste
+
+`settle()` recomputes from scratch and iterates to a fixed point, so for a combinational
+circuit it reaches the right answer **whatever state it started from**. That is normally
+a virtue. It also means the simulator **cannot tell you what a build will do when it is
+pasted**, because Minecraft only re-evaluates a component when something pokes it, and a
+schematic records a state.
+
+A build can therefore pass every sweep here and be wrong the instant it lands in a world.
+It happened: `pipeline/m4-decimal-adder-v1` showed 7 with every lever off, because an
+extracted component carried the state its author left it in.
+
+The check is not in the simulator, it is in the generator: `Build.rest()` in
+`pipeline/analog.py` settles with nothing switched on and writes that state into every
+block, and `Build.stale()` reports any that disagree.
+
+## A circuit we get wrong
+
+`primitives/wiring/build-14` — mattbatwings' **zero-tick 3D crossover**, four bits by four
+bits. Driven here, four of its sixteen lamps light regardless of which lever is thrown,
+and two inputs never reach their own output.
+
+It uses **no repeaters at all** — only dust, blocks and 3D staggering — so it rests
+entirely on diagonal dust behaviour, which is the most intricate rule in the system.
+Either `dust_links()` is wrong for some case it uses, or the harvest clipped part of it.
+Worth settling either way: **a rule we have wrong there is a rule we have wrong
+everywhere.**
+
 ## Known gaps
 
 - **The tick loop is unvalidated against real builds.** Its rules are checked against

@@ -816,3 +816,131 @@ padding cannot touch - the obvious way to feed a register.
 **M4 - spec to build.** Everything under it exists and has been used in anger. See
 `CLAUDE.md` for the two cheap things worth doing first: driving the remaining 12 ALU
 builds, and trying repeater locking as a bus latch.
+
+---
+
+# Session 8 — M4 built and working: a decimal adder with a real screen
+
+**The machine asked for:** two numbers 1–9 on levers, the sum shown as a decimal number
+on a redstone lamp screen. It exists, it is verified, and it has been pasted and tested
+in game. `pipeline/m4-decimal-adder-v2.litematic`, 4,187 blocks, 75 × 23 × 77.
+
+## What it is
+
+```
+18 levers ──► decay lines ──► 7 comparators ──► hex wire + climb ──► build-04 ──► 2 × build-16
+   1-9 each     no gates       signal strength     out of the plane    to binary     two digits
+```
+
+**The arithmetic is analog, not binary.** A comparator in subtract mode computes
+`max(0, rear - side)` on signal STRENGTH, and inverting twice around a subtraction gives
+addition:
+
+```
+nx = 15 - x        S  = 15 - u   = min(15, x + y)
+u  = nx - y        q  = ny - 5   = 10 - y
+ny = 15 - y        r  = x - q    = max(0, x + y - 10)
+                   Sg = S - carry
+```
+
+Seven comparators. `ones = max(Sg, r)` on one shared cell and needs no second gate,
+because when there is no carry `r` is already zero. The carry is a tap nine dust blocks
+along a line fed by S — read off a ruler rather than computed.
+
+**The input costs nothing.** A lever nine blocks from the end of a dust line leaves 6
+there, one six blocks away leaves 9 — so nine levers along a run of dust turn "which
+lever" into a number with no gates at all. Two levers at once gives the higher of the
+two, because dust takes the largest signal reaching it.
+
+## The wiring video is what unblocked it
+
+Session 7 ended stuck: the answer was a signal strength with nowhere to go. The user
+sent mattbatwings' *Wiring like a pro* with the world download, which was worth far more
+than the video — **49 builds harvested into `worlds/primitives/wiring/`** and driven, so
+`redstone-wiring/SKILL.md` states measured numbers rather than quoted ones.
+
+Two things from it mattered:
+
+**1. The hex wire.** A dust line, a row of repeaters reading it from the side, a second
+dust line taking their outputs:
+
+```
+out = in + (15 - repeaters)        two game ticks, whatever the distance
+```
+
+against two ticks *per hop* for a comparator relay. Verified on `build-41`: 11 repeaters,
+`in + 4`, every input. And **a short run is a free adder**, which is how you pay for a
+climb — the answer leaves the core as `ones + 6` and spends the six climbing six levels,
+arriving as `ones` in an empty plane.
+
+**2. The rule that reframed the whole problem:** *do not wire hex if you can avoid it.*
+Hex → binary → hex is two or three ticks, and binary lines can be repeatered, crossed,
+stacked and turned freely. The answer is converted at once by `build-04`, and after that
+it is four booleans.
+
+## The failure that mattered most, found in game
+
+**It pasted showing 7 with every lever off.** The arithmetic was fine; three of the four
+bits feeding the display were stuck on.
+
+`build-04` was extracted from a world where its input barrel held 15, so its torches went
+into the file in the "input is 15" state. **Minecraft re-evaluates a component only when
+something pokes it**, and nothing poked most of that circuit — so it sat there answering
+a question from another world.
+
+**The simulator cannot see this by construction.** `settle()` recomputes from scratch and
+reaches the same fixed point whatever it starts from, so the sweep and the paste were
+testing different things. **552 blocks** would have pasted wrong.
+
+`Build.rest()` now settles with nothing switched on and writes that state into every
+block; `Build.stale()` checks it. Both run on every emit.
+
+## New tools, each verified before use
+
+| in `pipeline/analog.py` | what it is for |
+|---|---|
+| `hex_wire` | move a signal strength fast, and add a constant while you are at it |
+| `tower` | glass tower — straight up, one level per block, two cells of footprint |
+| `climb` | the boolean staircase, with a repeater before it dies |
+| `stair` | the analog staircase; costs exactly one level per step, measured |
+| `place` | copy an extracted `.litematic` into the build, skipping named cells |
+| `rest` / `stale` | write and check the state the build will actually paste in |
+| `relay_route` / `wire_route` | searching routers — built, then abandoned, see below |
+
+## Three wiring failures, all of which looked fine in the schematic
+
+- **A line running home above its own staircase lays a floor over it**, and a block on
+  top of dust stops that dust reaching diagonally upwards. The signal climbed to within
+  two of the top and died.
+- **Every run of dust starts counting from what is left, not from full.** Two legs that
+  each work separately die where they join. `boost()` exists for exactly this.
+- **Dust laid past a lamp lights it.** The converter's own indicator ended up wired into
+  the answer, reading 2 too high.
+
+## What was tried and abandoned
+
+**Searching routers.** `relay_route` and `wire_route` work and are still there, but they
+made the layout *worse*: a breadth-first router finds the SHORTEST path, which is the one
+most likely to cut the board in half, and every line laid after it has nowhere to go.
+Corridor booking did not help either — a three-wide reserved corridor is itself a wall.
+Every line in the finished build is written out leg by leg, and the topology is planar by
+construction.
+
+## One thing the simulator gets wrong
+
+`primitives/wiring/build-14`, the **zero-tick 3D crossover**: four of its sixteen lamps
+light regardless of input. It uses no repeaters at all, so it leans entirely on diagonal
+dust behaviour — which is the most intricate rule in the system and the one we are most
+likely to have slightly wrong. **A rule we have wrong there is a rule we have wrong
+everywhere**, so it is worth chasing. Use the repeater intersection meanwhile.
+
+## Next — improving M4, not replacing it
+
+1. **Speed.** It takes 7 to 10.5 seconds to settle. The core still moves values by
+   comparator relay, two ticks per hop, and there are a lot of hops. Replacing those with
+   `hex_wire` would cut it a long way, and the primitive already exists.
+2. **The zero-tick crossover discrepancy** above.
+3. **Drive the remaining 12 ALU builds.** A component whose behaviour is unknown cannot
+   be chosen for a task, and `high` confidence has already been wrong twice.
+4. **Repeater locking as a bus latch** — still unbuilt, still the natural way to feed a
+   register.

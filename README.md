@@ -106,6 +106,17 @@ useful; it is not used for labelling.
 
 ---
 
+## What it has built
+
+**A decimal adder.** Two numbers 1–9 on eighteen levers, the sum shown as a decimal
+number 0–18 on two seven-segment digits — generated, verified over every input pair,
+and pasted into a world. `pipeline/digit_adder.py`.
+
+The arithmetic is seven comparators working on **signal strength** rather than binary,
+because `15 - ((15 - x) - y)` is `min(15, x + y)` and dust cannot add any other way. The
+strength-to-binary converter and both digits were **chosen out of the extracted library**
+rather than built, each driven first to find out what it actually does.
+
 ## What this does not do yet
 
 - **152 of 195 builds are unlabelled.** The 18 ALU builds — the most valuable for CPU

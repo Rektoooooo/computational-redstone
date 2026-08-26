@@ -101,10 +101,59 @@ The distinction that came out of it is in `docs/timing.md`: **structural** skew 
 and paddable, **data-dependent** skew from a carry chain is not, and the only answer
 there is to wait for the worst case.
 
-### M4 — spec to build — **next**
+### M4 — spec to build — **DONE**
 
-Choose components for a described task, lay them out, wire them, verify. Only sensible
-once M1–M3 are real.
+Asked for: *two numbers 1–9 on levers, and the sum shown as a decimal number on a
+redstone lamp screen.* It exists, it is verified, and it has been pasted and tested.
+`pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v2.litematic`, 4,187 blocks.
+
+**Components were chosen, not built.** Three came whole out of the library, each driven
+before it was trusted:
+
+| build | what it does | how it was checked |
+|---|---|---|
+| `combinational/build-04` | signal strength → 4-bit binary | exact for all 16 strengths |
+| `displays/build-16` ×2 | 4 BCD bits → a 5×9 seven-segment digit | correct 0–9, **blank above 9** |
+
+That blanking is where leading-zero suppression comes from for nothing: the tens digit is
+a second copy fed `1` when the sum is ten or more and `10` when it is not.
+
+**The arithmetic is analog.** Seven comparators, because a comparator in subtract mode
+computes `max(0, rear - side)` on signal strength and `15 - ((15 - x) - y)` is
+`min(15, x + y)`. Dust cannot add any other way. The input costs nothing at all: nine
+levers spaced along a dust line turn *which lever* into a number, since a signal of
+strength X travels exactly X blocks.
+
+**What actually blocked it was wiring, for a whole session.** Two lines in one plane
+cannot cross, and the answer was a signal strength — which cannot be repeatered, crossed
+or turned without changing what it says. Two things from mattbatwings' *Wiring like a
+pro* (world download harvested into `primitives/wiring/`, skill in `redstone-wiring/`)
+broke the deadlock:
+
+- **the hex wire** — a dust line, a row of repeaters, a second dust line, giving
+  `out = in + (15 - repeaters)` in two ticks whatever the distance. A *short* run is a
+  free adder, which is how you pay for a climb.
+- **the rule that mattered more:** do not wire hex if you can avoid it. Convert to
+  binary and wire bits, which cross and stack freely.
+
+**And one failure the simulator could not see.** It pasted showing **7** with every lever
+off. `build-04` had been extracted from a world where its barrel held 15, so its torches
+went into the file in that state — and Minecraft only re-evaluates a component when
+something pokes it. `settle()` recomputes from scratch and so always agreed with itself.
+552 blocks would have pasted wrong. `Build.rest()` and `Build.stale()` now run on every
+emit.
+
+### Where it goes next
+
+Improving M4 rather than replacing it:
+
+1. **Speed** — 7 to 10.5 seconds to settle. The core still relays values by comparator at
+   two ticks per hop; `hex_wire()` does it in two ticks total and already exists.
+2. **The zero-tick crossover** `primitives/wiring/build-14` fails in our simulator. It is
+   pure diagonal dust behaviour, so the discrepancy is worth chasing everywhere.
+3. **Drive the remaining 12 ALU builds** — a component whose behaviour is unknown cannot
+   be chosen for a task.
+4. **Repeater locking as a bus latch** — the natural way to feed a register.
 
 ## What would make M4 easier, done early
 
