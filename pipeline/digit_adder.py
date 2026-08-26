@@ -42,8 +42,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "worlds"))
 
-from analog import (Build, decay_line, relay, wire, station, gadget,
-                    constant)
+from analog import (Build, decay_line, relay, wire, hex_wire, stair, climb,
+                    tower, place, station, gadget, constant)
 from sim.grid import DIRS, OPPOSITE, neighbour, step
 
 Y = 1                      # the logic plane; floor goes in at Y-1
@@ -115,6 +115,133 @@ GADGETS = {
 TAP_LENGTH = 9           # dust blocks off S: the far end is lit exactly when S >= 10
 # r puts the answer straight into the merge cell, so only S has to travel to reach it.
 MERGE = (48, 56)
+# 9 repeaters gives `ones + 6`, and six is what the climb costs. Any more and 9 + k
+# would run past 15 and be capped, which loses the top of the range.
+HEX_LEN, CLIMB = 9, 6
+
+# The strength-to-binary converter, lifted whole out of the library. Its input is the
+# barrel at this local coordinate; we leave the barrel out and wire the answer in.
+BCD = "worlds/primitives/combinational/build-04.litematic"
+BCD_IN = (6, 4, 2)
+CONVERT = (66, 3, 58)    # so the barrel cell lands at y = 7, where the climb ends
+
+# The seven-segment digit, also lifted whole: four BCD levers in, a 5x9 lamp panel out,
+# and - the part that costs nothing and saves a whole circuit - BLANK for anything above
+# nine. So the tens digit is a second copy fed 1 when there is a carry and 10 when there
+# is not, and leading-zero suppression comes for free.
+DISPLAY = "worlds/primitives/displays/build-16.litematic"
+DISP_LEVERS = [(29, 9, 2 + 2 * i) for i in range(4)]      # bits 1, 2, 4, 8
+TENS_AT, ONES_AT = (0, 10, 0), (0, 10, 12)   # tens on the left, looking east
+TURN_X, DRIVE_Y = 52, 19     # where the bits turn north, and the height they end at
+CARRY_TURN = 44            # the carry climbs at one x and turns for the tens at another
+
+
+def digit(b, at, driven, why):
+    """
+    One seven-segment digit, with drive repeaters in place of its input levers.
+
+    Each of build-16's four inputs is a WALL lever hung on its own indicator lamp, so
+    throwing it strongly powers that lamp. A repeater aimed into the same lamp does
+    exactly the same thing - but a lever hangs off a wall and a repeater needs a floor,
+    and forgetting that is what left M1 with sixteen repeaters in mid-air.
+
+    Bits not in `driven` simply have no lever, which reads as 0.
+    """
+    place(b, DISPLAY, at, why, skip=set(DISP_LEVERS))
+    feeds = {}
+    for i, lv in enumerate(DISP_LEVERS):
+        if i not in driven:
+            continue
+        pos = (at[0] + lv[0], at[1] + lv[1], at[2] + lv[2])
+        b.rep(pos, "east", why=f"{why} bit {1 << i}")
+        b.block((pos[0], pos[1] - 1, pos[2]), "gray_wool", f"{why} support")
+        feeds[i] = (pos[0] + 1, pos[1], pos[2])
+    return feeds
+
+
+def boost(b, pos, direction, why):
+    """
+    A repeater, then dust: back to 15 before the next stretch.
+
+    Needed between segments because each run of dust starts counting again from
+    whatever is left, not from full - and a line that is fine over two legs separately
+    dies where they join.
+    """
+    d = DIRS[direction]
+    b.rep(step(pos, d), OPPOSITE[direction], why=why)
+    return b.dust(step(step(pos, d), d), why)
+
+
+def show(b, bits, carry):
+    """Wire the four bits and the carry across to the two digits."""
+    ones_feed = digit(b, ONES_AT, {0, 1, 2, 3}, "ones digit")
+    tens_feed = digit(b, TENS_AT, {0, 1, 3}, "tens digit")
+
+    for i, lamp in enumerate(bits):
+        # tap the block that drives the converter's own indicator lamp, and leave the
+        # lamp itself in place - it is worth having something to read in game
+        driver = (lamp[0], lamp[1], lamp[2] + 1)
+        rep = (driver[0] - 1, driver[1], driver[2])
+        b.rep(rep, "east", why=f"bit {1 << i} tap")
+        b.block((rep[0], rep[1] - 1, rep[2]), "gray_wool", f"bit {1 << i} support")
+        pos = b.dust((rep[0] - 1, rep[1], rep[2]), f"bit {1 << i}")
+        feed, why = ones_feed[i], f"bit {1 << i}"
+        # The four bits leave the converter at four different heights, two apart, which
+        # is the standard spacing for a bus - so they can run the whole way home side
+        # by side without touching. Each one only climbs at the very end, in its own
+        # z lane, a few blocks short of its drive point.
+        #
+        # Climbing earlier does not work, and the reason is worth keeping: the line
+        # home would then have to pass back over its own staircase, laying a floor on
+        # top of it, and a block above dust stops that dust reaching diagonally upwards.
+        # The signal climbs to within two of the top and dies, with nothing in the
+        # schematic looking wrong.
+        pos = wire(b, pos, [("west", pos[0] - TURN_X),
+                            ("north", pos[2] - feed[2])], why=why)
+        pos = boost(b, pos, "west", why)
+        pos = climb(b, pos, DRIVE_Y - pos[1], "west", why=why)
+        pos = boost(b, pos, "west", why)
+        wire(b, pos, [("west", pos[0] - feed[0])], why=why)
+
+    # -- the tens digit -----------------------------------------------------
+    #
+    # It only ever shows 1 or nothing, so it is fed 1 when there is a carry and 10 when
+    # there is not - and build-16 blanks for anything above nine, so the leading zero
+    # suppresses itself. That is bits 1 = carry, and 2 and 8 = NOT carry.
+    why = "tens"
+    # straight up out of the plane on a glass tower, because at ground level the core
+    # is solid in every direction from here - two cells of footprint is all it needs
+    b.rep((carry[0] + 1, carry[1], carry[2]), "west", why=f"{why} copy")
+    pos = b.dust((carry[0] + 2, carry[1], carry[2]), f"{why} copy")
+    pos = tower(b, pos, 14, "east", why=why)
+    # step aside rather than along: a tower fills the cells either side of itself with
+    # glass as it zigzags, so the only clear way off it is perpendicular
+    pos = boost(b, pos, "south", why)
+    pos = tower(b, pos, DRIVE_Y - pos[1], "east", why=why)
+    pos = boost(b, pos, "north", why)
+    pos = wire(b, pos, [("north", pos[2] - 10), ("west", pos[0] - CARRY_TURN)], why=why)
+
+    # bit 1 is the carry itself, and it turns for the display east of everything else,
+    # so it never crosses the two lines carrying its inverse
+    one = boost(b, pos, "north", f"{why} bit 1")
+    wire(b, one, [("north", one[2] - tens_feed[0][2]),
+                  ("west", one[0] - tens_feed[0][0])], why=f"{why} bit 1")
+
+    # bits 2 and 8 are NOT carry, which is a repeater into a block and a torch on the
+    # far side of it - off exactly when the block is powered. One torch feeds both,
+    # since they carry the same thing.
+    b.rep((pos[0] - 1, pos[1], pos[2]), "east", why=f"{why} invert")
+    b.block((pos[0] - 2, pos[1], pos[2]), "gray_wool", f"{why} invert")
+    b.put((pos[0] - 3, pos[1], pos[2]), "redstone_wall_torch",
+          {"facing": "west", "lit": "true"}, f"{why} invert")
+    n = b.dust((pos[0] - 4, pos[1], pos[2]), f"{why} not-carry")
+    n = wire(b, n, [("north", n[2] - tens_feed[3][2]),
+                    ("west", n[0] - tens_feed[3][0])], why=f"{why} bit 8")
+    branch = boost(b, (tens_feed[1][0] + 6, n[1], tens_feed[3][2]), "north",
+                   f"{why} bit 2")
+    wire(b, branch, [("north", branch[2] - tens_feed[1][2]),
+                     ("west", branch[0] - tens_feed[1][0])], why=f"{why} bit 2")
+    return ones_feed, tens_feed
 
 
 def core(b, readouts):
@@ -174,8 +301,10 @@ def core(b, readouts):
     # is therefore on its east side, and x2 comes up to it from below
     src = readouts["x2"]
     tgt = (GADGETS["r"][0] + 1, Y, GADGETS["r"][1])
-    relay(b, src, [("east", 2), ("south", tgt[2] + 2 - src[2]),
-                   ("east", tgt[0] - src[0] - 2), ("north", 2)], why="x2 in")
+    # right down the west side and along the bottom, so it stays clear of the strip
+    # that lifts the answer out at the south-east corner
+    relay(b, src, [("east", 2), ("south", 66 - src[2]), ("east", 66 - src[0] - 2),
+                   ("north", 66 - tgt[2]), ("west", 66 - tgt[0])], why="x2 in")
 
     # -- the S stream -------------------------------------------------------
     NX = put("nx", why="nx = 15 - x")
@@ -228,7 +357,39 @@ def core(b, readouts):
     wire(b, carry, [("south", mz - 2 - carry[2]), ("east", mx - 1 - carry[0])],
          why="carry")
 
-    return {"S": S, "ones": ones, "carry": carry}
+    # -- out of the plane ---------------------------------------------------
+    #
+    # The answer is a signal STRENGTH, and strength cannot be routed: every dust block
+    # takes one off it. So it leaves on a hex wire - a dust line, nine repeaters, and a
+    # second dust line - which arrives two ticks later reading `ones + 6`, because a
+    # short run of that circuit is a free adder. The six is then spent climbing six
+    # levels, since a staircase costs exactly one per step, and what lands at the top
+    # is `ones` again, in an empty plane where the display can be wired without
+    # crossing anything.
+    b.comp((mx, Y, mz + 1), "north", "compare", "ones out")
+    node = b.dust((mx, Y, mz + 2), "ones out")
+    lifted = stair(b, hex_wire(b, node, "east", "south", HEX_LEN, why="ones lift"),
+                   CLIMB, "east", why="ones lift")
+
+    # -- strength to binary -------------------------------------------------
+    #
+    # `combinational/build-04`, straight out of the library and verified exact for all
+    # sixteen strengths. Its input is a barrel read by a comparator; the barrel is left
+    # out and the wire drops the answer into that cell instead. From here on everything
+    # is BOOLEAN, which is the whole point - bits can be repeatered, crossed, stacked
+    # and turned, and a strength can do none of those.
+    # round the front of the converter rather than straight at it: its own output
+    # lamps sit one block off the direct line, and dust running past a lamp lights it
+    target = (CONVERT[0] + BCD_IN[0], CONVERT[1] + BCD_IN[1], CONVERT[2] + BCD_IN[2])
+    relay(b, lifted, [("north", 2), ("east", target[0] - lifted[0]), ("south", 2)],
+          why="into the converter")
+    place(b, BCD, CONVERT, "strength to binary", skip={BCD_IN})
+    bits = [(CONVERT[0] + 2, CONVERT[1] + 2 + 2 * i, CONVERT[2] + 3) for i in range(4)]
+
+    ones_feed, tens_feed = show(b, bits, carry)
+
+    return {"S": S, "ones": ones, "carry": carry, "lifted": lifted, "bits": bits,
+            "tens_feed": tens_feed}
 
 
 # -- checking ---------------------------------------------------------------
@@ -239,8 +400,9 @@ def expected(x, y):
     q = max(0, (15 - y) - 5)               # 10 - y
     r = max(0, x - q)                      # max(0, x + y - 10)
     carry = S >= 10
-    return {"S": S, "R": r, "carry": carry,
-            "ones": r if carry else S}
+    ones = r if carry else S
+    return {"S": S, "R": r, "carry": carry, "ones": ones, "lifted": ones,
+            "binary": ones}
 
 
 def build():
@@ -251,21 +413,57 @@ def build():
     return b, levers, nodes
 
 
+PANEL = [(2, y, z) for y in range(2, 11) for z in range(3, 8)]   # the 5x9 digit
+
+
+def glyphs():
+    """
+    What each value looks like on `build-16`, read off the component itself.
+
+    Driven rather than written down, so the check at the end is against the real
+    thing: the right PICTURE, not the right bits.
+    """
+    from sim.grid import Grid, LEVER
+    from sim.engine import Sim
+    out = {}
+    for v in range(16):
+        g = Grid.from_file(DISPLAY)
+        s = Sim(g)
+        for i, lv in enumerate(DISP_LEVERS):
+            s._set_lever(lv, bool((v >> i) & 1))
+        s.settle()
+        lit = s.lamp_states()
+        out[v] = frozenset(p for p in PANEL if lit.get(p))
+    return out
+
+
+def render(cells):
+    return ["".join("#" if (2, y, z) in cells else "." for z in range(3, 8))
+            for y in range(10, 1, -1)]
+
+
 def sweep(limit=None):
     from sim.engine import Sim
     b, levers, nodes = build()
     print(f"cells: {len(b.cells)}   extent: {b.extent()}")
 
+    inside = {p for p, note in b.notes.items() if note.endswith("digit")
+              or note == "strength to binary"}
     for pos, side, other, oid in b.interference():
+        if pos in inside and other in inside:
+            continue                       # an extracted component's own wiring
         print(f"  INTERFERENCE {pos} side {side} fed by {oid} at {other} "
               f"({b.notes.get(other, '?')})")
-    joins = {("S = min(15, x+y) out", "decay line")}     # the tap grows out of S
+    joins = {("S = min(15, x+y) out", "decay line"), ("ones out", "ones lift in"),
+             ("tens bit 8", "tens not-carry"), ("tens bit 2", "tens bit 8")}
     for a, c in b.stray_dust():
         na, nc = b.notes.get(a), b.notes.get(c)
         if na != nc and (na, nc) not in joins and (nc, na) not in joins:
-            print(f"  DUST TOUCHING {a} ({na}) - {c} ({nc})")
+            if not (a in inside and c in inside):
+                print(f"  DUST TOUCHING {a} ({na}) - {c} ({nc})")
 
-    grid = b.grid()
+    glyph = glyphs()
+    blank = glyph[10]
     fails = 0
     for x in range(10):
         for y in range(10):
@@ -276,29 +474,39 @@ def sweep(limit=None):
                 s._set_lever(levers["y"][y], True)
             s.settle()
             want = expected(x, y)
-            got = {k: s.dust_power(v) for k, v in nodes.items()}
-            got["carry"] = bool(got["carry"])
-            if any(got[k] != want[k] for k in ("S", "ones", "carry")):
+            lamps = s.lamp_states()
+
+            def panel(at):
+                return frozenset(c for c in PANEL
+                                 if lamps.get((at[0] + c[0], at[1] + c[1],
+                                               at[2] + c[2])))
+            shown = {"ones": panel(ONES_AT), "tens": panel(TENS_AT)}
+            expect = {"ones": glyph[want["ones"]],
+                      "tens": glyph[1] if want["carry"] else blank}
+            if shown != expect:
                 fails += 1
-                if fails <= 8:
-                    print(f"  {x}+{y}: got  " +
-                          " ".join(f"{k}={got[k]}" for k in ("S", "carry", "ones"))
-                          + "   want  " +
-                          " ".join(f"{k}={want[k]}" for k in ("S", "carry", "ones")))
-    print(f"\n{100 - fails}/100 correct")
+                if fails <= 3:
+                    print(f"  {x}+{y} = {x + y}: showing")
+                    for a, e in zip(render(shown["tens"]) + [""] + render(shown["ones"]),
+                                    render(expect["tens"]) + [""] + render(expect["ones"])):
+                        print(f"      {a:7} want {e}")
+    print(f"\n{100 - fails}/100 show the right digits")
     return fails == 0
 
 
 # One wool colour per line, so the build can be traced from above. Painted on the FLOOR
-# under each cell, which leaves the redstone itself readable.
+# under each cell, which leaves the redstone itself readable. Order matters - the first
+# prefix that matches wins - so the specific ones come before the general.
 COLOURS = {
+    "tens": "red",                       # everything carrying the carry or its inverse
+    "bit 1": "white", "bit 2": "light_blue", "bit 4": "yellow", "bit 8": "orange",
     "x lever": "light_blue", "y lever": "lime",
-    "x in": "light_blue", "x2 in": "cyan",
-    "y in": "lime", "y2 in": "green",
+    "x2 in": "cyan", "x in": "light_blue",
+    "y2 in": "green", "y in": "lime",
     "nx": "orange", "u ": "orange", "u =": "orange", "S ": "orange", "S =": "orange",
     "ny": "magenta", "q ": "magenta", "q =": "magenta", "r ": "magenta", "r =": "magenta",
     "decay line": "white", "carry": "red", "constant": "yellow",
-    "ones": "purple", "Sg": "purple",
+    "ones": "purple", "Sg": "purple", "into the converter": "purple",
 }
 
 
@@ -334,19 +542,25 @@ def emit(out=None):
         signs[pos] = lines
     ones = nodes["ones"]
     pos, lines = label(b, (ones[0], ones[1] + 3, ones[2]),
-                       ["ANSWER", "ones digit", "0-9 as", "signal strength"], "purple")
+                       ["the answer,", "0-9 as", "signal", "strength"], "purple")
     signs[pos] = lines
-    pos, lines = label(b, (ones[0] + 2, ones[1] + 3, ones[2]),
-                       ["DISPLAY", "goes here", "-- not wired", "yet --"], "red")
+    for at, name in ((TENS_AT, "TENS"), (ONES_AT, "ONES")):
+        pos, lines = label(b, (at[0] + 4, at[1] + 12, at[2] + 5), [name], "gray")
+        signs[pos] = lines
+    pos, lines = label(b, (CONVERT[0], CONVERT[1] + 13, CONVERT[2] + 10),
+                       ["strength", "to binary", "build-04"], "gray")
     signs[pos] = lines
 
-    out = out or next_version("pipeline/m4-core")
-    print(f"cells {len(b.cells)}   extent {b.extent()}   "
-          f"interference {len(b.interference())}")
-    ox, oy, oz = b.save(out, "M4 core - signal-strength adder",
-                        "x + y for two decimal digits, in signal strength. Seven "
-                        "comparators. The answer comes out as a strength 0-9 at the "
-                        "merge; the display is not attached yet.", colours=COLOURS)
+    out = out or next_version("pipeline/m4-decimal-adder")
+    inside = {q for q, note in b.notes.items()
+              if note.endswith("digit") or note == "strength to binary"}
+    stray = [i for i in b.interference() if not (i[0] in inside and i[2] in inside)]
+    print(f"cells {len(b.cells)}   extent {b.extent()}   stray side inputs {len(stray)}")
+    ox, oy, oz = b.save(
+        out, "Decimal adder - two digits in, the sum on a screen",
+        "x + y for two digits 1-9, shown as a decimal number 0-18. The arithmetic is "
+        "seven comparators working on signal strength; the converter and both digits "
+        "are lifted whole out of the library.", colours=COLOURS)
     shifted = {(x - ox, y - oy, z - oz): v for (x, y, z), v in signs.items()}
     written = embed(out, shifted)
     assert written == len(signs), f"only {written} of {len(signs)} signs took"

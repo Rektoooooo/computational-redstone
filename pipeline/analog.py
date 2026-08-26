@@ -447,6 +447,55 @@ def constant(b, end, direction, level, why=None):
     return end
 
 
+def place(b, path, offset, why, skip=()):
+    """
+    Copy an extracted `.litematic` into the build at `offset`.
+
+    `skip` names local coordinates to leave out - a container whose reading is going to
+    be supplied by wire instead, for one. Everything lands in the same `cells` dict as
+    the generated circuitry, so one checker, one simulator and one save cover both.
+    """
+    src = Grid.from_file(path)
+    ox, oy, oz = offset
+    n = 0
+    for pos, cell in src.cells.items():
+        if pos in skip:
+            continue
+        b.put((pos[0] + ox, pos[1] + oy, pos[2] + oz), cell.id, dict(cell.props), why)
+        n += 1
+    return n
+
+
+def hex_wire(b, source, along, side, length, why="hex wire"):
+    """
+    Carry a signal STRENGTH a long way, fast, and add a constant while you are at it.
+
+    A dust line, a row of repeaters reading it from the side, and a second dust line
+    taking their outputs. It works because **a signal of strength X travels exactly X
+    blocks**: X lights the first X repeaters, the last lit one is X along, and the
+    output line then decays over whatever distance is left.
+
+        out = in + (15 - length)      for in >= 1;  0 for in = 0;  capped at 15
+
+    So a full 15-long run moves a value unchanged, and a SHORT run is a free adder -
+    which is how you pay for a climb, since a staircase costs one level per block.
+
+    Two game ticks, whatever the distance. A comparator relay costs two ticks per hop,
+    which is why this replaced it. From mattbatwings' "Wiring like a pro"; verified
+    against `worlds/primitives/wiring/build-41`.
+    """
+    d, p = DIRS[along], DIRS[side]
+    back = OPPOSITE[side]
+    pos = source
+    for i in range(length):
+        if i:
+            b.dust(pos, f"{why} in")
+        b.rep(step(pos, p), back, why=f"{why} repeater")
+        b.dust(step(step(pos, p), p), f"{why} out")
+        pos = step(pos, d)
+    return step(step(step(source, p), p), tuple(c * (length - 1) for c in d))
+
+
 def stair(b, source, steps, direction, why="stair"):
     """
     Carry a value up out of its plane, one level per block.
@@ -466,6 +515,63 @@ def stair(b, source, steps, direction, why="stair"):
         b.block(step(pos, d), why=why)
         pos = step(step(pos, d), UP)
         b.dust(pos, why)
+    return pos
+
+
+GLASS = "light_blue_stained_glass"
+
+
+def tower(b, source, levels, side, why="tower"):
+    """
+    A glass tower: straight up, one level per block, in a two-block footprint.
+
+    The blocks have to be GLASS and that is the whole trick. Dust reaches the block
+    diagonally above the one beside it, but only if nothing solid is sitting on top of
+    the dust itself - and in a vertical tower something always is, namely the next step.
+    Glass is not a conductor, so it does not count as a lid and the signal keeps going.
+
+    Where a staircase costs a block of floor for every level, this costs two cells
+    total, which is what makes it the standard way up. Fifteen levels is the limit, the
+    same as flat dust; chain two with a repeater between for anything taller.
+    """
+    if levels > 14:
+        raise ValueError(f"a tower of {levels} outruns its own signal; chain two")
+    a, away = source, True
+    for _ in range(levels):
+        d = DIRS[side] if away else DIRS[OPPOSITE[side]]
+        for cell in (step(a, d), step(a, UP)):
+            if cell not in b.cells:
+                b.put(cell, GLASS, {}, why)
+        a = step(step(a, d), UP)
+        b.dust(a, why)
+        away = not away
+    return a
+
+
+def climb(b, source, levels, direction, max_run=10, why="climb"):
+    """
+    Take a BOOLEAN up, one level per block, with a repeater before it dies.
+
+    A staircase costs a level per step just like flat dust, so a long climb needs
+    restoring the same way a long run does - the difference is only that there is
+    nowhere to put a repeater on a slope, so the climb pauses on a flat pair of blocks
+    and starts again.
+
+    For booleans only. An analog value cannot be restored this way; pay for its climb up
+    front with a short `hex_wire` instead.
+    """
+    d = DIRS[direction]
+    pos, run = source, 0
+    for level in range(levels):
+        b.block(step(pos, d), why=why)
+        pos = step(step(pos, d), UP)
+        b.dust(pos, why)
+        run += 1
+        if run >= max_run and level < levels - 1:
+            b.rep(step(pos, d), OPPOSITE[direction], why=why)
+            pos = step(step(pos, d), d)
+            b.dust(pos, why)
+            run = 0
     return pos
 
 
