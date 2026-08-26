@@ -2,6 +2,75 @@
 
 Corrections worth not repeating. Newest first.
 
+## When two lines have to cross, change the ALGEBRA, not the layout
+
+**This one wire was 65% of M4's runtime.** v2 took 211 game ticks, and 137 of them were
+a single 68-hop comparator relay carrying x from one side of the board to the other.
+It was that long because the two streams had been pushed apart until they no longer
+crossed, and pushing things apart is the expensive way to solve a crossing.
+
+The crossing was not geometric, it was **arithmetic**. The S stream read x and then y;
+the r stream, written `q = 10 - y` then `r = x - q`, read y and then x. Opposite orders
+means the streams must swap sides, and swapping sides in one plane means crossing.
+Written the other way round,
+
+    p = 10 - x        r = y - p
+
+is the same number and reads x then y, like the other stream. Nothing has to cross.
+The relay went from 68 hops to zero, and the core from 30 x 44 to 23 x 15.
+
+**How to apply:** before routing anything, write down the order each stream consumes
+its inputs in. If two streams disagree, look for an algebraically equal form that makes
+them agree - it is usually free. Reach for geometry only when the algebra genuinely
+cannot be reordered. A layout problem that will not solve is often an algebra problem
+wearing a hat.
+
+## A descent is not transport, it is `max(0, v - n)`
+
+Dust loses a level per block going down exactly as it does going along - but a descent
+**clamps at zero**, and that clamp is a gate you get for free.
+
+M4's ones digit needs `max(0, x + y - 10)`. Rather than build that and then move it,
+the r stream sits two levels up computing `max(0, x + y - 8)` and simply falls two
+blocks. The fall does the last subtraction, in no ticks and no components, and the
+level change stops being a cost.
+
+Paying for a climb works the same way in reverse and was already known - `hex_wire`
+adds, a decay line read `k` cells early reads `v + k`. What is new is that the change of
+level can be the arithmetic rather than something the arithmetic has to survive.
+
+**How to apply:** when a value has to change level anyway, check whether the decay it
+would cost is a term you already wanted subtracted. `drop()` in `pipeline/analog.py`,
+with the clamp tested at and past the boundary.
+
+## A tower foot sits at 15, so a trunk beside it latches ON
+
+**Found by the tens digit reading 1 with no levers thrown.** A bit's line ran east past
+the foot of the glass tower it was about to feed. Dust one block away is the same wire,
+so the foot's full 15 flowed back into the trunk, round to the repeater that feeds the
+foot, and into the foot again. A loop with a repeater in it is a latch: once on, it
+stayed on whatever the carry did.
+
+Nothing about it looked wrong. The line was correct, the tower was correct, and the
+repeater was correct; only the one-block gap between two of them was.
+
+**How to apply:** a line that feeds something restored to full must stay **two** cells
+clear of it, not one - the usual "lines two apart do not touch" rule is about signals
+merging, and this is worse than merging because it closes a loop. Same for a repeater's
+output cell and anything routed past it.
+
+## Dust has no direction, so a merge feeds backwards too
+
+A probe of `r` read the wrong value for half the input range, and the circuit was fine.
+`r` falls onto the cell where it merges with `Sg`, and dust conducts both ways - so
+`Sg`'s value climbs back up the staircase and sits in `r`'s output cell. The merge is
+still `max(Sg, r)`, which is what was wanted; the cell just no longer reads what its
+name says.
+
+**How to apply:** downstream of a merge, a cell's reading is the max of everything that
+reaches it, not the value the code put there. Probe upstream of the join - or expect the
+max - and check the thing that matters, which was `ones`, not `r`.
+
 ## A schematic records a STATE, and the game will not fix it for you
 
 **Found in game.** The build passed 100/100 in the simulator, pasted, and showed **7**

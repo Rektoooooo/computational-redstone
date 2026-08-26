@@ -93,6 +93,25 @@ class Build:
     def dust(self, pos, why="dust"):
         return self.put(pos, "redstone_wire", DUST_PROPS, why)
 
+    def join(self, pos, why="merge"):
+        """
+        Dust that DELIBERATELY shares a cell with dust already there.
+
+        A merge is a max - two lines writing one cell, larger wins - and it is the only
+        place the collision check has to be told to stand down. Saying so is the point:
+        the alternative is to place the second line first and let it land on the first
+        by luck of ordering, which reads as an accident and breaks when either line
+        moves.
+        """
+        have = self.cells.get(pos)
+        if have is None:
+            return self.dust(pos, why)
+        if have[0] != "redstone_wire":
+            raise Collision(f"{pos}: {why} wants to merge onto {have[0]} "
+                            f"({self.notes.get(pos, '?')})")
+        self.notes[pos] = f"{self.notes.get(pos, 'dust')} + {why}"
+        return pos
+
     def comp(self, pos, facing, mode="compare", why=None):
         """`facing` points at the REAR input; the output leaves the opposite side."""
         return self.put(pos, "comparator",
@@ -574,9 +593,40 @@ def stair(b, source, steps, direction, why="stair"):
     d = DIRS[direction]
     pos = source
     for _ in range(steps):
-        b.block(step(pos, d), why=why)
-        pos = step(step(pos, d), UP)
-        b.dust(pos, why)
+        under = step(pos, d)
+        if under not in b.cells:        # a staircase may climb onto floor already laid
+            b.block(under, why=why)
+        pos = step(under, UP)
+        b.join(pos, why)
+    return pos
+
+
+def drop(b, source, steps, direction, why="drop"):
+    """
+    Bring a value DOWN a level per block - and let the fall do the arithmetic.
+
+    Dust reaches diagonally down exactly as it reaches diagonally up, so a descent is a
+    staircase read the other way and costs the same one level per step. The difference
+    is what happens at the bottom of the range: a descent CLAMPS AT ZERO, so `steps`
+    blocks of falling compute
+
+        max(0, v - steps)
+
+    for no ticks and no components. That is a real gate, not just transport - it is how
+    the ones digit gets its `max(0, x + y - 10)` while the stream that produced it sits
+    on a level of its own, out of everything else's way.
+
+    The last cell is `join`ed rather than placed, so a descent may land on a dust cell
+    that is already there and merge with it.
+    """
+    d = DIRS[direction]
+    pos = source
+    for i in range(steps):
+        pos = (pos[0] + d[0], pos[1] - 1, pos[2] + d[2])
+        below = (pos[0], pos[1] - 1, pos[2])
+        if below not in b.cells:
+            b.block(below, why=f"{why} step")
+        b.join(pos, why)
     return pos
 
 
@@ -661,6 +711,23 @@ def wire(b, start, legs, max_run=12, why="wire"):
             else:
                 b.dust(pos, why)
     return pos
+
+
+def boost(b, pos, direction, why="boost"):
+    """
+    A repeater, then dust: a BOOLEAN back to 15 before the next stretch.
+
+    Needed wherever one run of dust hands over to another, because every run starts
+    counting from what is left rather than from full - so two legs that each work
+    perfectly on their own die at the join. A climb is the usual culprit: it spends a
+    level a block like any other dust, and whatever it hands on has already paid for
+    the height.
+
+    For booleans only, for the same reason `wire` is: it destroys the value.
+    """
+    d = DIRS[direction]
+    b.rep(step(pos, d), OPPOSITE[direction], why=why)
+    return b.dust(step(step(pos, d), d), why)
 
 
 def relay_to(b, source, target, order="zx", why="relay"):
@@ -824,6 +891,42 @@ def selftest():
     b, lv, out = inv_rig(beside)
     check("a powered solid block on a comparator side feeds it nothing",
           _settle(b, [lv, (2, 2, 6)]).dust_power(out), 8)
+
+    # a staircase costs one level per step going UP, and a descent costs the same going
+    # down - but a descent clamps at zero, which turns it into a `max(0, v - steps)`
+    # that needs no components at all. The whole ones digit rests on this.
+    for steps in (1, 2):
+        b = Build()
+        line, lv = seven_line(b)
+        top = stair(b, line[0], 2, "south", why="up")     # 7 at the line, 5 at the top
+        landed = drop(b, top, steps, "south")
+        b.add_floor()
+        check(f"climb 2 then drop {steps}: 7 - 2 - {steps}",
+              _settle(b, [lv]).dust_power(landed), 7 - 2 - steps)
+
+    for steps, want in ((5, 2), (7, 0), (9, 0)):  # ... and the clamp, which is the point
+        b = Build()
+        line, lv = seven_line(b)
+        landed = drop(b, line[0], steps, "south")
+        b.add_floor()
+        check(f"a drop of {steps} on a 7 clamps at zero rather than going negative",
+              _settle(b, [lv]).dust_power(landed), want)
+
+    # two lines landing on one cell is a max, and `join` is how that gets said out loud
+    b = Build()
+    line, lv = seven_line(b)
+    cell = b.dust((0, 1, 2), "merge")
+    b.comp((0, 1, 1), "north", "compare", "the other line")   # rear = the 7
+    check("join: a second line onto one cell is legal and reads the max",
+          (b.join(cell, "second line"), _settle(b, [lv]).dust_power(cell)), (cell, 7))
+
+    # a boolean restored to full, so the next run gets its whole fifteen back
+    b = Build()
+    line, lv = seven_line(b)
+    end = wire(b, boost(b, line[0], "south", "boost"), [("south", 12)])
+    b.add_floor()
+    check("boost: a run resumed after one costs its own length, not the last one's",
+          _settle(b, [lv]).dust_power(end), 3)
 
     print()
     return ok

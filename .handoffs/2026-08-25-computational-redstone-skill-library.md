@@ -944,3 +944,105 @@ everywhere**, so it is worth chasing. Use the repeater intersection meanwhile.
    be chosen for a task, and `high` confidence has already been wrong twice.
 4. **Repeater locking as a bus latch** — still unbuilt, still the natural way to feed a
    register.
+
+---
+
+# Session 9 — M4 rebuilt: 3× faster, 5× smaller by volume
+
+**The report:** *"it works but its super slow ... the wires just go super far i feel for
+no reason."* Correct on every count. The screenshots showed a spider of comparator
+relays crawling across empty desert — a bounding box of 73 × 21 × 77 that was **3.5%
+full**.
+
+`pipeline/m4-decimal-adder-v3.litematic`, 2,947 blocks, 43 × 18 × 31.
+
+|  | v2 | v3 |
+|---|---|---|
+| worst-case settle | 210 ticks (10.5 s) | **71 ticks (3.55 s)** |
+| blocks | 4,187 | **2,947** |
+| bounding box | 73 × 21 × 77 | **43 × 18 × 31** |
+| bounding box filled | 3.5% | **12%** |
+| comparators in the core | 7 | **6** |
+| longest analog haul | 68 relay hops | **4** |
+
+## Measure first — it was one wire
+
+Counting ticks per named line, then probing arrival times with the tick engine:
+
+```
+x2 reaches r          t=137     <- 65% of the whole runtime, in ONE wire
+answer at converter   t=157
+converter bits final  t=163
+ones panel final      t=211
+```
+
+`x2 in` was 136 cells of comparator relay — 68 hops at two ticks each — carrying x from
+(14, 8) to (50, 56). The Manhattan distance is 84; it went the long way round the
+perimeter because everything between was occupied.
+
+## The fix was algebra, not routing
+
+**This is the transferable result.** The wire was long because v2's layout had pushed
+the two streams apart until they no longer crossed. But the crossing was never
+geometric:
+
+- the S stream consumes **x then y** (`nx = 15 - x`, then `u = nx - y`)
+- the r stream, written `q = 10 - y` then `r = x - q`, consumes **y then x**
+
+Opposite orders means the streams must swap sides, and swapping sides in one plane means
+crossing. Rewritten as
+
+    p = max(0, 10 - x)        r = max(0, y - p) = max(0, x + y - 10)
+
+it is the same number, consumed in the same order as the other stream, and **nothing has
+to cross anything**. The relay went from 68 hops to zero.
+
+Two more, both cheap:
+
+- **`q = 10 - y` is one comparator** with a constant 10 on the REAR. v2 built `ny` and
+  then subtracted 5, with a twenty-cell relay in between.
+- **A descent is `max(0, v - n)`, not transport.** Dust clamps at zero going down, so the
+  r stream lives two levels up computing `max(0, x + y - 8)` and simply falls two blocks;
+  the fall does the last subtraction in no ticks and no components. It also puts the two
+  streams on separate planes, where they cannot interfere at all — which is most of why
+  the footprint collapsed.
+- **One decay line per digit, not two.** A readout cell feeds several comparators at
+  once, and anything needing the value elsewhere taps the line early and pays in dust.
+
+## New primitives, each with a self-test
+
+| in `pipeline/analog.py` | what it is for |
+|---|---|
+| `drop` | take a value DOWN, and let the clamp at zero be a gate |
+| `boost` | a boolean back to 15, where one run of dust hands over to another |
+| `Build.join` | say out loud that two lines share a cell, instead of relying on order |
+
+`selftest()` is now 15 checks, including the drop's clamp tested at and past its
+boundary. `stair()` also learned to climb onto floor that is already there.
+
+## Two failures worth the entry in lessons.md
+
+- **A tower foot sits at a full 15, so a trunk beside it latches ON.** The tens digit
+  read 1 with no levers thrown: a bit line ran one block past the foot of the tower it
+  was about to feed, the foot's 15 flowed back into the trunk, round through the
+  repeater, and the loop held itself on. Two cells of clearance, not one.
+- **Dust has no direction, so a merge feeds backwards too.** A probe of `r` read wrong
+  for half the range while the circuit was perfect — `Sg` climbs back up the descent into
+  `r`'s output cell. The merge is still the max that was wanted; the cell just stops
+  reading what its name says.
+
+## Verified
+
+- 100/100 against the real glyphs, read **straight off the `.litematic`**
+- nothing floating; saved state equals resting state (the v2 paste bug stays fixed)
+- 15/15 primitive self-tests; the steady-state oracle untouched
+
+## Next
+
+1. **The zero-tick crossover** `primitives/wiring/build-14` — still wrong in our
+   simulator, still pure diagonal dust behaviour.
+2. **Drive the remaining 12 ALU builds.**
+3. **Repeater locking as a bus latch.**
+4. **Speed is now inside the library components** — 23 of v3's 71 ticks are `build-16`
+   and 14 are `build-04`. The wiring we control is about 20. Going lower means a faster
+   seven-segment decoder, not better routing.

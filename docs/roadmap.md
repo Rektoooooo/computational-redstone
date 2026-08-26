@@ -105,7 +105,7 @@ there is to wait for the worst case.
 
 Asked for: *two numbers 1–9 on levers, and the sum shown as a decimal number on a
 redstone lamp screen.* It exists, it is verified, and it has been pasted and tested.
-`pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v2.litematic`, 4,187 blocks.
+`pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v3.litematic`, 2,947 blocks.
 
 **Components were chosen, not built.** Three came whole out of the library, each driven
 before it was trusted:
@@ -118,7 +118,7 @@ before it was trusted:
 That blanking is where leading-zero suppression comes from for nothing: the tens digit is
 a second copy fed `1` when the sum is ten or more and `10` when it is not.
 
-**The arithmetic is analog.** Seven comparators, because a comparator in subtract mode
+**The arithmetic is analog.** Six comparators, because a comparator in subtract mode
 computes `max(0, rear - side)` on signal strength and `15 - ((15 - x) - y)` is
 `min(15, x + y)`. Dust cannot add any other way. The input costs nothing at all: nine
 levers spaced along a dust line turn *which lever* into a number, since a signal of
@@ -143,17 +143,47 @@ something pokes it. `settle()` recomputes from scratch and so always agreed with
 552 blocks would have pasted wrong. `Build.rest()` and `Build.stale()` now run on every
 emit.
 
+### M4 v3 — the same machine, 3× faster and 5× smaller by volume
+
+v2 worked and was enormous: 10.5 seconds to settle and a bounding box 73 × 21 × 77 that
+was 3.5% full — a spider of comparator relays crawling across empty desert. Measuring
+rather than guessing found that **137 of its 210 ticks were one wire**, a 68-hop relay
+carrying x from one side of the board to the other.
+
+|  | v2 | v3 |
+|---|---|---|
+| worst-case settle | 210 ticks (10.5 s) | **71 ticks (3.55 s)** |
+| blocks | 4,187 | **2,947** |
+| bounding box | 73 × 21 × 77 | **43 × 18 × 31** |
+| longest analog haul | 68 relay hops | **4** |
+
+The wire was long because the layout had pushed the two streams apart until they stopped
+crossing, and pushing things apart is the expensive way to solve a crossing. **The
+crossing was arithmetic, not geometric.** v2's S stream read x then y while its r stream,
+written `q = 10 - y` then `r = x - q`, read y then x — so they had to swap sides. Written
+
+    p = 10 - x        r = y - p
+
+it is the same number, read in the same order as the other stream, and nothing crosses.
+
+Two more ideas finished it. **A descent is `max(0, v - n)`, not transport** — dust clamps
+at zero going down, so the r stream sits two levels up computing `max(0, x + y - 8)` and
+the two-block fall does the last subtraction for nothing, which also puts the two streams
+on separate planes where they cannot interfere at all. And **`q = 10 - y` is one
+comparator** with a constant on its rear, not two plus a relay between them.
+
+Over half of what is left is inside components we did not write: 23 ticks of `build-16`
+and 14 of `build-04`. The wiring we control is down to about 20.
+
 ### Where it goes next
 
-Improving M4 rather than replacing it:
-
-1. **Speed** — 7 to 10.5 seconds to settle. The core still relays values by comparator at
-   two ticks per hop; `hex_wire()` does it in two ticks total and already exists.
-2. **The zero-tick crossover** `primitives/wiring/build-14` fails in our simulator. It is
+1. **The zero-tick crossover** `primitives/wiring/build-14` fails in our simulator. It is
    pure diagonal dust behaviour, so the discrepancy is worth chasing everywhere.
-3. **Drive the remaining 12 ALU builds** — a component whose behaviour is unknown cannot
+2. **Drive the remaining 12 ALU builds** — a component whose behaviour is unknown cannot
    be chosen for a task.
-4. **Repeater locking as a bus latch** — the natural way to feed a register.
+3. **Repeater locking as a bus latch** — the natural way to feed a register.
+4. **A faster seven-segment decoder**, if M4 is ever to go below ~2 seconds. Routing has
+   stopped being the constraint.
 
 ## What would make M4 easier, done early
 

@@ -44,7 +44,7 @@ cd worlds && unzip '*.zip'      # 115 MB of committed zips -> 925 MB of worlds
 | Simulator | steady state, **97.59%** per-block agreement, **153/175 builds exact** (dust 97.7, repeater 97.8, torch 98.5, comparator 94.4, lamp 96.7) |
 | Tick loop | **built and verified against the game** — delays, priority, lamp on/off asymmetry, repeater pulse stretching; 20 timing tests |
 | In-game checks | **10 passed**, incl. the CCA adder computing 37+155=192, two corrected labels, and the tick model measured with `/tick step` |
-| Composition | **M1–M4 done.** M4 is a working **decimal adder**: two digits in on levers, the sum on a seven-segment screen |
+| Composition | **M1–M4 done.** M4 is a working **decimal adder**: two digits in on levers, the sum on a seven-segment screen — rebuilt compact at **3.55 s and 2,947 blocks**, from 10.5 s and 4,187 |
 | Skill library | plus **`redstone-wiring`**, written from a world download rather than a video — 49 builds harvested and driven |
 | ALU builds driven | **6 of 18** — they are one ALU built up in stages, ending at `build-09` with all six bitwise ops |
 
@@ -59,10 +59,11 @@ cd worlds
 
 ## What we are working on: improving M4
 
-**M4 is built and works.** `pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v2.litematic`.
-Two numbers 1–9 on eighteen levers, the sum shown as a decimal number 0–18 on two
-seven-segment digits. 100/100 over every input pair, checked straight off the file
-against the real glyphs, nothing floating, and pasted and tested in game.
+**M4 is built, works, and has now been rebuilt compact.**
+`pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v3.litematic`. Two numbers 1–9
+on eighteen levers, the sum shown as a decimal number 0–18 on two seven-segment digits.
+100/100 over every input pair, checked straight off the file against the real glyphs,
+nothing floating, and the saved state equal to the resting state.
 
 ```bash
 ./.venv/bin/python pipeline/digit_adder.py           # sweep all 100 pairs
@@ -70,23 +71,41 @@ against the real glyphs, nothing floating, and pasted and tested in game.
 ./.venv/bin/python pipeline/analog.py                # the primitives' own self-test
 ```
 
-The arithmetic is **signal strength, not binary** — seven comparators, because
-`15 - ((15 - x) - y)` is `min(15, x + y)` and dust cannot add any other way. The
-converter and both digits are lifted whole out of the library.
+|  | v2 | v3 |
+|---|---|---|
+| worst-case settle | 210 ticks (10.5 s) | **71 ticks (3.55 s)** |
+| blocks | 4,187 | **2,947** |
+| bounding box | 73 × 21 × 77 | **43 × 18 × 31** |
+| comparators in the core | 7 | **6** |
+| longest analog haul | 68 relay hops | **4** |
 
-**What to improve, in order:**
+The arithmetic is **signal strength, not binary** — `15 - ((15 - x) - y)` is
+`min(15, x + y)` and dust cannot add any other way. The converter and both digits are
+lifted whole out of the library.
 
-1. **Speed.** 7 to 10.5 seconds to settle. The core still moves values by comparator
-   relay at two ticks per hop; `hex_wire()` does the same job in two ticks total and
-   already exists. This is the biggest single win and the least risky.
-2. **The zero-tick crossover.** `primitives/wiring/build-14` fails in our simulator —
+**Three ideas did all the work, and they generalise:**
+
+1. **When two lines must cross, change the algebra, not the layout.** v2's two streams
+   read their inputs in opposite orders, so they had to swap sides; writing the second
+   as `p = 10 - x`, `r = y - p` makes both read x then y and nothing crosses.
+2. **A descent is `max(0, v - n)`, not transport.** Dust clamps at zero going down, so
+   the r stream lives two levels up and the fall does its last subtraction for free.
+3. **Count hops, not blocks.** Dust is instantaneous at any length; a comparator relay
+   is two ticks per hop. v2's slowness was one 68-hop wire.
+
+**What to improve next, in order:**
+
+1. **The zero-tick crossover.** `primitives/wiring/build-14` fails in our simulator —
    four of sixteen lamps light regardless of input. It is pure diagonal dust behaviour,
    so a rule we have wrong there is a rule we have wrong everywhere.
-3. **Drive the remaining 12 ALU builds.** `verify/alu_probe.py` splits wide builds into
+2. **Drive the remaining 12 ALU builds.** `verify/alu_probe.py` splits wide builds into
    operands and controls by behaviour. A component whose behaviour is unknown cannot be
    chosen for a task, and `high` confidence has already been wrong twice.
-4. **Repeater locking as a bus latch.** See `docs/timing.md`. It solves what padding
+3. **Repeater locking as a bus latch.** See `docs/timing.md`. It solves what padding
    cannot — data-dependent skew — and is the natural way to feed a register.
+4. **Further speed is now inside the library components.** Of v3's 71 ticks, 23 are
+   `build-16` and 14 are `build-04`; the wiring we control is about 20. Going lower
+   means a faster seven-segment decoder, not better routing.
 
 Lower priority: comparators are the weakest category at 94.4%; four builds oscillate
 rather than settling (some are genuine clocks, not failures); the worst builds are

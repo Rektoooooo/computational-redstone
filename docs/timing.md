@@ -182,22 +182,38 @@ difference, which is what alignment cares about.
 
 ## What a finished machine costs — M4 measured
 
-`pipeline/m4-decimal-adder-v2.litematic`, from flipping a lever to the digits settling:
+From flipping a lever to the digits settling. v2 was the first working version; v3 is
+the same machine with the transport designed out of it.
 
-| input | game ticks | seconds |
+| input | v2 ticks | v3 ticks | v3 seconds |
+|---|---|---|---|
+| 4 + 3 | 158 | **61** | 3.05 |
+| 5 + 5 | 136 | **67** | 3.35 |
+| 9 + 9 | 210 | **67** | 3.35 |
+| 2 + 9 | 204 | **71** | 3.55 |
+
+v2 spent **137 of its 210 ticks in one wire** — a 68-hop comparator relay at two ticks
+a hop. It was that long because the layout had pushed the two streams apart until they
+stopped crossing. The fix was not a faster wire, it was an algebra that does not need
+one; see `tasks/lessons.md`.
+
+### Where v3's 71 ticks go
+
+| stage | ticks | can it come down? |
 |---|---|---|
-| 5 + 5 | 136 | 6.8 |
-| 4 + 3 | 158 | 7.9 |
-| 2 + 9 | 204 | 10.2 |
-| 9 + 9 | 210 | 10.5 |
+| arithmetic core, lever to merge | 17 | six comparators; near the floor |
+| lift to the converter | 6 | a hex wire, 2 ticks, plus its approach |
+| `build-04`, strength → binary | 14 | library component, not ours |
+| four bits home, and the digit | 34 | **23 of it is `build-16` itself** |
 
-Nearly all of that is the **comparator relays** in the arithmetic core, which cost
-**two ticks per hop** and are used dozens of times. The `hex_wire` circuit does the same
-job — carrying a signal strength any distance — in **two ticks total**, so replacing
-those relays is the obvious win and the primitive already exists.
+So over half of what is left is inside two components lifted whole out of the library,
+and the wiring we control is down to roughly 20 ticks. Going much below this means
+replacing the seven-segment decoder, not routing better.
 
-The lesson generalises: when moving signal strength, count hops, not blocks. Distance is
-free and hops are not.
+**The rule this leaves behind: when moving signal strength, count hops, not blocks.**
+Distance is free and hops are not. A dust line of any length is instantaneous; a
+comparator relay costs two ticks for every two blocks it covers, and a `hex_wire` costs
+two ticks whatever the distance.
 
 ## Sources
 

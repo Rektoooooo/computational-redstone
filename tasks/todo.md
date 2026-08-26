@@ -116,10 +116,36 @@ Both are recorded above.
 
 ---
 
-# M4 — the decimal adder — **BUILT, WORKING, IN GAME**
+# M4 — the decimal adder — **BUILT, WORKING, IN GAME, AND NOW COMPACT**
 
 Two numbers 1–9 on eighteen levers, the sum shown as a decimal number 0–18 on two
-seven-segment digits. `pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v2.litematic`.
+seven-segment digits. `pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v3.litematic`.
+
+## v3 — 3× faster, 5× smaller by volume
+
+|  | v2 | v3 |
+|---|---|---|
+| worst-case settle | 210 ticks (10.5 s) | **71 ticks (3.55 s)** |
+| blocks | 4,187 | **2,947** |
+| bounding box | 73 × 21 × 77 | **43 × 18 × 31** |
+| longest analog haul | 68 relay hops | **4** |
+
+- [x] **Found where the time went**: 137 of v2's 210 ticks were ONE wire, the 68-hop
+      relay carrying x to `r`. Measured, not guessed.
+- [x] **Removed the crossing algebraically.** `p = 10 - x`, `r = y - p` is the same
+      number as `r = x - q` but reads x then y like the other stream, so the two never
+      need to swap sides. This is the whole reason the layout collapsed.
+- [x] **`q = 10 - y` in one comparator**, with a constant on the rear, instead of
+      `ny = 15 - y` plus `ny - 5` plus a twenty-cell relay between them.
+- [x] **The r stream moved two levels up**, and the drop back down does its
+      `max(0, x + y - 10)` — dust clamps at zero, so the fall is a free gate.
+- [x] **One decay line per digit**, not two: a readout cell feeds several comparators,
+      and anything further off taps the line early and pays in dust.
+- [x] `drop()`, `boost()` and `Build.join()` added to `pipeline/analog.py`, each with
+      its own self-test — 15 now, including the clamp at and past its boundary.
+- [x] 100/100 straight off the `.litematic`, nothing floating, saved state = resting
+      state.
+- [ ] **Confirm v3 in game.** v2 is still on disk to fall back to.
 
 ```bash
 ./.venv/bin/python pipeline/digit_adder.py           # sweep all 100 pairs
@@ -147,11 +173,9 @@ seven-segment digits. `pipeline/digit_adder.py` → `pipeline/m4-decimal-adder-v
 
 ## Improving it next
 
-- [ ] **Speed — the biggest win and the least risky.** 7 to 10.5 seconds to settle,
-      because the core still relays values by comparator at **two ticks per hop** and
-      there are a lot of hops. `hex_wire()` does the same job in **two ticks total** and
-      is already written and verified. Replace the `relay()` chains in `core()` with it,
-      one at a time, re-running the sweep after each.
+- [ ] **Further speed is now inside the library components.** Of v3's 71 ticks, 23 are
+      `build-16` and 14 are `build-04`; the wiring we control is about 20. Going lower
+      means finding or building a faster seven-segment decoder, not routing better.
 - [ ] **Chase the zero-tick crossover.** `primitives/wiring/build-14` fails in our
       simulator: four of sixteen lamps light regardless of input. It uses no repeaters,
       so it is pure diagonal dust behaviour — and a rule we have wrong there is a rule we
