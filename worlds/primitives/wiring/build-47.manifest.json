@@ -1,0 +1,30 @@
+{
+  "name": "build-47",
+  "labels": [],
+  "source_world": "Wiring like a pro",
+  "source_origin": [
+    46,
+    59,
+    -194
+  ],
+  "size": [
+    6,
+    22,
+    9
+  ],
+  "non_air_blocks": 49,
+  "redstone_components": 25,
+  "component_census": {
+    "redstone_wire": 19,
+    "redstone_lamp": 4,
+    "lever": 2
+  },
+  "full_census": {
+    "cyan_wool": 19,
+    "redstone_wire": 19,
+    "redstone_lamp": 4,
+    "orange_wool": 3,
+    "lever": 2,
+    "lime_wool": 2
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "build-40",
+  "labels": [],
+  "source_world": "Wiring like a pro",
+  "source_origin": [
+    79,
+    55,
+    -151
+  ],
+  "size": [
+    10,
+    15,
+    7
+  ],
+  "non_air_blocks": 139,
+  "redstone_components": 38,
+  "component_census": {
+    "redstone_wire": 23,
+    "repeater": 11,
+    "comparator": 3,
+    "barrel": 1
+  },
+  "full_census": {
+    "sandstone": 63,
+    "redstone_wire": 23,
+    "magenta_stained_glass": 22,
+    "magenta_wool": 14,
+    "repeater": 11,
+    "comparator": 3,
+    "lime_wool": 1,
+    "barrel": 1,
+    "orange_wool": 1
+  }
+}

@@ -1,0 +1,1562 @@
+[
+  {
+    "name": "build-00",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      17,
+      55,
+      -574
+    ],
+    "size": [
+      17,
+      5,
+      84
+    ],
+    "non_air_blocks": 2380,
+    "redstone_components": 560,
+    "component_census": {
+      "redstone_wire": 525,
+      "repeater": 35
+    },
+    "full_census": {
+      "sandstone": 1260,
+      "lime_wool": 560,
+      "redstone_wire": 525,
+      "repeater": 35
+    }
+  },
+  {
+    "name": "build-01",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      5,
+      55,
+      -619
+    ],
+    "size": [
+      8,
+      66,
+      19
+    ],
+    "non_air_blocks": 1264,
+    "redstone_components": 544,
+    "component_census": {
+      "redstone_wire": 496,
+      "redstone_wall_torch": 48
+    },
+    "full_census": {
+      "lime_stained_glass": 496,
+      "redstone_wire": 496,
+      "sandstone": 152,
+      "lime_wool": 72,
+      "redstone_wall_torch": 48
+    }
+  },
+  {
+    "name": "build-02",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      23,
+      55,
+      -619
+    ],
+    "size": [
+      8,
+      66,
+      26
+    ],
+    "non_air_blocks": 1320,
+    "redstone_components": 544,
+    "component_census": {
+      "redstone_wire": 496,
+      "redstone_wall_torch": 48
+    },
+    "full_census": {
+      "lime_stained_glass": 496,
+      "redstone_wire": 496,
+      "sandstone": 208,
+      "lime_wool": 72,
+      "redstone_wall_torch": 48
+    }
+  },
+  {
+    "name": "build-03",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -11,
+      55,
+      -557
+    ],
+    "size": [
+      19,
+      5,
+      67
+    ],
+    "non_air_blocks": 2209,
+    "redstone_components": 492,
+    "component_census": {
+      "redstone_wire": 468,
+      "repeater": 24
+    },
+    "full_census": {
+      "sandstone": 1225,
+      "lime_wool": 492,
+      "redstone_wire": 468,
+      "repeater": 24
+    }
+  },
+  {
+    "name": "build-04",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -9,
+      59,
+      -703
+    ],
+    "size": [
+      5,
+      43,
+      52
+    ],
+    "non_air_blocks": 768,
+    "redstone_components": 384,
+    "component_census": {
+      "redstone_wire": 360,
+      "repeater": 24
+    },
+    "full_census": {
+      "redstone_wire": 360,
+      "lime_stained_glass": 192,
+      "lime_wool": 192,
+      "repeater": 24
+    }
+  },
+  {
+    "name": "build-05",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      23,
+      60,
+      -706
+    ],
+    "size": [
+      5,
+      43,
+      52
+    ],
+    "non_air_blocks": 768,
+    "redstone_components": 384,
+    "component_census": {
+      "redstone_wire": 360,
+      "repeater": 24
+    },
+    "full_census": {
+      "redstone_wire": 360,
+      "lime_stained_glass": 192,
+      "lime_wool": 192,
+      "repeater": 24
+    }
+  },
+  {
+    "name": "build-06",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      36,
+      56,
+      17
+    ],
+    "size": [
+      62,
+      12,
+      13
+    ],
+    "non_air_blocks": 699,
+    "redstone_components": 345,
+    "component_census": {
+      "redstone_wire": 269,
+      "repeater": 43,
+      "comparator": 24,
+      "barrel": 5,
+      "redstone_lamp": 4
+    },
+    "full_census": {
+      "redstone_wire": 269,
+      "red_wool": 225,
+      "cyan_wool": 124,
+      "repeater": 43,
+      "comparator": 24,
+      "barrel": 5,
+      "redstone_lamp": 4,
+      "red_stained_glass": 4,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-07",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      57,
+      56,
+      -2
+    ],
+    "size": [
+      21,
+      12,
+      9
+    ],
+    "non_air_blocks": 336,
+    "redstone_components": 158,
+    "component_census": {
+      "redstone_wire": 112,
+      "repeater": 26,
+      "comparator": 16,
+      "redstone_lamp": 4
+    },
+    "full_census": {
+      "red_wool": 169,
+      "redstone_wire": 112,
+      "repeater": 26,
+      "comparator": 16,
+      "lime_wool": 4,
+      "redstone_lamp": 4,
+      "red_stained_glass": 4,
+      "orange_wool": 1
+    }
+  },
+  {
+    "name": "build-08",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      41,
+      54,
+      -111
+    ],
+    "size": [
+      8,
+      7,
+      40
+    ],
+    "non_air_blocks": 950,
+    "redstone_components": 138,
+    "component_census": {
+      "redstone_wire": 120,
+      "redstone_lamp": 8,
+      "repeater": 6,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 610,
+      "cyan_wool": 194,
+      "redstone_wire": 120,
+      "redstone_lamp": 8,
+      "repeater": 6,
+      "lime_wool": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-09",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      15,
+      55,
+      -111
+    ],
+    "size": [
+      11,
+      6,
+      39
+    ],
+    "non_air_blocks": 666,
+    "redstone_components": 136,
+    "component_census": {
+      "redstone_wire": 120,
+      "redstone_lamp": 8,
+      "repeater": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 390,
+      "cyan_wool": 132,
+      "redstone_wire": 120,
+      "redstone_lamp": 8,
+      "lime_wool": 4,
+      "repeater": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-10",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      31,
+      55,
+      -110
+    ],
+    "size": [
+      6,
+      11,
+      39
+    ],
+    "non_air_blocks": 510,
+    "redstone_components": 136,
+    "component_census": {
+      "redstone_wire": 120,
+      "redstone_lamp": 8,
+      "repeater": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 234,
+      "cyan_wool": 132,
+      "redstone_wire": 120,
+      "redstone_lamp": 8,
+      "lime_wool": 4,
+      "repeater": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-11",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      22,
+      54,
+      -140
+    ],
+    "size": [
+      11,
+      30,
+      8
+    ],
+    "non_air_blocks": 412,
+    "redstone_components": 120,
+    "component_census": {
+      "redstone_wire": 104,
+      "redstone_lamp": 8,
+      "lever": 4,
+      "repeater": 4
+    },
+    "full_census": {
+      "sandstone": 176,
+      "redstone_wire": 104,
+      "cyan_stained_glass": 96,
+      "cyan_wool": 12,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "lever": 4,
+      "repeater": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-12",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      22,
+      54,
+      -154
+    ],
+    "size": [
+      11,
+      30,
+      8
+    ],
+    "non_air_blocks": 392,
+    "redstone_components": 116,
+    "component_census": {
+      "redstone_wire": 96,
+      "redstone_lamp": 8,
+      "redstone_wall_torch": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 160,
+      "cyan_stained_glass": 96,
+      "redstone_wire": 96,
+      "cyan_wool": 12,
+      "redstone_lamp": 8,
+      "redstone_wall_torch": 8,
+      "orange_wool": 4,
+      "lever": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-13",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      45,
+      54,
+      -148
+    ],
+    "size": [
+      8,
+      31,
+      10
+    ],
+    "non_air_blocks": 348,
+    "redstone_components": 108,
+    "component_census": {
+      "redstone_wire": 88,
+      "redstone_lamp": 8,
+      "redstone_torch": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 136,
+      "redstone_wire": 88,
+      "cyan_stained_glass": 80,
+      "cyan_wool": 16,
+      "redstone_lamp": 8,
+      "redstone_torch": 8,
+      "orange_wool": 4,
+      "lever": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-14",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      25,
+      55,
+      -460
+    ],
+    "size": [
+      13,
+      13,
+      13
+    ],
+    "non_air_blocks": 361,
+    "redstone_components": 96,
+    "component_census": {
+      "redstone_wire": 72,
+      "redstone_lamp": 16,
+      "lever": 8
+    },
+    "full_census": {
+      "sandstone": 169,
+      "redstone_wire": 72,
+      "purple_wool": 44,
+      "pink_wool": 36,
+      "redstone_lamp": 16,
+      "lime_wool": 8,
+      "orange_wool": 8,
+      "lever": 8
+    }
+  },
+  {
+    "name": "build-15",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      24,
+      55,
+      -441
+    ],
+    "size": [
+      15,
+      12,
+      15
+    ],
+    "non_air_blocks": 355,
+    "redstone_components": 88,
+    "component_census": {
+      "redstone_wire": 60,
+      "redstone_lamp": 16,
+      "repeater": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 183,
+      "redstone_wire": 60,
+      "purple_wool": 36,
+      "pink_wool": 32,
+      "redstone_lamp": 16,
+      "lime_wool": 8,
+      "repeater": 8,
+      "orange_wool": 8,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-16",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      60,
+      55,
+      -253
+    ],
+    "size": [
+      6,
+      25,
+      23
+    ],
+    "non_air_blocks": 294,
+    "redstone_components": 80,
+    "component_census": {
+      "redstone_wire": 60,
+      "redstone_lamp": 8,
+      "repeater": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 138,
+      "cyan_stained_glass": 60,
+      "redstone_wire": 60,
+      "cyan_wool": 8,
+      "repeater": 8,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "lime_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-17",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      8,
+      54,
+      -252
+    ],
+    "size": [
+      11,
+      20,
+      21
+    ],
+    "non_air_blocks": 602,
+    "redstone_components": 72,
+    "component_census": {
+      "redstone_wire": 60,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 462,
+      "cyan_wool": 60,
+      "redstone_wire": 60,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "lever": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-18",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      24,
+      55,
+      -348
+    ],
+    "size": [
+      13,
+      13,
+      13
+    ],
+    "non_air_blocks": 296,
+    "redstone_components": 72,
+    "component_census": {
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "repeater": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 156,
+      "redstone_wire": 56,
+      "green_wool": 40,
+      "green_stained_glass": 20,
+      "redstone_lamp": 8,
+      "lime_wool": 4,
+      "repeater": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-19",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      45,
+      55,
+      -369
+    ],
+    "size": [
+      13,
+      13,
+      13
+    ],
+    "non_air_blocks": 296,
+    "redstone_components": 72,
+    "component_census": {
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "repeater": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 156,
+      "redstone_wire": 56,
+      "green_wool": 40,
+      "green_stained_glass": 20,
+      "redstone_lamp": 8,
+      "repeater": 4,
+      "orange_wool": 4,
+      "lever": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-20",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      48,
+      55,
+      -303
+    ],
+    "size": [
+      7,
+      24,
+      21
+    ],
+    "non_air_blocks": 283,
+    "redstone_components": 70,
+    "component_census": {
+      "redstone_wire": 58,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 147,
+      "cyan_wool": 58,
+      "redstone_wire": 58,
+      "redstone_lamp": 8,
+      "lime_wool": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-21",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      48,
+      55,
+      -251
+    ],
+    "size": [
+      7,
+      24,
+      21
+    ],
+    "non_air_blocks": 283,
+    "redstone_components": 70,
+    "component_census": {
+      "redstone_wire": 58,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 147,
+      "cyan_wool": 58,
+      "redstone_wire": 58,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "lime_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-22",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      22,
+      54,
+      -302
+    ],
+    "size": [
+      8,
+      21,
+      21
+    ],
+    "non_air_blocks": 468,
+    "redstone_components": 68,
+    "component_census": {
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 336,
+      "cyan_wool": 56,
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "lime_wool": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-23",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      22,
+      54,
+      -252
+    ],
+    "size": [
+      8,
+      20,
+      21
+    ],
+    "non_air_blocks": 468,
+    "redstone_components": 68,
+    "component_census": {
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 336,
+      "cyan_wool": 56,
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "lever": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-24",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      25,
+      60,
+      -199
+    ],
+    "size": [
+      7,
+      21,
+      15
+    ],
+    "non_air_blocks": 132,
+    "redstone_components": 68,
+    "component_census": {
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "cyan_wool": 56,
+      "redstone_wire": 56,
+      "redstone_lamp": 8,
+      "lever": 4,
+      "orange_wool": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-25",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      36,
+      55,
+      -249
+    ],
+    "size": [
+      6,
+      17,
+      19
+    ],
+    "non_air_blocks": 238,
+    "redstone_components": 64,
+    "component_census": {
+      "redstone_wire": 52,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 114,
+      "redstone_wire": 52,
+      "cyan_wool": 28,
+      "cyan_stained_glass": 24,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "lime_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-26",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      54,
+      54,
+      -87
+    ],
+    "size": [
+      11,
+      7,
+      16
+    ],
+    "non_air_blocks": 466,
+    "redstone_components": 62,
+    "component_census": {
+      "redstone_wire": 46,
+      "redstone_lamp": 8,
+      "repeater": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 320,
+      "cyan_wool": 76,
+      "redstone_wire": 46,
+      "redstone_lamp": 8,
+      "orange_wool": 4,
+      "repeater": 4,
+      "lever": 4,
+      "lime_wool": 4
+    }
+  },
+  {
+    "name": "build-27",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      78,
+      55,
+      -194
+    ],
+    "size": [
+      13,
+      20,
+      7
+    ],
+    "non_air_blocks": 173,
+    "redstone_components": 56,
+    "component_census": {
+      "redstone_wire": 38,
+      "repeater": 15,
+      "comparator": 2,
+      "barrel": 1
+    },
+    "full_census": {
+      "magenta_wool": 57,
+      "sandstone": 55,
+      "redstone_wire": 38,
+      "repeater": 15,
+      "magenta_stained_glass": 3,
+      "comparator": 2,
+      "orange_wool": 1,
+      "barrel": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-28",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      8,
+      54,
+      -302
+    ],
+    "size": [
+      11,
+      21,
+      21
+    ],
+    "non_air_blocks": 457,
+    "redstone_components": 54,
+    "component_census": {
+      "redstone_wire": 48,
+      "redstone_lamp": 5,
+      "lever": 1
+    },
+    "full_census": {
+      "sandstone": 350,
+      "cyan_wool": 48,
+      "redstone_wire": 48,
+      "redstone_lamp": 5,
+      "lime_wool": 4,
+      "orange_wool": 1,
+      "lever": 1
+    }
+  },
+  {
+    "name": "build-29",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      36,
+      55,
+      -303
+    ],
+    "size": [
+      5,
+      16,
+      17
+    ],
+    "non_air_blocks": 179,
+    "redstone_components": 52,
+    "component_census": {
+      "redstone_wire": 48,
+      "redstone_lamp": 4
+    },
+    "full_census": {
+      "sandstone": 75,
+      "redstone_wire": 48,
+      "cyan_wool": 24,
+      "cyan_stained_glass": 24,
+      "lime_wool": 4,
+      "redstone_lamp": 4
+    }
+  },
+  {
+    "name": "build-30",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      27,
+      55,
+      -370
+    ],
+    "size": [
+      8,
+      11,
+      15
+    ],
+    "non_air_blocks": 200,
+    "redstone_components": 50,
+    "component_census": {
+      "redstone_wire": 36,
+      "redstone_lamp": 6,
+      "repeater": 4,
+      "lever": 4
+    },
+    "full_census": {
+      "sandstone": 104,
+      "green_wool": 38,
+      "redstone_wire": 36,
+      "redstone_lamp": 6,
+      "repeater": 4,
+      "orange_wool": 4,
+      "lever": 4,
+      "lime_wool": 2,
+      "green_stained_glass": 2
+    }
+  },
+  {
+    "name": "build-31",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      42,
+      57,
+      -345
+    ],
+    "size": [
+      15,
+      12,
+      8
+    ],
+    "non_air_blocks": 96,
+    "redstone_components": 50,
+    "component_census": {
+      "redstone_wire": 38,
+      "redstone_lamp": 8,
+      "lever": 4
+    },
+    "full_census": {
+      "green_wool": 38,
+      "redstone_wire": 38,
+      "redstone_lamp": 8,
+      "lime_wool": 4,
+      "orange_wool": 4,
+      "lever": 4
+    }
+  },
+  {
+    "name": "build-32",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      79,
+      55,
+      -140
+    ],
+    "size": [
+      11,
+      19,
+      6
+    ],
+    "non_air_blocks": 158,
+    "redstone_components": 49,
+    "component_census": {
+      "redstone_wire": 31,
+      "repeater": 15,
+      "comparator": 2,
+      "barrel": 1
+    },
+    "full_census": {
+      "sandstone": 60,
+      "redstone_wire": 31,
+      "magenta_stained_glass": 30,
+      "magenta_wool": 17,
+      "repeater": 15,
+      "comparator": 2,
+      "lime_wool": 1,
+      "orange_wool": 1,
+      "barrel": 1
+    }
+  },
+  {
+    "name": "build-33",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      75,
+      55,
+      -251
+    ],
+    "size": [
+      7,
+      19,
+      22
+    ],
+    "non_air_blocks": 251,
+    "redstone_components": 48,
+    "component_census": {
+      "redstone_wire": 31,
+      "repeater": 15,
+      "comparator": 2
+    },
+    "full_census": {
+      "sandstone": 154,
+      "magenta_wool": 46,
+      "redstone_wire": 31,
+      "repeater": 15,
+      "comparator": 2,
+      "lime_wool": 2,
+      "orange_wool": 1
+    }
+  },
+  {
+    "name": "build-34",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      91,
+      55,
+      -254
+    ],
+    "size": [
+      6,
+      20,
+      25
+    ],
+    "non_air_blocks": 224,
+    "redstone_components": 48,
+    "component_census": {
+      "redstone_wire": 31,
+      "repeater": 15,
+      "comparator": 2
+    },
+    "full_census": {
+      "sandstone": 125,
+      "magenta_wool": 49,
+      "redstone_wire": 31,
+      "repeater": 15,
+      "comparator": 2,
+      "orange_wool": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-35",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      91,
+      55,
+      -305
+    ],
+    "size": [
+      6,
+      17,
+      19
+    ],
+    "non_air_blocks": 152,
+    "redstone_components": 46,
+    "component_census": {
+      "redstone_wire": 24,
+      "repeater": 11,
+      "target": 10,
+      "comparator": 1
+    },
+    "full_census": {
+      "sandstone": 80,
+      "magenta_wool": 25,
+      "redstone_wire": 24,
+      "repeater": 11,
+      "target": 10,
+      "lime_wool": 1,
+      "comparator": 1
+    }
+  },
+  {
+    "name": "build-36",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -15,
+      54,
+      -162
+    ],
+    "size": [
+      5,
+      48,
+      8
+    ],
+    "non_air_blocks": 147,
+    "redstone_components": 44,
+    "component_census": {
+      "redstone_wire": 39,
+      "redstone_lamp": 2,
+      "redstone_torch": 2,
+      "lever": 1
+    },
+    "full_census": {
+      "sandstone": 60,
+      "redstone_wire": 39,
+      "light_blue_stained_glass": 37,
+      "light_blue_wool": 4,
+      "redstone_lamp": 2,
+      "redstone_torch": 2,
+      "orange_wool": 1,
+      "lever": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-37",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -14,
+      57,
+      -206
+    ],
+    "size": [
+      6,
+      45,
+      6
+    ],
+    "non_air_blocks": 79,
+    "redstone_components": 41,
+    "component_census": {
+      "redstone_wire": 36,
+      "redstone_lamp": 2,
+      "redstone_wall_torch": 2,
+      "lever": 1
+    },
+    "full_census": {
+      "light_blue_wool": 36,
+      "redstone_wire": 36,
+      "redstone_wall_torch": 2,
+      "redstone_lamp": 2,
+      "orange_wool": 1,
+      "lever": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-38",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      75,
+      55,
+      -305
+    ],
+    "size": [
+      7,
+      17,
+      19
+    ],
+    "non_air_blocks": 194,
+    "redstone_components": 41,
+    "component_census": {
+      "redstone_wire": 27,
+      "repeater": 13,
+      "comparator": 1
+    },
+    "full_census": {
+      "sandstone": 112,
+      "magenta_wool": 40,
+      "redstone_wire": 27,
+      "repeater": 13,
+      "lime_wool": 1,
+      "comparator": 1
+    }
+  },
+  {
+    "name": "build-39",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -15,
+      54,
+      -141
+    ],
+    "size": [
+      5,
+      30,
+      15
+    ],
+    "non_air_blocks": 210,
+    "redstone_components": 40,
+    "component_census": {
+      "redstone_wire": 35,
+      "redstone_lamp": 2,
+      "redstone_wall_torch": 2,
+      "lever": 1
+    },
+    "full_census": {
+      "sandstone": 130,
+      "light_blue_stained_glass": 35,
+      "redstone_wire": 35,
+      "light_blue_wool": 3,
+      "redstone_lamp": 2,
+      "redstone_wall_torch": 2,
+      "orange_wool": 1,
+      "lever": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-40",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      79,
+      55,
+      -151
+    ],
+    "size": [
+      10,
+      15,
+      7
+    ],
+    "non_air_blocks": 139,
+    "redstone_components": 38,
+    "component_census": {
+      "redstone_wire": 23,
+      "repeater": 11,
+      "comparator": 3,
+      "barrel": 1
+    },
+    "full_census": {
+      "sandstone": 63,
+      "redstone_wire": 23,
+      "magenta_stained_glass": 22,
+      "magenta_wool": 14,
+      "repeater": 11,
+      "comparator": 3,
+      "lime_wool": 1,
+      "barrel": 1,
+      "orange_wool": 1
+    }
+  },
+  {
+    "name": "build-41",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      82,
+      55,
+      -98
+    ],
+    "size": [
+      7,
+      5,
+      17
+    ],
+    "non_air_blocks": 175,
+    "redstone_components": 35,
+    "component_census": {
+      "redstone_wire": 22,
+      "repeater": 11,
+      "comparator": 1,
+      "barrel": 1
+    },
+    "full_census": {
+      "sandstone": 105,
+      "magenta_wool": 34,
+      "redstone_wire": 22,
+      "repeater": 11,
+      "orange_wool": 1,
+      "comparator": 1,
+      "barrel": 1
+    }
+  },
+  {
+    "name": "build-42",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -17,
+      55,
+      -98
+    ],
+    "size": [
+      18,
+      5,
+      20
+    ],
+    "non_air_blocks": 318,
+    "redstone_components": 30,
+    "component_census": {
+      "redstone_wire": 26,
+      "repeater": 2,
+      "target": 1,
+      "redstone_lamp": 1
+    },
+    "full_census": {
+      "sandstone": 256,
+      "light_blue_wool": 31,
+      "redstone_wire": 26,
+      "repeater": 2,
+      "target": 1,
+      "redstone_lamp": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-43",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      62,
+      56,
+      -32
+    ],
+    "size": [
+      9,
+      10,
+      9
+    ],
+    "non_air_blocks": 51,
+    "redstone_components": 29,
+    "component_census": {
+      "redstone_wire": 11,
+      "comparator": 8,
+      "barrel": 5,
+      "redstone_lamp": 4,
+      "repeater": 1
+    },
+    "full_census": {
+      "red_wool": 17,
+      "redstone_wire": 11,
+      "comparator": 8,
+      "barrel": 5,
+      "orange_wool": 4,
+      "redstone_lamp": 4,
+      "repeater": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-44",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -14,
+      56,
+      -196
+    ],
+    "size": [
+      6,
+      31,
+      6
+    ],
+    "non_air_blocks": 51,
+    "redstone_components": 27,
+    "component_census": {
+      "redstone_wire": 22,
+      "redstone_lamp": 2,
+      "redstone_wall_torch": 2,
+      "lever": 1
+    },
+    "full_census": {
+      "light_blue_wool": 22,
+      "redstone_wire": 22,
+      "redstone_wall_torch": 2,
+      "redstone_lamp": 2,
+      "orange_wool": 1,
+      "lever": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-45",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -15,
+      54,
+      -151
+    ],
+    "size": [
+      5,
+      30,
+      7
+    ],
+    "non_air_blocks": 121,
+    "redstone_components": 26,
+    "component_census": {
+      "redstone_wire": 21,
+      "redstone_lamp": 2,
+      "redstone_torch": 2,
+      "lever": 1
+    },
+    "full_census": {
+      "sandstone": 70,
+      "redstone_wire": 21,
+      "light_blue_stained_glass": 20,
+      "light_blue_wool": 3,
+      "redstone_lamp": 2,
+      "redstone_torch": 2,
+      "orange_wool": 1,
+      "lever": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-46",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      -14,
+      58,
+      -186
+    ],
+    "size": [
+      6,
+      29,
+      7
+    ],
+    "non_air_blocks": 50,
+    "redstone_components": 25,
+    "component_census": {
+      "redstone_wire": 21,
+      "redstone_lamp": 2,
+      "repeater": 1,
+      "lever": 1
+    },
+    "full_census": {
+      "light_blue_wool": 22,
+      "redstone_wire": 21,
+      "redstone_lamp": 2,
+      "light_blue_stained_glass": 1,
+      "repeater": 1,
+      "orange_wool": 1,
+      "lever": 1,
+      "lime_wool": 1
+    }
+  },
+  {
+    "name": "build-47",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      46,
+      59,
+      -194
+    ],
+    "size": [
+      6,
+      22,
+      9
+    ],
+    "non_air_blocks": 49,
+    "redstone_components": 25,
+    "component_census": {
+      "redstone_wire": 19,
+      "redstone_lamp": 4,
+      "lever": 2
+    },
+    "full_census": {
+      "cyan_wool": 19,
+      "redstone_wire": 19,
+      "redstone_lamp": 4,
+      "orange_wool": 3,
+      "lever": 2,
+      "lime_wool": 2
+    }
+  },
+  {
+    "name": "build-48",
+    "labels": [],
+    "source_world": "Wiring like a pro",
+    "source_origin": [
+      92,
+      55,
+      -98
+    ],
+    "size": [
+      6,
+      5,
+      17
+    ],
+    "non_air_blocks": 108,
+    "redstone_components": 24,
+    "component_census": {
+      "redstone_wire": 11,
+      "repeater": 11,
+      "comparator": 1,
+      "barrel": 1
+    },
+    "full_census": {
+      "sandstone": 60,
+      "magenta_wool": 23,
+      "redstone_wire": 11,
+      "repeater": 11,
+      "orange_wool": 1,
+      "comparator": 1,
+      "barrel": 1
+    }
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "name": "build-11",
+  "labels": [],
+  "source_world": "Wiring like a pro",
+  "source_origin": [
+    22,
+    54,
+    -140
+  ],
+  "size": [
+    11,
+    30,
+    8
+  ],
+  "non_air_blocks": 412,
+  "redstone_components": 120,
+  "component_census": {
+    "redstone_wire": 104,
+    "redstone_lamp": 8,
+    "lever": 4,
+    "repeater": 4
+  },
+  "full_census": {
+    "sandstone": 176,
+    "redstone_wire": 104,
+    "cyan_stained_glass": 96,
+    "cyan_wool": 12,
+    "redstone_lamp": 8,
+    "orange_wool": 4,
+    "lever": 4,
+    "repeater": 4,
+    "lime_wool": 4
+  }
+}

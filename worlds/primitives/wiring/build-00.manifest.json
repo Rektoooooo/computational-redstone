@@ -1,0 +1,27 @@
+{
+  "name": "build-00",
+  "labels": [],
+  "source_world": "Wiring like a pro",
+  "source_origin": [
+    17,
+    55,
+    -574
+  ],
+  "size": [
+    17,
+    5,
+    84
+  ],
+  "non_air_blocks": 2380,
+  "redstone_components": 560,
+  "component_census": {
+    "redstone_wire": 525,
+    "repeater": 35
+  },
+  "full_census": {
+    "sandstone": 1260,
+    "lime_wool": 560,
+    "redstone_wire": 525,
+    "repeater": 35
+  }
+}

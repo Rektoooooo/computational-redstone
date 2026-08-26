@@ -1,0 +1,35 @@
+{
+  "name": "build-06",
+  "labels": [],
+  "source_world": "Wiring like a pro",
+  "source_origin": [
+    36,
+    56,
+    17
+  ],
+  "size": [
+    62,
+    12,
+    13
+  ],
+  "non_air_blocks": 699,
+  "redstone_components": 345,
+  "component_census": {
+    "redstone_wire": 269,
+    "repeater": 43,
+    "comparator": 24,
+    "barrel": 5,
+    "redstone_lamp": 4
+  },
+  "full_census": {
+    "redstone_wire": 269,
+    "red_wool": 225,
+    "cyan_wool": 124,
+    "repeater": 43,
+    "comparator": 24,
+    "barrel": 5,
+    "redstone_lamp": 4,
+    "red_stained_glass": 4,
+    "lime_wool": 1
+  }
+}

@@ -83,3 +83,11 @@ python extract.py extract <world-dir> x1 y1 z1 x2 y2 z2 name
 
 `survey` locates dense redstone regions and reports bounding boxes, so you don't have
 to hunt coordinates by hand.
+
+## Wiring like a pro — mattbatwings
+
+https://www.youtube.com/watch?v=pT-VWjqYli0 — world download harvested 2026-08-26 into
+`worlds/primitives/wiring/` (49 builds, no signs). Transcript in `transcripts/`.
+Every wiring problem worth knowing: single wires and buses in every direction, the
+horizontal↔vertical converter, the hex wire, and the two crossovers. See
+`redstone-wiring/SKILL.md`.
